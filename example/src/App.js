@@ -1,13 +1,25 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { MessageReader } from 'aiya-chat-ui'
+import fbMessages from './data/facebook'
+import lineMessages from './data/line'
 
-import ExampleComponent from 'aiya-chat-ui'
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
 
-export default class App extends Component {
-  render () {
+  render() {
     return (
       <div>
-        <ExampleComponent text='Modern React component module' />
+        {fbMessages.map((message, key) => (
+          <React.Fragment key={key}>
+            <MessageReader message={message} channel="facebook" />
+          </React.Fragment>
+        ))}
       </div>
     )
   }
 }
+
+export default App
