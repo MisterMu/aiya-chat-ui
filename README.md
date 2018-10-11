@@ -14,14 +14,12 @@ npm install --save aiya-chat-ui
 
 ```jsx
 import React, { Component } from 'react'
-
-import MyComponent from 'aiya-chat-ui'
+import { MessageReader } from 'aiya-chat-ui'
 
 class Example extends Component {
-  render () {
-    return (
-      <MyComponent />
-    )
+  render() {
+    const { channel, message } = this.props
+    return <MessageReader channel={channel} message={message} />
   }
 }
 ```
