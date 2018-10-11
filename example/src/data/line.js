@@ -5,6 +5,6 @@ export default [
   },
   {
     type: 'text',
-    text: 'I am Chatbot!!',
+    text: 'I am LINE Chatbot!!',
   },
 ]

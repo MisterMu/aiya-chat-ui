@@ -3,6 +3,6 @@ export default [
     text: 'Hello',
   },
   {
-    text: 'I am Chatbot!!',
+    text: 'I am FACEBOOK Chatbot!!',
   },
 ]
