@@ -3,10 +3,19 @@ import BaseEditor from './BaseEditor'
 import LineMessage from '../../lib/MessageElement/Line'
 import { getLineForm } from '../../lib/MessageForm'
 import { getLineMessageType } from '../../lib/types'
+import { getLineMessage } from '../../lib/messages'
+import { messageTypes } from '../../constants'
+
+const { TEXT } = messageTypes
 
 class LineEditor extends BaseEditor {
+  addBtnClicked = type => {
+    const newMsg = getLineMessage(type)
+    this.addMessage(newMsg)
+  }
+
   renderToolbar = () => {
-    return <button onClick={() => {}}>add Text</button>
+    return <button onClick={() => this.addBtnClicked(TEXT)}>add Text</button>
   }
 
   render() {

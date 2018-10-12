@@ -3,10 +3,19 @@ import BaseEditor from './BaseEditor'
 import FacebookMessage from '../../lib/MessageElement/Facebook'
 import { getFacebookForm } from '../../lib/MessageForm/'
 import { getFacebookMessageType } from '../../lib/types'
+import { getFacebookMessage } from '../../lib/messages'
+import { messageTypes } from '../../constants'
+
+const { TEXT } = messageTypes
 
 class FacebookEditor extends BaseEditor {
+  addBtnClicked = type => {
+    const newMsg = getFacebookMessage(type)
+    this.addMessage(newMsg)
+  }
+
   renderToolbar = () => {
-    return <button onClick={() => this.addMessage()}>add Text</button>
+    return <button onClick={() => this.addBtnClicked(TEXT)}>add Text</button>
   }
 
   render() {
