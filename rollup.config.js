@@ -34,6 +34,6 @@ export default {
     resolve(),
     commonjs(),
   ],
-  external: ['styled-components'],
-  global: { 'styled-components': 'styled' },
+  external: ['styled-components', 'antd'],
+  global: { 'styled-components': 'styled', antd: 'antd' },
 }

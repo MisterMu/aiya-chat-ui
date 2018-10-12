@@ -7,4 +7,6 @@ const BubbleMessage = styled.span`
   display: inline-block;
 `
 
-export { BubbleMessage }
+const QuickReplyButton = styled.div``
+
+export { BubbleMessage, QuickReplyButton }

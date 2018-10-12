@@ -11,6 +11,8 @@
   "rules": {
     "space-before-function-paren": 0,
     "react/jsx-boolean-value": 0,
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "jsx-quotes": "off",
+    "no-return-assign": "off"
   }
 }

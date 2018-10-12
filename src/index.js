@@ -1,3 +1,3 @@
-import MessageReader from './Components/MessageReader'
+import FacebookEditor from './components/MessagesEditor/FacebookEditor'
 
-export { MessageReader }
+export { FacebookEditor }
