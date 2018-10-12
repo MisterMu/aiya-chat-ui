@@ -1,6 +1,5 @@
 import React from 'react'
-// import * as Message from '../../lib/MessageElement/Facebook'
-import { Modal } from 'antd'
+import { Modal, Button } from 'antd'
 import PropTypes from 'prop-types'
 
 class BaseEditor extends React.Component {
@@ -11,6 +10,7 @@ class BaseEditor extends React.Component {
       modalState: false,
       editIndex: -1,
     }
+    this.avaliableType = []
   }
 
   openModal = () => {
@@ -29,8 +29,11 @@ class BaseEditor extends React.Component {
   addMessage = newMsg => {
     const { onUpdate } = this.props
     const { messages } = this.state
-    const tmp = [...messages, newMsg]
-    this.setState({ messages: tmp })
+    let tmp = [...messages]
+    if (newMsg) {
+      tmp = [...tmp, newMsg]
+      this.setState({ messages: tmp })
+    }
     onUpdate && onUpdate(tmp, 'add')
   }
 
@@ -70,7 +73,21 @@ class BaseEditor extends React.Component {
     )
   }
 
-  renderToolbar = () => {}
+  addBtnClicked = type => {}
+
+  renderToolbar = () => {
+    return this.avaliableType.map((type, key) => (
+      <React.Fragment key={key}>
+        <Button
+          onClick={() => this.addBtnClicked(type)}
+          icon="plus"
+          style={{ textTransform: 'capitalize', marginRight: 8 }}
+        >
+          {type}
+        </Button>
+      </React.Fragment>
+    ))
+  }
 
   componentWillMount() {
     const { messages } = this.props

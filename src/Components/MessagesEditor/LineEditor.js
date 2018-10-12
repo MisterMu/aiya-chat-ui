@@ -6,16 +6,14 @@ import { getLineMessageType } from '../../lib/types'
 import { getLineMessage } from '../../lib/messages'
 import { messageTypes } from '../../constants'
 
-const { TEXT } = messageTypes
+const { TEXT, AUDIO, IMAGE, VIDEO } = messageTypes
 
 class LineEditor extends BaseEditor {
+  avaliableType = [TEXT, AUDIO, IMAGE, VIDEO]
+
   addBtnClicked = type => {
     const newMsg = getLineMessage(type)
     this.addMessage(newMsg)
-  }
-
-  renderToolbar = () => {
-    return <button onClick={() => this.addBtnClicked(TEXT)}>add Text</button>
   }
 
   render() {

@@ -6,16 +6,14 @@ import { getFacebookMessageType } from '../../lib/types'
 import { getFacebookMessage } from '../../lib/messages'
 import { messageTypes } from '../../constants'
 
-const { TEXT } = messageTypes
+const { TEXT, AUDIO, IMAGE, VIDEO, FILE } = messageTypes
 
 class FacebookEditor extends BaseEditor {
+  avaliableType = [TEXT, AUDIO, IMAGE, VIDEO, FILE]
+
   addBtnClicked = type => {
     const newMsg = getFacebookMessage(type)
     this.addMessage(newMsg)
-  }
-
-  renderToolbar = () => {
-    return <button onClick={() => this.addBtnClicked(TEXT)}>add Text</button>
   }
 
   render() {

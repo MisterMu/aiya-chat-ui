@@ -9,7 +9,7 @@ const getFacebookMessage = type => {
     case TEXT:
       return Facebook.Text
     default:
-      return { type }
+      return null
   }
 }
 
@@ -18,7 +18,7 @@ const getLineMessage = type => {
     case TEXT:
       return Line.Text
     default:
-      return { type }
+      return null
   }
 }
 
