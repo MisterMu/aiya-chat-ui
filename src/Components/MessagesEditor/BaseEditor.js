@@ -22,39 +22,40 @@ class BaseEditor extends React.Component {
     this.setState({ modalState: false })
   }
 
-  load = data => {}
-
   startEdit = index => {
-    console.log('edit', index)
     this.openModal()
     this.setState({ editIndex: index })
   }
 
   addMessage = component => {
+    const { onUpdate } = this.props
     const { components } = this.state
     const tmp = [...components, component]
     this.setState({ components: tmp })
-    this.props.onUpdate && this.props.onUpdate('add', tmp)
+    onUpdate && onUpdate(tmp, 'add')
   }
 
   updateMessage = (message, index) => {
+    const { onUpdate } = this.props
     let tmp = [...this.state.data]
     tmp[index] = message
     this.setState({ data: tmp })
     this.closeModal()
-    this.props.onUpdate && this.props.onUpdate('edit', tmp)
+    onUpdate && onUpdate(tmp, 'edit')
   }
 
   deleteMessage = index => {
+    const { onUpdate } = this.props
     let tmp = [...this.state.components]
     tmp.splice(index, 1)
     this.setState({ components: tmp })
+    onUpdate && onUpdate(tmp, 'delete')
   }
 
   renderModal = form => {
     const { modalState } = this.state
     return (
-      <Modal visible={modalState} onCancel={this.closeModal} destroyOnClose>
+      <Modal title="Form" visible={modalState} onCancel={this.closeModal} destroyOnClose>
         {form}
       </Modal>
     )
