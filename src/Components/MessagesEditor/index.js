@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Modal, Button } from 'antd'
-import { FacebookElement, LineElement } from '../../lib/MessageElement'
+import MessageRender from '../MessageRender'
 import { getFacebookForm, getLineForm } from '../../lib/MessageForm/'
 import { getFacebookMessage, getLineMessage } from '../../lib/Messages'
 import { getFacebookMessageType, getLineMessageType } from '../../lib/types'
@@ -111,19 +111,16 @@ class MessageEditor extends React.Component {
 
     // variables for each channel
     let editForm = ''
-    let MessageElement
     let avaliableType = []
 
     // assign neccessary value for each channel editor
     if (channel === FACEBOOK) {
       const editFormType = editIndex !== -1 && getFacebookMessageType(messages[editIndex])
       editForm = getFacebookForm(editFormType)
-      MessageElement = FacebookElement
       avaliableType = [TEXT, AUDIO, IMAGE, VIDEO, FILE]
     } else if (channel === LINE) {
       const editFormType = editIndex !== -1 && getLineMessageType(messages[editIndex])
       editForm = getLineForm(editFormType)
-      MessageElement = LineElement
       avaliableType = [TEXT, AUDIO, IMAGE, VIDEO]
     }
 
@@ -132,7 +129,7 @@ class MessageEditor extends React.Component {
         {messages.map((message, i) => (
           <Flex style={{ justifyContent: 'flex-end', marginBottom: 8 }} key={i}>
             <div style={{ marginRight: 8 }} onClick={() => this.startEdit(i)}>
-              <MessageElement message={message} />
+              <MessageRender channel={channel} message={message} />
             </div>
             <Button icon="delete" type="danger" onClick={() => this.deleteMessage(i)} />
           </Flex>
