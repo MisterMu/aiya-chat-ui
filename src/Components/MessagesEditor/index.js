@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FacebookEditor from './FacebookEditor'
+import { channelTypes } from '../../constants'
+
+const { FACEBOOK, LINE } = channelTypes
 
 class MessageEditor extends React.Component {
   constructor(props) {
@@ -12,8 +15,9 @@ class MessageEditor extends React.Component {
 
   render() {
     const { messages, channel } = this.props
-    if (channel === 'facebook') {
+    if (channel === FACEBOOK) {
       return <FacebookEditor data={messages} />
+    } else if (channel === LINE) {
     }
   }
 }
@@ -23,4 +27,5 @@ MessageEditor.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.object),
 }
 
+export { FacebookEditor }
 export default MessageEditor
