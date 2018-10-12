@@ -7,8 +7,7 @@ class BaseEditor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: [],
-      components: [],
+      messages: [],
       modalState: false,
       editIndex: -1,
     }
@@ -27,33 +26,33 @@ class BaseEditor extends React.Component {
     this.setState({ editIndex: index })
   }
 
-  addMessage = component => {
+  addMessage = newMsg => {
     const { onUpdate } = this.props
-    const { components } = this.state
-    const tmp = [...components, component]
-    this.setState({ components: tmp })
+    const { messages } = this.state
+    const tmp = [...messages, newMsg]
+    this.setState({ messages: tmp })
     onUpdate && onUpdate(tmp, 'add')
   }
 
   updateMessage = (message, index) => {
     const { onUpdate } = this.props
-    let tmp = [...this.state.data]
+    let tmp = [...this.state.messages]
     tmp[index] = message
-    this.setState({ data: tmp })
+    this.setState({ messages: tmp })
     this.closeModal()
     onUpdate && onUpdate(tmp, 'edit')
   }
 
   deleteMessage = index => {
     const { onUpdate } = this.props
-    let tmp = [...this.state.components]
+    let tmp = [...this.state.messages]
     tmp.splice(index, 1)
-    this.setState({ components: tmp })
+    this.setState({ messages: tmp })
     onUpdate && onUpdate(tmp, 'delete')
   }
 
   renderModal = Form => {
-    const { modalState, data, editIndex } = this.state
+    const { modalState, messages, editIndex } = this.state
     return (
       <Modal
         title="Edit Message Form"
@@ -63,7 +62,7 @@ class BaseEditor extends React.Component {
         destroyOnClose
       >
         <Form
-          defaultValue={data[editIndex]}
+          defaultValue={messages[editIndex]}
           onSubmit={message => this.updateMessage(message, editIndex)}
           closeForm={this.closeModal}
         />
@@ -74,13 +73,13 @@ class BaseEditor extends React.Component {
   renderToolbar = () => {}
 
   componentWillMount() {
-    const { data } = this.props
-    this.setState({ data })
+    const { messages } = this.props
+    this.setState({ messages })
   }
 }
 
 BaseEditor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object),
+  messages: PropTypes.arrayOf(PropTypes.object),
   onUpdate: PropTypes.func,
 }
 

@@ -10,11 +10,11 @@ class LineEditor extends BaseEditor {
   }
 
   render() {
-    const { data, editIndex } = this.state
-    const type = editIndex !== -1 && getLineMessageType(data[editIndex])
+    const { messages, editIndex } = this.state
+    const type = editIndex !== -1 && getLineMessageType(messages[editIndex])
     return (
       <div>
-        {data.map((message, i) => (
+        {messages.map((message, i) => (
           <div key={i} onClick={() => this.startEdit(i)}>
             <LineMessage message={message} />
           </div>

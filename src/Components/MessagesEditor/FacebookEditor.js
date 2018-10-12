@@ -6,15 +6,15 @@ import { getFacebookMessageType } from '../../lib/types'
 
 class FacebookEditor extends BaseEditor {
   renderToolbar = () => {
-    return <button onClick={() => {}}>add Text</button>
+    return <button onClick={() => this.addMessage()}>add Text</button>
   }
 
   render() {
-    const { data, editIndex } = this.state
-    const type = editIndex !== -1 && getFacebookMessageType(data[editIndex])
+    const { messages, editIndex } = this.state
+    const type = editIndex !== -1 && getFacebookMessageType(messages[editIndex])
     return (
       <div>
-        {data.map((message, i) => (
+        {messages.map((message, i) => (
           <div key={i} onClick={() => this.startEdit(i)}>
             <FacebookMessage message={message} />
           </div>

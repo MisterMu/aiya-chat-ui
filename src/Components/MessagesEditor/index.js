@@ -15,11 +15,11 @@ class MessageEditor extends React.Component {
   }
 
   render() {
-    const { messages, channel } = this.props
+    const { messages, channel, onUpdate } = this.props
     if (channel === FACEBOOK) {
-      return <FacebookEditor data={messages} />
+      return <FacebookEditor messages={messages} onUpdate={onUpdate} />
     } else if (channel === LINE) {
-      return <LineEditor data={messages} />
+      return <LineEditor messages={messages} onUpdate={onUpdate} />
     }
   }
 }
@@ -27,6 +27,7 @@ class MessageEditor extends React.Component {
 MessageEditor.propTypes = {
   channel: PropTypes.oneOf([FACEBOOK, LINE]),
   messages: PropTypes.arrayOf(PropTypes.object),
+  onUpdate: PropTypes.func,
 }
 
 export { FacebookEditor, LineEditor }
