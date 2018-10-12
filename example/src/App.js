@@ -18,7 +18,7 @@ class App extends React.Component {
         <h3>facebook</h3>
         <FacebookEditor
           data={messages}
-          onUpdate={(action, obj) => this.setState({ messages: obj })}
+          onUpdate={(obj, action) => this.setState({ messages: obj })}
         />
         <section>
           <h3>data</h3>
