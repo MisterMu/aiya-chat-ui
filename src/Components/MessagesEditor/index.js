@@ -6,6 +6,7 @@ import { getFacebookForm, getLineForm } from '../../lib/MessageForm/'
 import { getFacebookMessage, getLineMessage } from '../../lib/messages'
 import { getFacebookMessageType, getLineMessageType } from '../../lib/types'
 import { channelTypes, messageTypes } from '../../constants'
+import { Flex } from './styled'
 
 const { FACEBOOK, LINE } = channelTypes
 const { TEXT, AUDIO, IMAGE, VIDEO, FILE } = messageTypes
@@ -126,16 +127,17 @@ class MessageEditor extends React.Component {
       avaliableType = [TEXT, AUDIO, IMAGE, VIDEO]
     }
 
-    console.log(channel, FACEBOOK, LINE)
-
     return (
       <div>
         {messages.map((message, i) => (
-          <div key={i} onClick={() => this.startEdit(i)}>
-            <MessageElement message={message} />
-          </div>
+          <Flex style={{ justifyContent: 'flex-end', marginBottom: 8 }} key={i}>
+            <div style={{ marginRight: 8 }} onClick={() => this.startEdit(i)}>
+              <MessageElement message={message} />
+            </div>
+            <Button icon="delete" type="danger" onClick={() => this.deleteMessage(i)} />
+          </Flex>
         ))}
-        <div>
+        <Flex style={{ justifyContent: 'center' }}>
           {avaliableType.map((type, key) => (
             <React.Fragment key={key}>
               <Button
@@ -147,7 +149,7 @@ class MessageEditor extends React.Component {
               </Button>
             </React.Fragment>
           ))}
-        </div>
+        </Flex>
         {this.renderModal(editForm)}
       </div>
     )
