@@ -1,4 +1,4 @@
-import FacebookMessage from './Facebook'
-import LineMessage from './Line'
+import FacebookElement from './Facebook'
+import LineElement from './Line'
 
-export { FacebookMessage, LineMessage }
+export { FacebookElement, LineElement }

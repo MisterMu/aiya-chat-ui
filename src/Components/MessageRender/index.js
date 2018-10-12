@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FacebookMessage from '../../lib/MessageElement/Facebook'
-import LineMessage from '../../lib/MessageElement/Line'
+import FacebookElement from '../../lib/MessageElement/Facebook'
+import LineElement from '../../lib/MessageElement/Line'
 import { channelTypes } from '../../constants'
 
 const { FACEBOOK, LINE } = channelTypes
@@ -9,9 +9,9 @@ const { FACEBOOK, LINE } = channelTypes
 const MessageRender = props => {
   const { channel, message } = props
   if (channel === FACEBOOK) {
-    return <FacebookMessage message={message} />
+    return <FacebookElement message={message} />
   } else if (channel === LINE) {
-    return <LineMessage message={message} />
+    return <LineElement message={message} />
   }
   return null
 }

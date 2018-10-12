@@ -6,7 +6,7 @@ import TextMessage from './Text'
 
 const { TEXT } = messageTypes
 
-const FacebookMessage = props => {
+const FacebookElement = props => {
   const { message } = props
   const type = getFacebookMessageType(message)
   if (type === TEXT) {
@@ -15,10 +15,10 @@ const FacebookMessage = props => {
   return null
 }
 
-FacebookMessage.propTypes = {
+FacebookElement.propTypes = {
   message: PropTypes.object,
 }
 
 export { TextMessage }
 
-export default FacebookMessage
+export default FacebookElement

@@ -6,7 +6,7 @@ import TextMessage from './Text'
 
 const { TEXT } = messageTypes
 
-const LineMessage = props => {
+const LineElement = props => {
   const { message } = props
   const type = getLineMessageType(message)
   if (type === TEXT) {
@@ -15,10 +15,10 @@ const LineMessage = props => {
   return null
 }
 
-LineMessage.propTypes = {
+LineElement.propTypes = {
   message: PropTypes.object,
 }
 
 export { TextMessage }
 
-export default LineMessage
+export default LineElement

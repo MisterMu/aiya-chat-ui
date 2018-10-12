@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Modal, Button } from 'antd'
-import { FacebookMessage, LineMessage } from '../../lib/MessageElement'
+import { FacebookElement, LineElement } from '../../lib/MessageElement'
 import { getFacebookForm, getLineForm } from '../../lib/MessageForm/'
-import { getFacebookMessage, getLineMessage } from '../../lib/messages'
+import { getFacebookMessage, getLineMessage } from '../../lib/Messages'
 import { getFacebookMessageType, getLineMessageType } from '../../lib/types'
 import { channelTypes, messageTypes } from '../../constants'
 import { Flex } from './styled'
@@ -118,12 +118,12 @@ class MessageEditor extends React.Component {
     if (channel === FACEBOOK) {
       const editFormType = editIndex !== -1 && getFacebookMessageType(messages[editIndex])
       editForm = getFacebookForm(editFormType)
-      MessageElement = FacebookMessage
+      MessageElement = FacebookElement
       avaliableType = [TEXT, AUDIO, IMAGE, VIDEO, FILE]
     } else if (channel === LINE) {
       const editFormType = editIndex !== -1 && getLineMessageType(messages[editIndex])
       editForm = getLineForm(editFormType)
-      MessageElement = LineMessage
+      MessageElement = LineElement
       avaliableType = [TEXT, AUDIO, IMAGE, VIDEO]
     }
 
