@@ -8,7 +8,7 @@ const TextMessage = props => {
 }
 
 TextMessage.propTypes = {
-  text: PropTypes.String,
+  text: PropTypes.string,
 }
 
 export default TextMessage

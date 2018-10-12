@@ -1,8 +1,8 @@
-import { messageTypes } from '../../values/enum'
+import { messageTypes } from '../constants'
 
 const { TEXT, AUDIO, IMAGE, VIDEO, FILE } = messageTypes
 
-export function getMessageTypeByFacebookMessage(message) {
+export function getFacebookMessageType(message) {
   if (message.text) {
     return TEXT
   } else if (message.attachment) {
@@ -18,7 +18,7 @@ export function getMessageTypeByFacebookMessage(message) {
   }
 }
 
-export function getMessageTypeByLineMessage(message) {
+export function getLineMessageType(message) {
   if (message.type === 'text') {
     return TEXT
   } else if (message.type === 'audio') {
