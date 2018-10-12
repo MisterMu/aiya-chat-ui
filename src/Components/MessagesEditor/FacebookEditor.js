@@ -1,7 +1,8 @@
 import React from 'react'
 import BaseEditor from './BaseEditor'
 import FacebookMessage from '../../lib/MessageElement/Facebook'
-import TextMessageForm from '../../lib/MessageElement/Facebook/Text/form'
+import { getFacebookForm } from '../../lib/MessageForm/'
+import { getFacebookMessageType } from '../../lib/types'
 
 class FacebookEditor extends BaseEditor {
   renderToolbar = () => {
@@ -10,6 +11,7 @@ class FacebookEditor extends BaseEditor {
 
   render() {
     const { data, editIndex } = this.state
+    const type = editIndex !== -1 && getFacebookMessageType(data[editIndex])
     return (
       <div>
         {data.map((message, i) => (
@@ -18,12 +20,7 @@ class FacebookEditor extends BaseEditor {
           </div>
         ))}
         {this.renderToolbar()}
-        {this.renderModal(
-          <TextMessageForm
-            defaultValue={data[editIndex]}
-            onSubmit={message => this.updateMessage(message, editIndex)}
-          />,
-        )}
+        {this.renderModal(getFacebookForm(type))}
       </div>
     )
   }

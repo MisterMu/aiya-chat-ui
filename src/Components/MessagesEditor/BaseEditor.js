@@ -52,11 +52,21 @@ class BaseEditor extends React.Component {
     onUpdate && onUpdate(tmp, 'delete')
   }
 
-  renderModal = form => {
-    const { modalState } = this.state
+  renderModal = Form => {
+    const { modalState, data, editIndex } = this.state
     return (
-      <Modal title="Form" visible={modalState} onCancel={this.closeModal} destroyOnClose>
-        {form}
+      <Modal
+        title="Edit Message Form"
+        visible={modalState}
+        onCancel={this.closeModal}
+        footer={false}
+        destroyOnClose
+      >
+        <Form
+          defaultValue={data[editIndex]}
+          onSubmit={message => this.updateMessage(message, editIndex)}
+          closeForm={this.closeModal}
+        />
       </Modal>
     )
   }
