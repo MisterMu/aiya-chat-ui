@@ -6,7 +6,7 @@ import { getFacebookForm, getLineForm } from '../../lib/MessageForm/'
 import { getFacebookMessage, getLineMessage } from '../../lib/Messages'
 import { getFacebookMessageType, getLineMessageType } from '../../lib/types'
 import { channelTypes, messageTypes } from '../../constants'
-import { Flex } from './styled'
+import { Flex } from '../styled'
 
 const { FACEBOOK, LINE } = channelTypes
 const { TEXT, AUDIO, IMAGE, VIDEO, FILE } = messageTypes
