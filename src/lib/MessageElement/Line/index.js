@@ -1,24 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { messageTypes } from '../../../constants'
-import { getFacebookMessageType } from '../../types'
+import { getLineMessageType } from '../../types'
 import TextMessage from './Text'
 
 const { TEXT } = messageTypes
 
-const FacebookMessage = props => {
+const LineMessage = props => {
   const { message } = props
-  const type = getFacebookMessageType(message)
+  const type = getLineMessageType(message)
   if (type === TEXT) {
     return <TextMessage text={message.text} />
   }
   return null
 }
 
-FacebookMessage.propTypes = {
+LineMessage.propTypes = {
   message: PropTypes.object,
 }
 
 export { TextMessage }
 
-export default FacebookMessage
+export default LineMessage
