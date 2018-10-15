@@ -16,8 +16,8 @@ const MessageRender = props => {
 }
 
 MessageRender.propTypes = {
-  channel: PropTypes.oneOf([FACEBOOK, LINE]),
-  message: PropTypes.object,
+  channel: PropTypes.oneOf([FACEBOOK, LINE]).isRequired,
+  message: PropTypes.object.isRequired,
 }
 
 export default MessageRender

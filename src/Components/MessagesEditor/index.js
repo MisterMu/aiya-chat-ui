@@ -146,7 +146,7 @@ class MessageEditor extends React.Component {
 }
 
 MessageEditor.propTypes = {
-  channel: PropTypes.oneOf([FACEBOOK, LINE]),
+  channel: PropTypes.oneOf([FACEBOOK, LINE]).isRequired,
   messages: PropTypes.arrayOf(PropTypes.object),
   onUpdate: PropTypes.func,
 }
