@@ -24,4 +24,9 @@ const IconButton = styled.div`
   }
 `
 
-export { Flex, IconButton }
+const DefaultText = styled.div`
+  text-align: center;
+  color: #999999;
+`
+
+export { Flex, IconButton, DefaultText }
