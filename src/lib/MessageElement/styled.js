@@ -8,8 +8,7 @@ const BubbleMessage = styled.span`
 `
 
 const ImageContainer = styled.div`
-  width: 320px;
-  height: 320px;
+  overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   background-color: white;
