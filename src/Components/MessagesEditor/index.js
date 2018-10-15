@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button } from 'antd'
+import { Button, Icon, Divider } from 'antd'
 import _ from 'lodash'
 import ModalForm from './ModalForm'
 import MessageRender from '../MessageRender'
-import { Flex } from '../styled'
+import { Flex, IconButton } from '../styled'
 import { channelTypes, messageTypes } from '../../constants'
 import { FacebookForm, LineForm } from '../../lib/MessageForm'
 import {
@@ -91,7 +91,7 @@ class MessageEditor extends React.Component {
   }
 
   render() {
-    const { channel } = this.props
+    const { channel, style, noMessageText } = this.props
     const { messages, editIndex, modalState } = this.state
 
     // variables for each channel
@@ -111,15 +111,23 @@ class MessageEditor extends React.Component {
     }
 
     return (
-      <div>
-        {messages.map((message, i) => (
+      <div style={{ padding: 16, ...style }}>
+        {(messages || []).map((message, i) => (
           <Flex style={{ justifyContent: 'flex-end', marginBottom: 8 }} key={i}>
-            <div style={{ marginRight: 8 }} onClick={() => this.startEdit(i)}>
+            <div style={{ cursor: 'pointer' }} onClick={() => this.startEdit(i)}>
               <MessageRender channel={channel} message={message} />
             </div>
-            <Button icon="delete" type="danger" onClick={() => this.deleteMessage(i)} />
+            <IconButton color="red">
+              <Icon type="delete" onClick={() => this.deleteMessage(i)} />
+            </IconButton>
           </Flex>
         ))}
+        {(messages.length === 0 || !messages) && (
+          <div style={{ textAlign: 'center', color: '#999999' }}>
+            <i>{noMessageText || 'No Data'}</i>
+          </div>
+        )}
+        <Divider />
         <Flex style={{ justifyContent: 'center' }}>
           {avaliableType.map((type, key) => (
             <React.Fragment key={key}>
@@ -150,6 +158,8 @@ MessageEditor.propTypes = {
   channel: PropTypes.oneOf([FACEBOOK, LINE]).isRequired,
   messages: PropTypes.arrayOf(PropTypes.object),
   onUpdate: PropTypes.func,
+  style: PropTypes.object,
+  noMessageText: PropTypes.string,
 }
 
 const FacebookEditor = props => <MessageEditor channel={FACEBOOK} {...props} />
