@@ -4,7 +4,7 @@ import { Button, Icon, Divider } from 'antd'
 import _ from 'lodash'
 import ModalForm from './ModalForm'
 import MessageRender from '../MessageRender'
-import { Flex, IconButton } from '../styled'
+import { Flex, IconButton, DefaultText } from '../styled'
 import { channelTypes, messageTypes } from '../../constants'
 import { FacebookForm, LineForm } from '../../lib/MessageForm'
 import {
@@ -123,9 +123,9 @@ class MessageEditor extends React.Component {
           </Flex>
         ))}
         {(messages.length === 0 || !messages) && (
-          <div style={{ textAlign: 'center', color: '#999999' }}>
-            <i>{noMessageText || 'No Data'}</i>
-          </div>
+          <DefaultText>
+            <i>{noMessageText || 'No Message'}</i>
+          </DefaultText>
         )}
         <div style={{ paddingRight: 8, paddingLeft: 8 }}>
           <Divider />
