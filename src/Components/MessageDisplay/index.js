@@ -6,14 +6,14 @@ import { channelTypes } from '../../constants'
 
 const { FACEBOOK, LINE } = channelTypes
 
-class MessagesDisplay extends React.Component {
+class MessageDisplay extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
   }
 
   render() {
-    const { messages, channel, align, style, noMessageText } = this.props
+    const { dataList, channel, align, style, noMessageText } = this.props
     let msgAlign = ''
     if (align === 'right') {
       msgAlign = 'flex-end'
@@ -24,12 +24,12 @@ class MessagesDisplay extends React.Component {
     }
     return (
       <div style={{ ...style }}>
-        {(messages || []).map((message, i) => (
+        {(dataList || []).map((data, i) => (
           <Flex style={{ marginBottom: 8, justifyContent: msgAlign }}>
-            <MessageRender channel={channel} message={message} />
+            <MessageRender channel={channel} message={data} />
           </Flex>
         ))}
-        {(!messages || messages.length === 0) && (
+        {(!dataList || dataList.length === 0) && (
           <DefaultText>
             <i>{noMessageText || 'No Message'}</i>
           </DefaultText>
@@ -39,12 +39,12 @@ class MessagesDisplay extends React.Component {
   }
 }
 
-MessagesDisplay.propTypes = {
+MessageDisplay.propTypes = {
   channel: PropTypes.oneOf([FACEBOOK, LINE]).isRequired,
-  messages: PropTypes.arrayOf(PropTypes.any).isRequired,
+  dataList: PropTypes.arrayOf(PropTypes.any).isRequired,
   align: PropTypes.oneOf(['left', 'right', 'center']),
   style: PropTypes.object,
   noMessageText: PropTypes.string,
 }
 
-export default MessagesDisplay
+export default MessageDisplay

@@ -1,14 +1,14 @@
-import MessagesEditor, { FacebookEditor, LineEditor } from './components/MessagesEditor'
-import MessagesDisplay from './components/MessagesDisplay'
+import MessageEditor, { FacebookEditor, LineEditor } from './components/MessageEditor'
+import MessageDisplay from './components/MessageDisplay'
 import MessageRender from './components/MessageRender'
 import { FacebookElement, LineElement } from './lib/MessageElement'
 import * as Utils from './utils'
 
 export {
-  MessagesEditor,
+  MessageEditor,
   FacebookEditor,
   LineEditor,
-  MessagesDisplay,
+  MessageDisplay,
   MessageRender,
   FacebookElement,
   LineElement,
