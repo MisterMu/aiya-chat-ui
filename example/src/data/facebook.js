@@ -1,8 +1,16 @@
 export default [
   {
-    text: 'Hello',
+    id: '#1',
+    type: 'text',
+    message: {
+      text: 'Hello',
+    },
   },
   {
-    text: 'I am FACEBOOK Chatbot!!',
+    id: '#1',
+    type: 'text',
+    message: {
+      text: 'I am FACEBOOK Chatbot!!',
+    },
   },
 ]

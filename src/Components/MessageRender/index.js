@@ -6,18 +6,18 @@ import { channelTypes } from '../../constants'
 const { FACEBOOK, LINE } = channelTypes
 
 const MessageRender = props => {
-  const { channel, message } = props
+  const { channel, data } = props
   if (channel === FACEBOOK) {
-    return <FacebookElement message={message} />
+    return <FacebookElement message={data && data.message} />
   } else if (channel === LINE) {
-    return <LineElement message={message} />
+    return <LineElement message={data && data.message} />
   }
   return null
 }
 
 MessageRender.propTypes = {
   channel: PropTypes.oneOf([FACEBOOK, LINE]).isRequired,
-  message: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
 }
 
 export default MessageRender
