@@ -22,6 +22,8 @@ export function getFacebookMessageType(message) {
       return FILE
     }
   }
+
+  return 'UNKNOWN'
 }
 
 export function getLineMessageType(message) {
@@ -38,6 +40,8 @@ export function getLineMessageType(message) {
   } else if (message.type === 'video') {
     return VIDEO
   }
+
+  return 'UNKNOWN'
 }
 
 export function getFacebookMessageObject(type) {
