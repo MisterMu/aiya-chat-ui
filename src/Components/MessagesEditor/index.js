@@ -127,7 +127,9 @@ class MessageEditor extends React.Component {
             <i>{noMessageText || 'No Data'}</i>
           </div>
         )}
-        <Divider />
+        <div style={{ paddingRight: 8, paddingLeft: 8 }}>
+          <Divider />
+        </div>
         <Flex style={{ justifyContent: 'center' }}>
           {avaliableType.map((type, key) => (
             <React.Fragment key={key}>
