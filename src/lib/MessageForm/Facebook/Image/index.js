@@ -16,7 +16,7 @@ class ImageMessageForm extends BaseMessageForm {
     const { url } = attachment.payload
     return (
       <form onSubmit={this.onSubmit}>
-        <InputField label="Url">
+        <InputField label="Image Url">
           <Input value={url} onChange={e => this.inputChange(e.target.value)} autoFocus />
         </InputField>
       </form>
