@@ -7,4 +7,21 @@ const Flex = styled.div`
   align-items: center;
 `
 
-export { Flex }
+const IconButton = styled.div`
+  width: 16px;
+  margin-left: 8px;
+  position: relative;
+  cursor: pointer;
+  i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &:hover {
+    i {
+      ${props => props.color && `color: ${props.color}`};
+    }
+  }
+`
+
+export { Flex, IconButton }
