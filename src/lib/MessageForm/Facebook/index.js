@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import { messageTypes } from '../../../constants'
 import Text from './Text'
+import Image from './Image'
 
 const { TEXT, IMAGE, AUDIO, VIDEO, FILE } = messageTypes
 
@@ -11,6 +12,8 @@ const FacebookForm = props => {
   switch (type) {
     case TEXT:
       return <Text {...props} />
+    case IMAGE:
+      return <Image {...props} />
     default:
       return null
   }

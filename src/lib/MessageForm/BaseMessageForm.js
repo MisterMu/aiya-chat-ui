@@ -30,13 +30,9 @@ class BaseMessageForm extends React.Component {
     onSubmit && onSubmit(message)
   }
 
-  inputChange = (key, value) => {
-    let tmp = { ...this.state.message }
-    tmp[key] = value
-    this.setState({ message: tmp })
-  }
+  inputChange = () => {}
 
-  renderForm() {}
+  renderForm = () => {}
 
   render() {
     const { closeForm } = this.props
