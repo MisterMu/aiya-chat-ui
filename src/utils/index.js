@@ -35,6 +35,8 @@ export function getFacebookMessageObject(type) {
   switch (type) {
     case TEXT:
       return FacebookMessage.Text
+    case IMAGE:
+      return FacebookMessage.Image
     default:
       return {}
   }
@@ -44,7 +46,18 @@ export function getLineMessageObject(type) {
   switch (type) {
     case TEXT:
       return LineMessage.Text
+    case IMAGE:
+      return LineMessage.Image
     default:
       return {}
   }
+}
+
+export function isEmptyObject(obj) {
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      return false
+    }
+  }
+  return true
 }

@@ -11,6 +11,7 @@ import {
   getLineMessageType,
   getFacebookMessageObject,
   getLineMessageObject,
+  isEmptyObject,
 } from '../../utils'
 
 const { FACEBOOK, LINE } = channelTypes
@@ -43,7 +44,7 @@ class MessageEditor extends React.Component {
     const { onUpdate } = this.props
     const { messages } = this.state
     let tmp = [...messages]
-    if (newMsg) {
+    if (!isEmptyObject(newMsg)) {
       tmp = [...tmp, newMsg]
       this.setState({ messages: tmp })
     }
