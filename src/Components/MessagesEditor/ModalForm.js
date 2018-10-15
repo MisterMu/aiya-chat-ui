@@ -10,6 +10,7 @@ const ModalForm = props => {
       visible={visible}
       onCancel={onCancel}
       footer={false}
+      width={720}
       destroyOnClose
     >
       {props.children}
