@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 const BubbleMessage = styled.span`
   background-color: ${props => props.color || '#eeeeee'};
+  color: ${props => props.textColor || '#575757'};
   border-radius: 8px;
   padding: 8px 16px;
   display: inline-block;
