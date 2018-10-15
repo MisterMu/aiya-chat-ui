@@ -1,10 +1,18 @@
 export default [
   {
+    id: '#1',
     type: 'text',
-    text: 'Hello',
+    message: {
+      type: 'text',
+      text: 'Hello',
+    },
   },
   {
+    id: '#1',
     type: 'text',
-    text: 'I am LINE Chatbot!!',
+    message: {
+      type: 'text',
+      text: 'I am LINE Chatbot!!',
+    },
   },
 ]
