@@ -1,5 +1,6 @@
 import { messageTypes } from '../constants'
 import { FacebookMessage, LineMessage } from '../lib/MessageObject'
+import _ from 'lodash'
 
 const { TEXT, AUDIO, IMAGE, VIDEO, FILE } = messageTypes
 
@@ -32,32 +33,21 @@ export function getLineMessageType(message) {
 }
 
 export function getFacebookMessageObject(type) {
-  switch (type) {
-    case TEXT:
-      return FacebookMessage.Text
-    case IMAGE:
-      return FacebookMessage.Image
-    default:
-      return {}
+  let obj = {}
+  if (type === TEXT) {
+    obj = FacebookMessage.Text
+  } else if (type === IMAGE) {
+    obj = FacebookMessage.Image
   }
+  return _.cloneDeep(obj)
 }
 
 export function getLineMessageObject(type) {
-  switch (type) {
-    case TEXT:
-      return LineMessage.Text
-    case IMAGE:
-      return LineMessage.Image
-    default:
-      return {}
+  let obj = {}
+  if (type === TEXT) {
+    obj = LineMessage.Text
+  } else if (type === IMAGE) {
+    obj = LineMessage.Image
   }
-}
-
-export function isEmptyObject(obj) {
-  for (var key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      return false
-    }
-  }
-  return true
+  return _.cloneDeep(obj)
 }

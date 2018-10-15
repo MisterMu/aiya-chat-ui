@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from 'antd'
+import _ from 'lodash'
 import ModalForm from './ModalForm'
 import MessageRender from '../MessageRender'
 import { Flex } from '../styled'
@@ -11,7 +12,6 @@ import {
   getLineMessageType,
   getFacebookMessageObject,
   getLineMessageObject,
-  isEmptyObject,
 } from '../../utils'
 
 const { FACEBOOK, LINE } = channelTypes
@@ -36,15 +36,15 @@ class MessageEditor extends React.Component {
   }
 
   startEdit = index => {
-    this.openModal()
     this.setState({ editIndex: index })
+    this.openModal()
   }
 
   addMessage = newMsg => {
     const { onUpdate } = this.props
     const { messages } = this.state
     let tmp = [...messages]
-    if (!isEmptyObject(newMsg)) {
+    if (!_.isEmpty(newMsg)) {
       tmp = [...tmp, newMsg]
       this.setState({ messages: tmp })
     }
