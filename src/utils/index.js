@@ -5,6 +5,10 @@ import _ from 'lodash'
 const { TEXT, AUDIO, IMAGE, VIDEO, FILE } = messageTypes
 
 export function getFacebookMessageType(message) {
+  if (!message) {
+    return 'UNKNOWN'
+  }
+
   if (message.text) {
     return TEXT
   } else if (message.attachment) {
@@ -21,6 +25,10 @@ export function getFacebookMessageType(message) {
 }
 
 export function getLineMessageType(message) {
+  if (!message) {
+    return 'UNKNOWN'
+  }
+
   if (message.type === 'text') {
     return TEXT
   } else if (message.type === 'audio') {
