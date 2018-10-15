@@ -1,10 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { BubbleMessage } from '../../styled'
+import { color } from '../../../constants'
+
+const { LINE } = color
 
 const TextMessage = props => {
   const { text } = props
-  return <BubbleMessage color="green">{text}</BubbleMessage>
+  return (
+    <BubbleMessage color={LINE.bubbleColor} textColor={LINE.textColor}>
+      {text}
+    </BubbleMessage>
+  )
 }
 
 TextMessage.propTypes = {
