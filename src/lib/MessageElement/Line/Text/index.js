@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { BubbleMessage } from '../../styled'
-import { color } from '../../../constants'
+import { color } from '../../../../constants'
 
 const { LINE } = color
 
