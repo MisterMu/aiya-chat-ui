@@ -6,7 +6,7 @@ import { channelTypes } from '../../constants'
 
 const { FACEBOOK, LINE } = channelTypes
 
-class MessagesPreview extends React.Component {
+class MessagesDisplay extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -39,7 +39,7 @@ class MessagesPreview extends React.Component {
   }
 }
 
-MessagesPreview.propTypes = {
+MessagesDisplay.propTypes = {
   channel: PropTypes.oneOf([FACEBOOK, LINE]).isRequired,
   messages: PropTypes.arrayOf(PropTypes.any).isRequired,
   align: PropTypes.oneOf(['left', 'right', 'center']),
@@ -47,4 +47,4 @@ MessagesPreview.propTypes = {
   noMessageText: PropTypes.string,
 }
 
-export default MessagesPreview
+export default MessagesDisplay
