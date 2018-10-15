@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { messageTypes } from '../../../constants'
-import { getFacebookMessageType } from '../../types'
+import { getFacebookMessageType } from '../../../utils'
 import TextMessage from './Text'
 
 const { TEXT } = messageTypes

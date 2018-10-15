@@ -2,7 +2,7 @@ import MessagesEditor, { FacebookEditor, LineEditor } from './components/Message
 import MessageRender from './components/MessageRender'
 import FacebookElement from './lib/MessageElement/Facebook'
 import LineElement from './lib/MessageElement/Line'
-import { getFacebookMessageType, getLineMessageType } from './lib/types'
+import { getFacebookMessageType, getLineMessageType } from './utils'
 
 export {
   MessagesEditor,

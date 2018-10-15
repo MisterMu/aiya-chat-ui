@@ -1,12 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Modal, Button } from 'antd'
+import { Button } from 'antd'
+import ModalForm from './ModalForm'
 import MessageRender from '../MessageRender'
-import { getFacebookForm, getLineForm } from '../../lib/MessageForm/'
-import { getFacebookMessage, getLineMessage } from '../../lib/Messages'
-import { getFacebookMessageType, getLineMessageType } from '../../lib/types'
-import { channelTypes, messageTypes } from '../../constants'
 import { Flex } from '../styled'
+import { channelTypes, messageTypes } from '../../constants'
+import { FacebookForm, LineForm } from '../../lib/MessageForm'
+import {
+  getFacebookMessageType,
+  getLineMessageType,
+  getFacebookMessageObject,
+  getLineMessageObject,
+} from '../../utils'
 
 const { FACEBOOK, LINE } = channelTypes
 const { TEXT, AUDIO, IMAGE, VIDEO, FILE } = messageTypes
@@ -26,7 +31,7 @@ class MessageEditor extends React.Component {
   }
 
   closeModal = () => {
-    this.setState({ modalState: false })
+    this.setState({ modalState: false, editIndex: -1 })
   }
 
   startEdit = index => {
@@ -62,34 +67,13 @@ class MessageEditor extends React.Component {
     onUpdate && onUpdate(tmp, 'delete')
   }
 
-  renderModal = Form => {
-    const { modalState, messages, editIndex } = this.state
-    if (Form) {
-      return (
-        <Modal
-          title="Edit Message Form"
-          visible={modalState}
-          onCancel={this.closeModal}
-          footer={false}
-          destroyOnClose
-        >
-          <Form
-            defaultValue={messages[editIndex]}
-            onSubmit={message => this.updateMessage(message, editIndex)}
-            closeForm={this.closeModal}
-          />
-        </Modal>
-      )
-    }
-  }
-
   addBtnClicked = type => {
     const { channel } = this.props
     let newMsg = {}
     if (channel === FACEBOOK) {
-      newMsg = getFacebookMessage(type)
+      newMsg = getFacebookMessageObject(type)
     } else if (channel === LINE) {
-      newMsg = getLineMessage(type)
+      newMsg = getLineMessageObject(type)
     }
     this.addMessage(newMsg)
   }
@@ -107,20 +91,21 @@ class MessageEditor extends React.Component {
 
   render() {
     const { channel } = this.props
-    const { messages, editIndex } = this.state
+    const { messages, editIndex, modalState } = this.state
 
     // variables for each channel
-    let editForm = ''
+    let EditForm = null
     let avaliableType = []
+    let editFormType = ''
 
     // assign neccessary value for each channel editor
     if (channel === FACEBOOK) {
-      const editFormType = editIndex !== -1 && getFacebookMessageType(messages[editIndex])
-      editForm = getFacebookForm(editFormType)
+      editFormType = editIndex !== -1 && getFacebookMessageType(messages[editIndex])
+      EditForm = FacebookForm
       avaliableType = [TEXT, AUDIO, IMAGE, VIDEO, FILE]
     } else if (channel === LINE) {
-      const editFormType = editIndex !== -1 && getLineMessageType(messages[editIndex])
-      editForm = getLineForm(editFormType)
+      editFormType = editIndex !== -1 && getLineMessageType(messages[editIndex])
+      EditForm = LineForm
       avaliableType = [TEXT, AUDIO, IMAGE, VIDEO]
     }
 
@@ -147,7 +132,14 @@ class MessageEditor extends React.Component {
             </React.Fragment>
           ))}
         </Flex>
-        {this.renderModal(editForm)}
+        <ModalForm visible={modalState} onCancel={this.closeModal}>
+          <EditForm
+            type={editFormType || undefined}
+            defaultValue={messages[editIndex]}
+            onSubmit={message => this.updateMessage(message, editIndex)}
+            closeForm={this.closeModal}
+          />
+        </ModalForm>
       </div>
     )
   }

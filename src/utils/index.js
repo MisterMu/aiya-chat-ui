@@ -1,4 +1,5 @@
 import { messageTypes } from '../constants'
+import { FacebookMessage, LineMessage } from '../lib/MessageObject'
 
 const { TEXT, AUDIO, IMAGE, VIDEO, FILE } = messageTypes
 
@@ -27,5 +28,23 @@ export function getLineMessageType(message) {
     return IMAGE
   } else if (message.type === 'video') {
     return VIDEO
+  }
+}
+
+export function getFacebookMessageObject(type) {
+  switch (type) {
+    case TEXT:
+      return FacebookMessage.Text
+    default:
+      return {}
+  }
+}
+
+export function getLineMessageObject(type) {
+  switch (type) {
+    case TEXT:
+      return LineMessage.Text
+    default:
+      return {}
   }
 }
