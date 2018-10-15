@@ -35,5 +35,4 @@ export default {
     commonjs(),
   ],
   external: ['styled-components', 'antd', 'lodash'],
-  global: { 'styled-components': 'styled', antd: 'antd', lodash: '_' },
 }
