@@ -15,7 +15,7 @@ import {
 } from '../../utils'
 
 const { FACEBOOK, LINE } = channelTypes
-const { TEXT, AUDIO, IMAGE, VIDEO, FILE } = messageTypes
+const { TEXT, IMAGE } = messageTypes
 
 class MessageEditor extends React.Component {
   constructor(props) {
@@ -103,11 +103,11 @@ class MessageEditor extends React.Component {
     if (channel === FACEBOOK) {
       editFormType = editIndex !== -1 && getFacebookMessageType(messages[editIndex])
       EditForm = FacebookForm
-      avaliableType = [TEXT, AUDIO, IMAGE, VIDEO, FILE]
+      avaliableType = [TEXT, IMAGE]
     } else if (channel === LINE) {
       editFormType = editIndex !== -1 && getLineMessageType(messages[editIndex])
       EditForm = LineForm
-      avaliableType = [TEXT, AUDIO, IMAGE, VIDEO]
+      avaliableType = [TEXT, IMAGE]
     }
 
     return (
