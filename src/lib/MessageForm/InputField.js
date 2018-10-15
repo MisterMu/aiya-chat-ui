@@ -11,12 +11,12 @@ const inputSize = {
 }
 
 const InputField = props => {
-  const { label, children } = props
+  const { label, style, children } = props
   if (label) {
     return (
-      <Row>
+      <Row style={{ marginBottom: 8, ...style }}>
         <Col {...labelSize}>
-          <label>{label}</label>
+          <label style={{ textTransform: 'capitalize' }}>{label}:</label>
         </Col>
         <Col {...inputSize}>{children}</Col>
       </Row>
@@ -29,6 +29,7 @@ const InputField = props => {
 InputField.propTypes = {
   children: PropTypes.any.isRequired,
   label: PropTypes.string,
+  style: PropTypes.object,
 }
 
 export default InputField
