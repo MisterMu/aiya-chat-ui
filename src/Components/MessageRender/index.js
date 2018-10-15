@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FacebookElement from '../../lib/MessageElement/Facebook'
-import LineElement from '../../lib/MessageElement/Line'
+import { FacebookElement, LineElement } from '../../lib/MessageElement'
 import { channelTypes } from '../../constants'
 
 const { FACEBOOK, LINE } = channelTypes
