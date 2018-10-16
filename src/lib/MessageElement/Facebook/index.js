@@ -17,9 +17,7 @@ const FacebookElement = props => {
   let messageElements = []
   if (message.text) {
     messageElements = [<TextElement text={message.text} onClick={() => elementOnClick(TEXT)} />]
-  }
-
-  if (message.attachment) {
+  } else if (message.attachment) {
     const attachmentType = message.attachment.type
     if (attachmentType === 'image') {
       const { payload } = message.attachment
