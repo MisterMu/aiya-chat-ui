@@ -7,10 +7,16 @@ export default [
     },
   },
   {
-    id: '#1',
-    type: 'text',
+    id: '#2',
+    type: 'box',
     message: {
       text: 'I am FACEBOOK Chatbot!!',
+      attachment: {
+        type: 'image',
+        payload: {
+          url: 'http://fp2w.org/assets/ext/blob.jpg',
+        },
+      },
     },
   },
 ]
