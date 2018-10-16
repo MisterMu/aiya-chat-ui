@@ -17,20 +17,20 @@ export default [
           url: 'http://fp2w.org/assets/ext/blob.jpg',
         },
       },
+      quick_replies: [
+        {
+          content_type: 'text',
+          title: 'Title1',
+          payload: 'payload',
+          image_url: undefined,
+        },
+        {
+          content_type: 'text',
+          title: 'Title2',
+          payload: 'payload',
+          image_url: undefined,
+        },
+      ],
     },
-    quick_replies: [
-      {
-        content_type: 'text',
-        title: 'Title1',
-        payload: 'payload',
-        image_url: undefined,
-      },
-      {
-        content_type: 'text',
-        title: 'Title2',
-        payload: 'payload',
-        image_url: undefined,
-      },
-    ],
   },
 ]
