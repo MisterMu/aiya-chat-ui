@@ -20,10 +20,8 @@ const LineElement = props => {
   if (message.type === 'text') {
     messageElements = [<TextElement text={message.text} onClick={() => elementOnClick(TEXT)} />]
   } else if (message.type === 'image') {
-    const { originalContentUrl } = message
-    messageElements = [
-      <ImageElement url={originalContentUrl} onClick={() => elementOnClick(IMAGE)} />,
-    ]
+    const { previewImageUrl } = message
+    messageElements = [<ImageElement url={previewImageUrl} onClick={() => elementOnClick(IMAGE)} />]
   } else {
     return null
   }
