@@ -4,9 +4,9 @@ import QuickReplyElement from './QuickReply'
 import { Flex } from '../../styled'
 
 const QuickRepliesElement = props => {
-  const { quickReplies } = props
+  const { quickReplies, onClick } = props
   return (
-    <Flex style={{ justifyContent: 'center' }}>
+    <Flex style={{ justifyContent: 'center' }} onClick={onClick}>
       {quickReplies.map((quickReply, key) => {
         return (
           <React.Fragment key={key}>
@@ -20,6 +20,7 @@ const QuickRepliesElement = props => {
 
 QuickRepliesElement.propTypes = {
   quickReplies: PropTypes.arrayOf(PropTypes.object),
+  onClick: PropTypes.func,
 }
 
 export default QuickRepliesElement
