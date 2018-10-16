@@ -26,7 +26,11 @@ class MessageDisplay extends React.Component {
       <div style={{ ...style }}>
         {(dataList || []).map((data, i) => (
           <Flex style={{ marginBottom: 8, justifyContent: msgAlign }}>
-            <MessageRender channel={channel} data={data} />
+            <MessageRender
+              channel={channel}
+              data={data}
+              showQuickReplies={i === dataList.length - 1}
+            />
           </Flex>
         ))}
         {(!dataList || dataList.length === 0) && (

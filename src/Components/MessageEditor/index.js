@@ -8,12 +8,7 @@ import MessageRender from '../MessageRender'
 import { Flex, IconButton, DefaultText } from '../styled'
 import { channelTypes, messageTypes } from '../../constants'
 import { FacebookForm, LineForm } from '../../lib/MessageForm'
-import {
-  getFacebookMessageType,
-  getLineMessageType,
-  getFacebookMessageObject,
-  getLineMessageObject,
-} from '../../utils'
+import { getFacebookMessageObject, getLineMessageObject } from '../../utils'
 
 const { FACEBOOK, LINE } = channelTypes
 const { TEXT, IMAGE } = messageTypes
@@ -25,6 +20,7 @@ class MessageEditor extends React.Component {
       dataList: [],
       modalState: false,
       editIndex: -1,
+      editType: '',
     }
   }
 
@@ -33,11 +29,11 @@ class MessageEditor extends React.Component {
   }
 
   closeModal = () => {
-    this.setState({ modalState: false, editIndex: -1 })
+    this.setState({ modalState: false, editIndex: -1, editType: '' })
   }
 
-  startEdit = index => {
-    this.setState({ editIndex: index })
+  startEdit = (index, type) => {
+    this.setState({ editIndex: index, editType: type })
     this.openModal()
   }
 
@@ -98,9 +94,12 @@ class MessageEditor extends React.Component {
       <React.Fragment>
         {(dataList || []).map((data, i) => (
           <Flex style={{ justifyContent: 'flex-end', marginBottom: 8 }} key={i}>
-            <div style={{ cursor: 'pointer' }} onClick={() => this.startEdit(i)}>
-              <MessageRender channel={channel} data={data} />
-            </div>
+            <MessageRender
+              channel={channel}
+              data={data}
+              elementOnClick={type => this.startEdit(i, type)}
+              align="right"
+            />
             <IconButton color="red">
               <Icon type="delete" onClick={() => this.deleteMessage(i)} />
             </IconButton>
@@ -144,20 +143,17 @@ class MessageEditor extends React.Component {
 
   render() {
     const { channel, style } = this.props
-    const { dataList, editIndex, modalState } = this.state
+    const { dataList, editIndex, editType, modalState } = this.state
 
     // variables for each channel
     let EditForm = null
     let avaliableType = []
-    let editFormType = ''
 
     // assign neccessary value for each channel editor
     if (channel === FACEBOOK) {
-      editFormType = editIndex !== -1 && getFacebookMessageType(dataList[editIndex].message)
       EditForm = FacebookForm
       avaliableType = [TEXT, IMAGE]
     } else if (channel === LINE) {
-      editFormType = editIndex !== -1 && getLineMessageType(dataList[editIndex].message)
       EditForm = LineForm
       avaliableType = [TEXT, IMAGE]
     }
@@ -171,7 +167,7 @@ class MessageEditor extends React.Component {
         {this.renderToolbar(avaliableType)}
         <ModalForm visible={modalState} onCancel={this.closeModal}>
           <EditForm
-            type={editFormType || undefined}
+            type={editType || undefined}
             defaultValue={editIndex !== -1 && dataList[editIndex].message}
             onSubmit={message => this.updateMessage(message, editIndex)}
             closeForm={this.closeModal}

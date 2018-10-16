@@ -15,4 +15,21 @@ const ImageContainer = styled.div`
   background-color: white;
 `
 
-export { BubbleMessage, ImageContainer }
+const BubbleContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  ${props => props.align === 'left' && 'justify-content: flex-start'};
+  ${props => props.align === 'center' && 'justify-content: center'};
+  ${props => props.align === 'right' && 'justify-content: flex-end'};
+  cursor: pointer;
+  &:not(:last-of-type) {
+    margin-bottom: 8px;
+  }
+`
+
+const MessageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export { BubbleMessage, ImageContainer, BubbleContainer, MessageContainer }

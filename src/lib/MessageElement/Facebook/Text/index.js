@@ -6,9 +6,9 @@ import { color } from '../../../../constants'
 const { FACEBOOK } = color
 
 const TextElement = props => {
-  const { text } = props
+  const { text, onClick } = props
   return (
-    <BubbleMessage color={FACEBOOK.bubbleColor} textColor={FACEBOOK.textColor}>
+    <BubbleMessage color={FACEBOOK.bubbleColor} textColor={FACEBOOK.textColor} onClick={onClick}>
       {text}
     </BubbleMessage>
   )
@@ -16,6 +16,7 @@ const TextElement = props => {
 
 TextElement.propTypes = {
   text: PropTypes.string,
+  onClick: PropTypes.func,
 }
 
 export default TextElement
