@@ -10,22 +10,13 @@ const { TEXT, IMAGE, QUICKREPLIES } = messageTypes
 
 const FacebookElement = props => {
   const { message, showQuickReplies, elementOnClick, align } = props
-
   if (!message) {
     return null
   }
 
   let messageElements = []
   if (message.text) {
-    messageElements = [
-      <TextElement
-        text={message.text}
-        onClick={() => {
-          console.log('click', elementOnClick, TEXT)
-          elementOnClick(TEXT)
-        }}
-      />,
-    ]
+    messageElements = [<TextElement text={message.text} onClick={() => elementOnClick(TEXT)} />]
   }
 
   if (message.attachment) {
@@ -43,7 +34,7 @@ const FacebookElement = props => {
     messageElements = [
       ...messageElements,
       <QuickRepliesElement
-        quickReplies={message.quickReply}
+        quickReplies={message.quick_replies}
         onClick={() => elementOnClick(QUICKREPLIES)}
       />,
     ]

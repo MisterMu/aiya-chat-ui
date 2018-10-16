@@ -1,5 +1,12 @@
 import styled from 'styled-components'
 
+const Flex = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+`
+
 const BubbleMessage = styled.span`
   background-color: ${props => props.color || '#eeeeee'};
   color: ${props => props.textColor || '#575757'};
@@ -32,4 +39,4 @@ const MessageContainer = styled.div`
   flex-direction: column;
 `
 
-export { BubbleMessage, ImageContainer, BubbleContainer, MessageContainer }
+export { Flex, BubbleMessage, ImageContainer, BubbleContainer, MessageContainer }

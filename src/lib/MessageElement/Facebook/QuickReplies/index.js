@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import QuickReplyElement from './QuickReply'
+import { Flex } from '../../styled'
 
 class QuickRepliesElement extends React.Component {
   constructor(props) {
@@ -9,8 +11,17 @@ class QuickRepliesElement extends React.Component {
 
   render() {
     const { quickReplies } = this.props
-    console.log(quickReplies)
-    return null
+    return (
+      <Flex style={{ justifyContent: 'center' }}>
+        {quickReplies.map((quickReply, key) => {
+          return (
+            <React.Fragment key={key}>
+              <QuickReplyElement data={quickReply} />
+            </React.Fragment>
+          )
+        })}
+      </Flex>
+    )
   }
 }
 

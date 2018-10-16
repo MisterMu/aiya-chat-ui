@@ -29,6 +29,7 @@ class MessageDisplay extends React.Component {
             <MessageRender
               channel={channel}
               data={data}
+              align={align}
               showQuickReplies={i === dataList.length - 1}
             />
           </Flex>

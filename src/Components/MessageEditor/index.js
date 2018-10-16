@@ -99,6 +99,7 @@ class MessageEditor extends React.Component {
               data={data}
               elementOnClick={type => this.startEdit(i, type)}
               align="right"
+              showQuickReplies={i === dataList.length - 1}
             />
             <IconButton color="red">
               <Icon type="delete" onClick={() => this.deleteMessage(i)} />
