@@ -20,13 +20,13 @@ export default [
     type: 'box',
     message: {
       type: 'image',
-      originalContentUrl: 'http://fp2w.org/assets/ext/blob.jpg',
-      previewImageUrl: 'http://fp2w.org/assets/ext/blob.jpg',
+      originalContentUrl: 'https://fp2w.org/assets/ext/blob.jpg',
+      previewImageUrl: 'https://fp2w.org/assets/ext/blob.jpg',
       quickReply: {
         items: [
           {
             type: 'action',
-            imageUrl: undefined,
+            imageUrl: 'https://fp2w.org/assets/ext/blob.jpg',
             action: {
               type: 'message',
               label: 'Message 1',
@@ -35,7 +35,7 @@ export default [
           },
           {
             type: 'action',
-            imageUrl: undefined,
+            imageUrl: 'https://i.imgur.com/C6iIw7J.jpg',
             action: {
               type: 'message',
               label: 'Message 2',

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Divider } from 'antd'
-import { MessageEditor } from 'aiya-chat-ui'
+import { MessageEditor, MessageDisplay } from 'aiya-chat-ui'
 import fbMessages from './data/facebook'
 import lineMessages from './data/line'
 
@@ -36,6 +36,8 @@ class App extends React.Component {
           <h3>data</h3>
           <pre>{JSON.stringify(dataList, null, 2)}</pre>
         </section>
+        <Divider />
+        <MessageDisplay channel={channel} dataList={dataList} />
       </div>
     )
   }
