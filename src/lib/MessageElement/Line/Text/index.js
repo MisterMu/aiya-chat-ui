@@ -5,7 +5,7 @@ import { color } from '../../../../constants'
 
 const { LINE } = color
 
-const TextMessage = props => {
+const TextElement = props => {
   const { text } = props
   return (
     <BubbleMessage color={LINE.bubbleColor} textColor={LINE.textColor}>
@@ -14,8 +14,8 @@ const TextMessage = props => {
   )
 }
 
-TextMessage.propTypes = {
+TextElement.propTypes = {
   text: PropTypes.string,
 }
 
-export default TextMessage
+export default TextElement
