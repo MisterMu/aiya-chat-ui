@@ -91,10 +91,11 @@ class MessageEditor extends React.Component {
   }
 
   renderMessages = () => {
+    const { channel, noMessageText } = this.props
     const { dataList } = this.state
 
     return (
-      <Fragment>
+      <React.Fragment>
         {(dataList || []).map((data, i) => (
           <Flex style={{ justifyContent: 'flex-end', marginBottom: 8 }} key={i}>
             <div style={{ cursor: 'pointer' }} onClick={() => this.startEdit(i)}>
@@ -110,11 +111,11 @@ class MessageEditor extends React.Component {
             <i>{noMessageText || 'No Message'}</i>
           </DefaultText>
         )}
-      </Fragment>
+      </React.Fragment>
     )
   }
 
-  renderToolbar = (avaliableType) => (
+  renderToolbar = avaliableType => (
     <Flex style={{ justifyContent: 'center' }}>
       {avaliableType.map((type, key) => (
         <React.Fragment key={key}>
@@ -142,7 +143,7 @@ class MessageEditor extends React.Component {
   }
 
   render() {
-    const { channel, style, noMessageText } = this.props
+    const { channel, style } = this.props
     const { dataList, editIndex, modalState } = this.state
 
     // variables for each channel
