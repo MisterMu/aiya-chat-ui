@@ -9,7 +9,7 @@ export { Types }
 export default {
   text,
   location,
-  email,
-  phone,
+  user_email: email,
+  user_phone_number: phone,
   Types,
 }

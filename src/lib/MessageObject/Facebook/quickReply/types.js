@@ -1,6 +1,6 @@
 export default {
   TEXT: 'text',
   LOCATION: 'location',
-  EMAIL: 'email',
-  PHONE: 'phone',
+  EMAIL: 'user_email',
+  PHONE: 'user_phone_number',
 }
