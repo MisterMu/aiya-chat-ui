@@ -35,7 +35,7 @@ const QuickReplyElement = props => {
     prefixField = data.image_url ? <ImageContainer imageUrl={data.image_url} /> : null
   } else if (data.content_type === 'location') {
     title = 'Send Location'
-    prefixField = <Icon type="environment" theme="filled" />
+    prefixField = <Icon type="environment" theme="filled" style={{ marginRight: 8 }} />
   } else if (data.content_type === 'user_email') {
     title = 'example@mail.com'
   } else if (data.content_type === 'user_phone_number') {
