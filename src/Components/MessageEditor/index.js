@@ -11,7 +11,7 @@ import { FacebookForm, LineForm } from '../../lib/MessageForm'
 import { getFacebookMessageObject, getLineMessageObject } from '../../utils'
 
 const { FACEBOOK, LINE } = channelTypes
-const { TEXT, IMAGE } = messageTypes
+const { TEXT, IMAGE, QUICKREPLIES } = messageTypes
 
 class MessageEditor extends React.Component {
   constructor(props) {
@@ -75,12 +75,29 @@ class MessageEditor extends React.Component {
       newMsg = getLineMessageObject(type)
     }
     if (!_.isEmpty(newMsg)) {
-      const newData = {
-        id: 'msg-' + shortid.generate(),
-        type: type === TEXT ? 'text' : 'box',
-        message: newMsg,
+      if (type === QUICKREPLIES) {
+        const { dataList } = this.state
+        const lastData = dataList[dataList.length - 1]
+        const lastMsg = lastData.message
+        if (lastMsg.quick_replies || lastMsg.quickReply) {
+          console.error('Message already have Quick Replies!!')
+          return null
+        } else {
+          const { onUpdate } = this.props
+          const newData = { ...lastData, type: 'box', message: { ...lastMsg, ...newMsg } }
+          let tmp = [...dataList]
+          tmp[dataList.length - 1] = newData
+          this.setState({ dataList: tmp })
+          onUpdate && onUpdate(tmp, 'add')
+        }
+      } else {
+        const newData = {
+          id: 'msg-' + shortid.generate(),
+          type: type === TEXT ? 'text' : 'box',
+          message: newMsg,
+        }
+        this.addMessage(newData)
       }
-      this.addMessage(newData)
     } else {
       console.error('Cannot add message!! This message type is not avaliable now.')
     }
@@ -153,10 +170,10 @@ class MessageEditor extends React.Component {
     // assign neccessary value for each channel editor
     if (channel === FACEBOOK) {
       EditForm = FacebookForm
-      avaliableType = [TEXT, IMAGE]
+      avaliableType = [TEXT, IMAGE, QUICKREPLIES]
     } else if (channel === LINE) {
       EditForm = LineForm
-      avaliableType = [TEXT, IMAGE]
+      avaliableType = [TEXT, IMAGE, QUICKREPLIES]
     }
 
     return (
