@@ -11,7 +11,7 @@ export { Types }
 export default {
   postback,
   message,
-  date,
+  datetimepicker: date,
   camera,
   cameraRoll,
   location,
