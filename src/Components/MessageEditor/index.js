@@ -90,6 +90,47 @@ class MessageEditor extends React.Component {
     }
   }
 
+  renderMessages = () => {
+    const { channel, noMessageText } = this.props
+    const { dataList } = this.state
+
+    return (
+      <React.Fragment>
+        {(dataList || []).map((data, i) => (
+          <Flex style={{ justifyContent: 'flex-end', marginBottom: 8 }} key={i}>
+            <div style={{ cursor: 'pointer' }} onClick={() => this.startEdit(i)}>
+              <MessageRender channel={channel} data={data} />
+            </div>
+            <IconButton color="red">
+              <Icon type="delete" onClick={() => this.deleteMessage(i)} />
+            </IconButton>
+          </Flex>
+        ))}
+        {(dataList.length === 0 || !dataList) && (
+          <DefaultText>
+            <i>{noMessageText || 'No Message'}</i>
+          </DefaultText>
+        )}
+      </React.Fragment>
+    )
+  }
+
+  renderToolbar = avaliableType => (
+    <Flex style={{ justifyContent: 'center' }}>
+      {avaliableType.map((type, key) => (
+        <React.Fragment key={key}>
+          <Button
+            onClick={() => this.addBtnClicked(type)}
+            icon="plus"
+            style={{ textTransform: 'capitalize', marginRight: 8 }}
+          >
+            {type}
+          </Button>
+        </React.Fragment>
+      ))}
+    </Flex>
+  )
+
   componentWillMount() {
     const { dataList } = this.props
     this.setState({ dataList })
@@ -102,7 +143,7 @@ class MessageEditor extends React.Component {
   }
 
   render() {
-    const { channel, style, noMessageText } = this.props
+    const { channel, style } = this.props
     const { dataList, editIndex, modalState } = this.state
 
     // variables for each channel
@@ -123,37 +164,11 @@ class MessageEditor extends React.Component {
 
     return (
       <div style={{ padding: 16, ...style }}>
-        {(dataList || []).map((data, i) => (
-          <Flex style={{ justifyContent: 'flex-end', marginBottom: 8 }} key={i}>
-            <div style={{ cursor: 'pointer' }} onClick={() => this.startEdit(i)}>
-              <MessageRender channel={channel} data={data} />
-            </div>
-            <IconButton color="red">
-              <Icon type="delete" onClick={() => this.deleteMessage(i)} />
-            </IconButton>
-          </Flex>
-        ))}
-        {(dataList.length === 0 || !dataList) && (
-          <DefaultText>
-            <i>{noMessageText || 'No Message'}</i>
-          </DefaultText>
-        )}
+        {this.renderMessages()}
         <div style={{ paddingRight: 8, paddingLeft: 8 }}>
           <Divider />
         </div>
-        <Flex style={{ justifyContent: 'center' }}>
-          {avaliableType.map((type, key) => (
-            <React.Fragment key={key}>
-              <Button
-                onClick={() => this.addBtnClicked(type)}
-                icon="plus"
-                style={{ textTransform: 'capitalize', marginRight: 8 }}
-              >
-                {type}
-              </Button>
-            </React.Fragment>
-          ))}
-        </Flex>
+        {this.renderToolbar(avaliableType)}
         <ModalForm visible={modalState} onCancel={this.closeModal}>
           <EditForm
             type={editFormType || undefined}
