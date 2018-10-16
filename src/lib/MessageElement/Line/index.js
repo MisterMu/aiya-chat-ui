@@ -10,7 +10,6 @@ const { TEXT, IMAGE, QUICKREPLIES } = messageTypes
 
 const LineElement = props => {
   const { message, showQuickReplies, elementOnClick, align } = props
-  console.log(message)
   if (!message || !message.type) {
     return null
   }
