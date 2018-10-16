@@ -28,15 +28,24 @@ const QuickReplyForm = props => {
       {data.content_type === Types.TEXT && (
         <React.Fragment>
           <InputField label="Title">
-            <Input value={data.title} onChange={e => dataChange({ title: e.target.value })} />
+            <Input
+              value={data.title}
+              onChange={e => dataChange({ title: e.target.value || undefined })}
+              placeholder="Text to show on quickreply button.."
+            />
           </InputField>
           <InputField label="Payload">
-            <Input value={data.payload} onChange={e => dataChange({ payload: e.target.value })} />
+            <Input
+              value={data.payload}
+              onChange={e => dataChange({ payload: e.target.value || undefined })}
+              placeholder="Data that send to webhook.."
+            />
           </InputField>
           <InputField label="Image Url">
             <Input
               value={data.image_url}
-              onChange={e => dataChange({ image_url: e.target.value })}
+              onChange={e => dataChange({ image_url: e.target.value || undefined })}
+              placeholder="Image or Icon of quickreply.."
             />
           </InputField>
         </React.Fragment>
