@@ -11,7 +11,7 @@ const Container = styled.div`
   margin-left: 8px;
   border: 1px solid #70a5f9;
   border-radius: 16px;
-  padding: 4px 8px;
+  padding: 4px 12px;
   font-size: 0.9em;
 `
 
