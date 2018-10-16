@@ -1,4 +1,8 @@
 export default {
-  type: 'cameraRoll',
-  label: 'Camera roll',
+  type: 'action',
+  imageUrl: undefined,
+  action: {
+    type: 'cameraRoll',
+    label: 'Camera roll',
+  },
 }

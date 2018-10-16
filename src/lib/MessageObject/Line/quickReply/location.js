@@ -1,4 +1,8 @@
 export default {
-  type: 'location',
-  label: 'Location',
+  type: 'action',
+  imageUrl: undefined,
+  action: {
+    type: 'location',
+    label: 'Location',
+  },
 }

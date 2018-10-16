@@ -1,5 +1,9 @@
 export default {
-  type: 'message',
-  label: 'Message',
-  text: 'message',
+  type: 'action',
+  imageUrl: undefined,
+  action: {
+    type: 'message',
+    label: 'Message',
+    text: 'message',
+  },
 }

@@ -1,4 +1,8 @@
 export default {
-  type: 'camera',
-  label: 'Camera',
+  type: 'action',
+  imageUrl: undefined,
+  action: {
+    type: 'camera',
+    label: 'Camera',
+  },
 }

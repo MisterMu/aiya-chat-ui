@@ -1,6 +1,10 @@
 export default {
-  type: 'postback',
-  label: 'Postback',
-  data: 'payload',
-  text: 'text',
+  type: 'action',
+  imageUrl: undefined,
+  action: {
+    type: 'postback',
+    label: 'Postback',
+    data: 'payload',
+    text: 'text',
+  },
 }
