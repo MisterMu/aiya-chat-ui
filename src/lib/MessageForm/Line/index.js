@@ -4,23 +4,24 @@ import PropTypes from 'prop-types'
 import { messageTypes } from '../../../constants'
 import Text from './Text'
 import Image from './Image'
+import QuickReplies from './QuickReplies'
 
-const { TEXT, IMAGE, AUDIO, VIDEO, FILE } = messageTypes
+const { TEXT, IMAGE, AUDIO, VIDEO, FILE, QUICKREPLIES } = messageTypes
 
 const LineForm = props => {
   const { type } = props
-  switch (type) {
-    case TEXT:
-      return <Text {...props} />
-    case IMAGE:
-      return <Image {...props} />
-    default:
-      return null
+  if (type === TEXT) {
+    return <Text {...props} />
+  } else if (type === IMAGE) {
+    return <Image {...props} />
+  } else if (type === QUICKREPLIES) {
+    return <QuickReplies {...props} />
   }
+  return null
 }
 
 LineForm.propTypes = {
-  type: PropTypes.oneOf([TEXT, IMAGE, AUDIO, VIDEO, FILE]),
+  type: PropTypes.oneOf([TEXT, IMAGE, AUDIO, VIDEO, FILE, QUICKREPLIES]),
   onSubmit: PropTypes.func,
   defaultValue: PropTypes.any,
   closeForm: PropTypes.func,

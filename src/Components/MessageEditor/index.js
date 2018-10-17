@@ -6,17 +6,13 @@ import shortid from 'shortid'
 import ModalForm from './ModalForm'
 import MessageRender from '../MessageRender'
 import { Flex, IconButton, DefaultText } from '../styled'
-import { channelTypes, messageTypes } from '../../constants'
+import { channelTypes, messageTypes, actionTypes } from '../../constants'
 import { FacebookForm, LineForm } from '../../lib/MessageForm'
-import {
-  getFacebookMessageType,
-  getLineMessageType,
-  getFacebookMessageObject,
-  getLineMessageObject,
-} from '../../utils'
+import { getFacebookMessageObject, getLineMessageObject } from '../../utils'
 
 const { FACEBOOK, LINE } = channelTypes
-const { TEXT, IMAGE } = messageTypes
+const { TEXT, IMAGE, QUICKREPLIES } = messageTypes
+const { ADD, EDIT, DELETE } = actionTypes
 
 class MessageEditor extends React.Component {
   constructor(props) {
@@ -25,6 +21,7 @@ class MessageEditor extends React.Component {
       dataList: [],
       modalState: false,
       editIndex: -1,
+      editType: '',
     }
   }
 
@@ -33,11 +30,11 @@ class MessageEditor extends React.Component {
   }
 
   closeModal = () => {
-    this.setState({ modalState: false, editIndex: -1 })
+    this.setState({ modalState: false, editIndex: -1, editType: '' })
   }
 
-  startEdit = index => {
-    this.setState({ editIndex: index })
+  startEdit = (index, type) => {
+    this.setState({ editIndex: index, editType: type })
     this.openModal()
   }
 
@@ -47,7 +44,7 @@ class MessageEditor extends React.Component {
     let tmp = [...dataList]
     tmp = [...tmp, newData]
     this.setState({ dataList: tmp })
-    onUpdate && onUpdate(tmp, 'add')
+    onUpdate && onUpdate(tmp, ADD)
   }
 
   updateMessage = (message, index) => {
@@ -59,7 +56,7 @@ class MessageEditor extends React.Component {
     }
     this.setState({ dataList: tmp })
     this.closeModal()
-    onUpdate && onUpdate(tmp, 'edit')
+    onUpdate && onUpdate(tmp, EDIT)
   }
 
   deleteMessage = index => {
@@ -67,7 +64,7 @@ class MessageEditor extends React.Component {
     let tmp = [...this.state.dataList]
     tmp.splice(index, 1)
     this.setState({ dataList: tmp })
-    onUpdate && onUpdate(tmp, 'delete')
+    onUpdate && onUpdate(tmp, DELETE)
   }
 
   addBtnClicked = type => {
@@ -78,15 +75,33 @@ class MessageEditor extends React.Component {
     } else if (channel === LINE) {
       newMsg = getLineMessageObject(type)
     }
-    if (!_.isEmpty(newMsg)) {
+
+    if (_.isEmpty(newMsg)) {
+      console.error('Cannot add message!! This message type is not avaliable now.')
+      return null
+    }
+    if (type === QUICKREPLIES) {
+      const { dataList } = this.state
+      const lastData = dataList[dataList.length - 1]
+      const lastMsg = lastData.message
+
+      if (lastMsg.quick_replies || lastMsg.quickReply) {
+        console.error('Message already have Quick Replies!!')
+        return null
+      }
+      const { onUpdate } = this.props
+      const newData = { ...lastData, type: 'box', message: { ...lastMsg, ...newMsg } }
+      let tmp = [...dataList]
+      tmp[dataList.length - 1] = newData
+      this.setState({ dataList: tmp })
+      onUpdate && onUpdate(tmp, ADD)
+    } else {
       const newData = {
         id: 'msg-' + shortid.generate(),
         type: type === TEXT ? 'text' : 'box',
         message: newMsg,
       }
       this.addMessage(newData)
-    } else {
-      console.error('Cannot add message!! This message type is not avaliable now.')
     }
   }
 
@@ -98,9 +113,13 @@ class MessageEditor extends React.Component {
       <React.Fragment>
         {(dataList || []).map((data, i) => (
           <Flex style={{ justifyContent: 'flex-end', marginBottom: 8 }} key={i}>
-            <div style={{ cursor: 'pointer' }} onClick={() => this.startEdit(i)}>
-              <MessageRender channel={channel} data={data} />
-            </div>
+            <MessageRender
+              channel={channel}
+              data={data}
+              elementOnClick={type => this.startEdit(i, type)}
+              align="right"
+              showQuickReplies={i === dataList.length - 1}
+            />
             <IconButton color="red">
               <Icon type="delete" onClick={() => this.deleteMessage(i)} />
             </IconButton>
@@ -144,22 +163,19 @@ class MessageEditor extends React.Component {
 
   render() {
     const { channel, style } = this.props
-    const { dataList, editIndex, modalState } = this.state
+    const { dataList, editIndex, editType, modalState } = this.state
 
     // variables for each channel
     let EditForm = null
     let avaliableType = []
-    let editFormType = ''
 
     // assign neccessary value for each channel editor
     if (channel === FACEBOOK) {
-      editFormType = editIndex !== -1 && getFacebookMessageType(dataList[editIndex].message)
       EditForm = FacebookForm
-      avaliableType = [TEXT, IMAGE]
+      avaliableType = [TEXT, IMAGE, QUICKREPLIES]
     } else if (channel === LINE) {
-      editFormType = editIndex !== -1 && getLineMessageType(dataList[editIndex].message)
       EditForm = LineForm
-      avaliableType = [TEXT, IMAGE]
+      avaliableType = [TEXT, IMAGE, QUICKREPLIES]
     }
 
     return (
@@ -171,7 +187,7 @@ class MessageEditor extends React.Component {
         {this.renderToolbar(avaliableType)}
         <ModalForm visible={modalState} onCancel={this.closeModal}>
           <EditForm
-            type={editFormType || undefined}
+            type={editType || undefined}
             defaultValue={editIndex !== -1 && dataList[editIndex].message}
             onSubmit={message => this.updateMessage(message, editIndex)}
             closeForm={this.closeModal}
