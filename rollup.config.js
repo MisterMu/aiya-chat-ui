@@ -34,5 +34,5 @@ export default {
     resolve(),
     commonjs(),
   ],
-  external: ['styled-components', 'antd', 'lodash', 'shortid'],
+  external: ['styled-components', 'antd', 'lodash', 'shortid', 'moment'],
 }
