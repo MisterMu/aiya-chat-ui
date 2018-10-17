@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Select, Input } from 'antd'
-
+import { Select, Input, DatePicker, TimePicker } from 'antd'
+import moment from 'moment'
 import InputField from '../../../InputField'
 import { Types } from '../../../../MessageObject/Line/quickReply'
 
@@ -35,7 +35,7 @@ const QuickReplyForm = props => {
       <InputField label="Image Url">
         <Input
           value={data.imageUrl}
-          onChange={e => dataChange({ imageUrl: e.target.value || undefined })}
+          onChange={e => dataChange({ imageUrl: e.target.value })}
           placeholder="Image or Icon of quickreply.."
         />
       </InputField>
@@ -45,15 +45,16 @@ const QuickReplyForm = props => {
           <InputField label="Text">
             <Input
               value={data.action.text}
-              onChange={e => dataChange({ text: e.target.value || undefined })}
+              onChange={e => dataChange({ text: e.target.value })}
               placeholder="Text when user tab a quick reply.."
             />
           </InputField>
           <InputField label="Data">
-            <Input
+            <Input.TextArea
               value={data.action.data}
               onChange={e => dataChange({ data: e.target.value })}
               placeholder="Data that send to webhook.."
+              autosize
             />
           </InputField>
         </React.Fragment>
@@ -64,7 +65,7 @@ const QuickReplyForm = props => {
           <InputField label="Text">
             <Input
               value={data.action.text}
-              onChange={e => dataChange({ text: e.target.value || undefined })}
+              onChange={e => dataChange({ text: e.target.value })}
               placeholder="Text when user tab a quick reply.."
             />
           </InputField>
@@ -85,27 +86,106 @@ const QuickReplyForm = props => {
             </Select>
           </InputField>
           <InputField label="Data">
-            <Input
+            <Input.TextArea
               value={data.action.data}
-              onChange={e => dataChange({ data: e.target.value || undefined })}
-              placeholder="Text when user tab a quick reply.."
+              onChange={e => dataChange({ data: e.target.value })}
+              placeholder="Data that send to webhook.."
+              autosize
             />
           </InputField>
 
-          {/* --- Need Moment package to completed this ---
-          <InputField label="Initial">
-            <DatePicker
-              defaultValue={new Date(data.action.initial)}
-              onChange={val => dataChange({ initial: val.toISOString() })}
-            />
-          </InputField>
-          <InputField label="Max">
-            <Input value={data.action.data} onChange={e => dataChange({ data: e.target.value })} />
-          </InputField>
-          <InputField label="Min">
-            <Input value={data.action.data} onChange={e => dataChange({ data: e.target.value })} />
-          </InputField>
-          ---------------------------------------------- */}
+          {data.action.mode === 'date' && (
+            <React.Fragment>
+              <InputField label="Initial">
+                <DatePicker
+                  format="DD/MM/YYYY"
+                  defaultValue={moment(data.action.initial || undefined)}
+                  onChange={val => dataChange({ initial: val.ISO_8601() })}
+                  placeholder="Initial date in date picker.."
+                />
+              </InputField>
+              <InputField label="Min">
+                <DatePicker
+                  format="DD/MM/YYYY"
+                  defaultValue={moment(data.action.min || undefined)}
+                  onChange={val => dataChange({ min: val.ISO_8601() })}
+                  placeholder="Start date in date picker.."
+                />
+              </InputField>
+              <InputField label="Max">
+                <DatePicker
+                  format="DD/MM/YYYY"
+                  defaultValue={moment(data.action.max || undefined)}
+                  onChange={val => dataChange({ max: val.ISO_8601() })}
+                  placeholder="End date in date picker.."
+                />
+              </InputField>
+            </React.Fragment>
+          )}
+
+          {data.action.mode === 'time' && (
+            <React.Fragment>
+              <InputField label="Initial">
+                <TimePicker
+                  minuteStep
+                  format="HH:mm"
+                  defaultValue={moment(data.action.initial || undefined)}
+                  onChange={val => dataChange({ initial: val.format('HH:mm') })}
+                  placeholder="Initial date in date picker.."
+                />
+              </InputField>
+              <InputField label="Min">
+                <TimePicker
+                  minuteStep
+                  format="HH:mm"
+                  defaultValue={moment(data.action.min || undefined)}
+                  onChange={val => dataChange({ min: val.ISO_8601() })}
+                  placeholder="Start date in date picker.."
+                />
+              </InputField>
+              <InputField label="Max">
+                <TimePicker
+                  minuteStep
+                  format="HH:mm"
+                  defaultValue={moment(data.action.max || undefined)}
+                  onChange={val => dataChange({ max: val.ISO_8601() })}
+                  placeholder="End date in date picker.."
+                />
+              </InputField>
+            </React.Fragment>
+          )}
+
+          {data.action.mode === 'datetime' && (
+            <React.Fragment>
+              <InputField label="Initial">
+                <DatePicker
+                  showTime={{ minuteStep: true }}
+                  defaultValue={moment(data.action.initial || undefined)}
+                  onChange={val => dataChange({ initial: val.ISO_8601() })}
+                  format="DD/MM/YYYY HH:mm"
+                  placeholder="Initial date in date picker.."
+                />
+              </InputField>
+              <InputField label="Min">
+                <DatePicker
+                  showTime={{ minuteStep: true }}
+                  defaultValue={moment(data.action.min || undefined)}
+                  onChange={val => dataChange({ min: val.ISO_8601() })}
+                  format="DD/MM/YYYY HH:mm"
+                  placeholder="Start date in date picker.."
+                />
+              </InputField>
+              <InputField label="Max">
+                <DatePicker
+                  showTime={{ minuteStep: true }}
+                  defaultValue={moment(data.action.max || undefined)}
+                  onChange={val => dataChange({ max: val.ISO_8601() })}
+                  format="DD/MM/YYYY HH:mm"
+                  placeholder="End date in date picker.."
+                />
+              </InputField>
+            </React.Fragment>
+          )}
         </React.Fragment>
       )}
     </div>
