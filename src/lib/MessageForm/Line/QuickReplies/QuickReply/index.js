@@ -50,10 +50,11 @@ const QuickReplyForm = props => {
             />
           </InputField>
           <InputField label="Data">
-            <Input
+            <Input.TextArea
               value={data.action.data}
               onChange={e => dataChange({ data: e.target.value })}
               placeholder="Data that send to webhook.."
+              autosize
             />
           </InputField>
         </React.Fragment>
@@ -85,10 +86,11 @@ const QuickReplyForm = props => {
             </Select>
           </InputField>
           <InputField label="Data">
-            <Input
+            <Input.TextArea
               value={data.action.data}
               onChange={e => dataChange({ data: e.target.value })}
-              placeholder="Text when user tab a quick reply.."
+              placeholder="Data that send to webhook.."
+              autosize
             />
           </InputField>
 

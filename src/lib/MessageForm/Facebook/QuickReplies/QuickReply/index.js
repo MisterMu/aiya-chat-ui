@@ -35,10 +35,11 @@ const QuickReplyForm = props => {
             />
           </InputField>
           <InputField label="Payload">
-            <Input
+            <Input.TextArea
               value={data.payload}
               onChange={e => dataChange({ payload: e.target.value })}
               placeholder="Data that send to webhook.."
+              autosize
             />
           </InputField>
           <InputField label="Image Url">
