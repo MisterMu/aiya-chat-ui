@@ -27,3 +27,18 @@ export function getLineMessageObject(type) {
   }
   return _.cloneDeep(obj)
 }
+
+export function swapArrayElement(array, firstIndex, secondIndex) {
+  let x = 0
+  let y = 0
+  if (firstIndex < secondIndex) {
+    x = firstIndex
+    y = secondIndex
+  } else if (firstIndex > secondIndex) {
+    x = secondIndex
+    y = firstIndex
+  }
+  return array[x] && array[y]
+    ? [...array.slice(0, x), array[y], ...array.slice(x + 1, y), array[x], ...array.slice(y + 1)]
+    : array
+}
