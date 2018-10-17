@@ -75,32 +75,33 @@ class MessageEditor extends React.Component {
     } else if (channel === LINE) {
       newMsg = getLineMessageObject(type)
     }
-    if (!_.isEmpty(newMsg)) {
-      if (type === QUICKREPLIES) {
-        const { dataList } = this.state
-        const lastData = dataList[dataList.length - 1]
-        const lastMsg = lastData.message
-        if (lastMsg.quick_replies || lastMsg.quickReply) {
-          console.error('Message already have Quick Replies!!')
-          return null
-        } else {
-          const { onUpdate } = this.props
-          const newData = { ...lastData, type: 'box', message: { ...lastMsg, ...newMsg } }
-          let tmp = [...dataList]
-          tmp[dataList.length - 1] = newData
-          this.setState({ dataList: tmp })
-          onUpdate && onUpdate(tmp, ADD)
-        }
-      } else {
-        const newData = {
-          id: 'msg-' + shortid.generate(),
-          type: type === TEXT ? 'text' : 'box',
-          message: newMsg,
-        }
-        this.addMessage(newData)
-      }
-    } else {
+
+    if (_.isEmpty(newMsg)) {
       console.error('Cannot add message!! This message type is not avaliable now.')
+      return null
+    }
+    if (type === QUICKREPLIES) {
+      const { dataList } = this.state
+      const lastData = dataList[dataList.length - 1]
+      const lastMsg = lastData.message
+
+      if (lastMsg.quick_replies || lastMsg.quickReply) {
+        console.error('Message already have Quick Replies!!')
+        return null
+      }
+      const { onUpdate } = this.props
+      const newData = { ...lastData, type: 'box', message: { ...lastMsg, ...newMsg } }
+      let tmp = [...dataList]
+      tmp[dataList.length - 1] = newData
+      this.setState({ dataList: tmp })
+      onUpdate && onUpdate(tmp, ADD)
+    } else {
+      const newData = {
+        id: 'msg-' + shortid.generate(),
+        type: type === TEXT ? 'text' : 'box',
+        message: newMsg,
+      }
+      this.addMessage(newData)
     }
   }
 
