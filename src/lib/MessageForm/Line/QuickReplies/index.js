@@ -40,7 +40,7 @@ class QuickRepliesForm extends BaseMessageForm {
       let tmp = [...message.quickReply.items]
       const oldData = { ...tmp[index] }
       let newData = []
-      if (item.imageUrl && item.imageUrl !== oldData.imageUrl) {
+      if (item.imageUrl != null && item.imageUrl !== oldData.imageUrl) {
         newData = {
           ...oldData,
           imageUrl: item.imageUrl,

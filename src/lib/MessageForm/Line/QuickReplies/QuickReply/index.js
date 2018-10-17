@@ -35,7 +35,7 @@ const QuickReplyForm = props => {
       <InputField label="Image Url">
         <Input
           value={data.imageUrl}
-          onChange={e => dataChange({ imageUrl: e.target.value || undefined })}
+          onChange={e => dataChange({ imageUrl: e.target.value })}
           placeholder="Image or Icon of quickreply.."
         />
       </InputField>
@@ -45,7 +45,7 @@ const QuickReplyForm = props => {
           <InputField label="Text">
             <Input
               value={data.action.text}
-              onChange={e => dataChange({ text: e.target.value || undefined })}
+              onChange={e => dataChange({ text: e.target.value })}
               placeholder="Text when user tab a quick reply.."
             />
           </InputField>
@@ -64,7 +64,7 @@ const QuickReplyForm = props => {
           <InputField label="Text">
             <Input
               value={data.action.text}
-              onChange={e => dataChange({ text: e.target.value || undefined })}
+              onChange={e => dataChange({ text: e.target.value })}
               placeholder="Text when user tab a quick reply.."
             />
           </InputField>
@@ -87,7 +87,7 @@ const QuickReplyForm = props => {
           <InputField label="Data">
             <Input
               value={data.action.data}
-              onChange={e => dataChange({ data: e.target.value || undefined })}
+              onChange={e => dataChange({ data: e.target.value })}
               placeholder="Text when user tab a quick reply.."
             />
           </InputField>
