@@ -19,7 +19,7 @@ const Flex = styled.div`
 class QuickRepliesForm extends BaseMessageForm {
   addQuickReply = () => {
     const { message } = this.state
-    if (message && message.quickReply) {
+    if (message && message.quickReply && message.quickReply.items) {
       const tmp = [...message.quickReply.items, QuickReplyObject.message]
       this.setState({ message: { ...message, quickReply: { items: tmp } } })
     }
@@ -27,7 +27,7 @@ class QuickRepliesForm extends BaseMessageForm {
 
   delQuickReply = index => {
     const { message } = this.state
-    if (message && message.quickReply) {
+    if (message && message.quickReply && message.quickReply.items) {
       let tmp = [...message.quickReply.items]
       tmp.splice(index, 1)
       this.setState({ message: { ...message, quickReply: { items: tmp } } })
@@ -36,7 +36,7 @@ class QuickRepliesForm extends BaseMessageForm {
 
   inputChange = (item, index) => {
     const { message } = this.state
-    if (message && message.quickReply) {
+    if (message && message.quickReply && message.quickReply.items) {
       let tmp = [...message.quickReply.items]
       const oldData = { ...tmp[index] }
       let newData = []

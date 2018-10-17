@@ -21,9 +21,10 @@ const FacebookElement = props => {
     const attachmentType = message.attachment.type
     if (attachmentType === 'image') {
       const { payload } = message.attachment
+      const url = payload && payload.url
       messageElements = [
         ...messageElements,
-        <ImageElement url={payload.url} onClick={() => elementOnClick(IMAGE)} />,
+        <ImageElement url={url || ''} onClick={() => elementOnClick(IMAGE)} />,
       ]
     }
   }
