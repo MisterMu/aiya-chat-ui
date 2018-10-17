@@ -6,12 +6,13 @@ import shortid from 'shortid'
 import ModalForm from './ModalForm'
 import MessageRender from '../MessageRender'
 import { Flex, IconButton, DefaultText } from '../styled'
-import { channelTypes, messageTypes } from '../../constants'
+import { channelTypes, messageTypes, actionTypes } from '../../constants'
 import { FacebookForm, LineForm } from '../../lib/MessageForm'
 import { getFacebookMessageObject, getLineMessageObject } from '../../utils'
 
 const { FACEBOOK, LINE } = channelTypes
 const { TEXT, IMAGE, QUICKREPLIES } = messageTypes
+const { ADD, EDIT, DELETE } = actionTypes
 
 class MessageEditor extends React.Component {
   constructor(props) {
@@ -43,7 +44,7 @@ class MessageEditor extends React.Component {
     let tmp = [...dataList]
     tmp = [...tmp, newData]
     this.setState({ dataList: tmp })
-    onUpdate && onUpdate(tmp, 'add')
+    onUpdate && onUpdate(tmp, ADD)
   }
 
   updateMessage = (message, index) => {
@@ -55,7 +56,7 @@ class MessageEditor extends React.Component {
     }
     this.setState({ dataList: tmp })
     this.closeModal()
-    onUpdate && onUpdate(tmp, 'edit')
+    onUpdate && onUpdate(tmp, EDIT)
   }
 
   deleteMessage = index => {
@@ -63,7 +64,7 @@ class MessageEditor extends React.Component {
     let tmp = [...this.state.dataList]
     tmp.splice(index, 1)
     this.setState({ dataList: tmp })
-    onUpdate && onUpdate(tmp, 'delete')
+    onUpdate && onUpdate(tmp, DELETE)
   }
 
   addBtnClicked = type => {
@@ -88,7 +89,7 @@ class MessageEditor extends React.Component {
           let tmp = [...dataList]
           tmp[dataList.length - 1] = newData
           this.setState({ dataList: tmp })
-          onUpdate && onUpdate(tmp, 'add')
+          onUpdate && onUpdate(tmp, ADD)
         }
       } else {
         const newData = {
