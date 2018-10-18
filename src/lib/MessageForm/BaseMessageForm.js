@@ -25,9 +25,16 @@ class BaseMessageForm extends React.Component {
 
   onSubmit = e => {
     e && e.preventDefault()
+    if (!this.validateMessage()) {
+      return null
+    }
     const { message } = this.state
     const { onSubmit } = this.props
     onSubmit && onSubmit(message)
+  }
+
+  validateMessage = () => {
+    return true
   }
 
   inputChange = () => {}
