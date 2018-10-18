@@ -11,9 +11,19 @@ class ImageMessageForm extends BaseMessageForm {
     this.setState({ message: tmp })
   }
 
+  validateMessage = () => {
+    const { message } = this.state
+    const { url } = message.attachment && message.attachment.payload
+    if (!url) {
+      this.setState({ error: 'Image Url is required!!' })
+      return false
+    }
+    return true
+  }
+
   renderForm = () => {
     const { attachment } = this.state.message
-    const { url } = attachment.payload
+    const { url } = attachment && attachment.payload
     return (
       <form onSubmit={this.onSubmit}>
         <InputField label="Image Url">
