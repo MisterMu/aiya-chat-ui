@@ -19,12 +19,12 @@ class ImageMessageForm extends BaseMessageForm {
       this.setState({ error: 'Preview Image and Full Image url is required!!' })
       return false
     }
-    if (originalUrl.substr(0, 5) !== 'https') {
-      this.setState({ error: 'Full Image url must be a https!!' })
+    if (originalUrl.substr(0, 8) !== 'https://') {
+      this.setState({ error: 'Full Image url schema must be a https!!' })
       return false
     }
-    if (previewUrl.substr(0, 5) !== 'https') {
-      this.setState({ error: 'Preview Image url must be a https!!' })
+    if (previewUrl.substr(0, 8) !== 'https://') {
+      this.setState({ error: 'Preview Image url schema must be a https!!' })
       return false
     }
     return true
@@ -35,10 +35,7 @@ class ImageMessageForm extends BaseMessageForm {
     return (
       <form onSubmit={this.onSubmit}>
         <InputField label="Preview Image">
-          <Input
-            value={previewImageUrl}
-            onChange={e => this.inputChange('previewImageUrl', e.target.value)}
-          />
+          <Input value={previewImageUrl} onChange={e => this.inputChange('previewImageUrl', e.target.value)} />
         </InputField>
         <InputField label="Full Image">
           <Input
