@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Icon } from 'antd'
 import styled from 'styled-components'
+import { Types } from '../../../MessageObject/Line/quickReply'
 
 const Container = styled.div`
   display: flex;
@@ -12,6 +14,7 @@ const Container = styled.div`
   border-radius: 16px;
   padding: 4px 12px;
   font-size: 0.9em;
+  color: white;
 `
 
 const ImageContainer = styled.div`
@@ -27,12 +30,22 @@ const ImageContainer = styled.div`
 
 const QuickReplyElement = props => {
   const { data } = props
+  const getDefaultIcon = () => {
+    switch (data.action.type) {
+      case Types.CAMERA:
+        return <Icon type="camera" theme="filled" />
+      case Types.CAMERAROLL:
+        return <Icon type="picture" theme="filled" />
+      case Types.LOCATION:
+        return <Icon type="environment" theme="filled" />
+      default:
+        return null
+    }
+  }
   return (
     <Container>
-      {data && data.imageUrl && <ImageContainer imageUrl={data.imageUrl} />}
-      <span style={{ color: 'white' }}>
-        {(data && data.action && data.action.label) || 'Title'}
-      </span>
+      {data && data.imageUrl ? <ImageContainer imageUrl={data.imageUrl} /> : getDefaultIcon()}
+      <span style={{ marginLeft: 8 }}>{(data && data.action && data.action.label) || 'Title'}</span>
     </Container>
   )
 }
