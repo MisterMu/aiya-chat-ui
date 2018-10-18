@@ -72,14 +72,22 @@ const QuickReplyForm = props => {
         </React.Fragment>
       )}
 
+      {data.action.type === Types.URI && (
+        <React.Fragment>
+          <InputField label="Link">
+            <Input
+              value={data.action.uri}
+              onChange={e => dataChange({ uri: e.target.value })}
+              placeholder="Link to open when user tap a quick reply.."
+            />
+          </InputField>
+        </React.Fragment>
+      )}
+
       {data.action.type === Types.DATE && (
         <React.Fragment>
           <InputField label="Mode">
-            <Select
-              value={data.action.mode}
-              onChange={value => dataChange({ mode: value })}
-              style={{ width: 180 }}
-            >
+            <Select value={data.action.mode} onChange={value => dataChange({ mode: value })} style={{ width: 180 }}>
               <Select.Option value="date">Date</Select.Option>
               <Select.Option value="time">Time</Select.Option>
               <Select.Option value="datetime">Date / Time</Select.Option>
