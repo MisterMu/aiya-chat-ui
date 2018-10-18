@@ -7,12 +7,15 @@ const Flex = styled.div`
   align-items: center;
 `
 
-const BubbleMessage = styled.span`
+const BubbleMessage = styled.pre`
   background-color: ${props => props.color || '#eeeeee'};
   color: ${props => props.textColor || '#575757'};
   border-radius: 18px;
   padding: 8px 16px;
   display: inline-block;
+  max-width: 500px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 `
 
 const ImageContainer = styled.div`
