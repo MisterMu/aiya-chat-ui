@@ -1,27 +1,10 @@
 import React from 'react'
 import { Divider, Icon } from 'antd'
-import styled from 'styled-components'
 import QuickReplyForm from './QuickReply'
 import BaseMessageForm from '../../BaseMessageForm'
 import QuickReplyObject from '../../../MessageObject/Facebook/quickReply'
 import { swapArrayElement } from '../../../../utils'
-
-const Flex = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  i {
-    cursor: pointer;
-    margin-left: 8px;
-  }
-  .move-icon:hover {
-    color: #438ef7;
-  }
-  .del-icon:hover {
-    color: red;
-  }
-`
+import { Flex, Toolbar } from '../../styled'
 
 class QuickRepliesForm extends BaseMessageForm {
   addQuickReply = () => {
@@ -90,30 +73,30 @@ class QuickRepliesForm extends BaseMessageForm {
           <React.Fragment key={i}>
             <Flex>
               <Divider orientation="left">Quick Reply #{i + 1}</Divider>
-              <Flex>
+              <Toolbar>
                 {i !== 0 && (
                   <Icon
                     type="up-circle"
-                    className="move-icon"
+                    className="primary-icon"
                     onClick={() => this.moveQuickReply(i, 'up')}
                   />
                 )}
                 {i !== message.quick_replies.length - 1 && (
                   <Icon
                     type="down-circle"
-                    className="move-icon"
+                    className="primary-icon"
                     onClick={() => this.moveQuickReply(i, 'down')}
                   />
                 )}
                 {message.quick_replies.length !== 1 && (
                   <Icon
-                    className="del-icon"
                     type="close-circle"
+                    className="danger-icon"
                     theme="filled"
                     onClick={() => this.delQuickReply(i)}
                   />
                 )}
-              </Flex>
+              </Toolbar>
             </Flex>
             <QuickReplyForm data={quickReply} dataChange={item => this.inputChange(item, i)} />
           </React.Fragment>
