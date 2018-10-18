@@ -20,4 +20,9 @@ const Toolbar = styled(Flex)`
   }
 `
 
-export { Flex, Toolbar }
+const InfoText = styled.span`
+  color: rgba(0, 0, 0, 0.35);
+  font-size: 0.85em;
+`
+
+export { Flex, Toolbar, InfoText }
