@@ -2,7 +2,7 @@ import React from 'react'
 import { Divider, Icon } from 'antd'
 import QuickReplyForm from './QuickReply'
 import BaseMessageForm from '../../BaseMessageForm'
-import QuickReplyObject from '../../../MessageObject/Facebook/quickReply'
+import QuickReplyObject, { Types } from '../../../MessageObject/Facebook/quickReply'
 import { swapArrayElement } from '../../../../utils'
 import { Flex, Toolbar } from '../../styled'
 
@@ -61,6 +61,24 @@ class QuickRepliesForm extends BaseMessageForm {
     this.setState({ message: { ...message, quick_replies: tmp } })
   }
 
+  validateMessage = () => {
+    const { message } = this.state
+    const quickReplies = message.quick_replies && [...message.quick_replies]
+    return quickReplies.every((quickReply, i) => {
+      if (quickReply.content_type === Types.TEXT && !quickReply.title) {
+        this.setState({ error: `Quick Reply #${i + 1}: Title must not be empty!!` })
+        return false
+      }
+      if (quickReply.payload && quickReply.payload.length > 1000) {
+        this.setState({
+          error: `Quick Reply #${i + 1}: Payload cannot have length more than 1000 characters!!`,
+        })
+        return false
+      }
+      return true
+    })
+  }
+
   renderForm = () => {
     const { message } = this.state
     if (!message) {
@@ -102,8 +120,11 @@ class QuickRepliesForm extends BaseMessageForm {
           </React.Fragment>
         ))}
         <Divider />
-        {message.quick_replies.length < 10 && (
-          <Flex style={{ cursor: 'pointer' }} onClick={this.addQuickReply}>
+        {message.quick_replies.length < 11 && (
+          <Flex
+            style={{ cursor: 'pointer', justifyContent: 'center' }}
+            onClick={this.addQuickReply}
+          >
             <Icon type="plus-circle" />
             <span style={{ marginLeft: 8 }}>Add QuickReply</span>
           </Flex>
