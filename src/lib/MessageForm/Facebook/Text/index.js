@@ -16,7 +16,7 @@ class TextMessageForm extends BaseMessageForm {
     const { message } = this.state
     const text = (message && message.text) || ''
     if (text.length > 2000) {
-      this.setState({ error: 'Text Message cannot have length more than 2000 characters!!' })
+      this.setState({ error: 'Text Message must be no longer than 2000 characters!!' })
       return false
     }
     return true

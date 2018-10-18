@@ -71,7 +71,7 @@ class QuickRepliesForm extends BaseMessageForm {
       }
       if (quickReply.payload && quickReply.payload.length > 1000) {
         this.setState({
-          error: `Quick Reply #${i + 1}: Payload cannot have length more than 1000 characters!!`,
+          error: `Quick Reply #${i + 1}: Payload must be no longer than 1000 characters!!`,
         })
         return false
       }
