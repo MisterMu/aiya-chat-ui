@@ -42,10 +42,10 @@ const QuickReplyForm = props => {
 
       {data.action.type === Types.POSTBACK && (
         <React.Fragment>
-          <InputField label="Text">
+          <InputField label="Display Text">
             <Input
-              value={data.action.text}
-              onChange={e => dataChange({ text: e.target.value })}
+              value={data.action.displayText}
+              onChange={e => dataChange({ displayText: e.target.value })}
               placeholder="Text when user tab a quick reply.."
             />
           </InputField>
