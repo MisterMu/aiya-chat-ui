@@ -49,8 +49,8 @@ class BaseMessageForm extends React.Component {
     return (
       <React.Fragment>
         {this.renderForm()}
-        {error && <Alert type="error" message={error} />}
         <Divider style={{ marginBottom: 16 }} />
+        {error && <Alert type="error" message={error} style={{ marginBottom: 16 }} />}
         <Flex style={{ justifyContent: 'flex-end' }}>
           <Button onClick={closeForm} style={{ marginRight: 8 }}>
             Cancel
