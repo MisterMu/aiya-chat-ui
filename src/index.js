@@ -3,6 +3,7 @@ import MessageDisplay from './components/MessageDisplay'
 import MessageRender from './components/MessageRender'
 import { FacebookElement, LineElement } from './lib/MessageElement'
 import * as Utils from './utils'
+import './global.css'
 
 export {
   MessageEditor,
