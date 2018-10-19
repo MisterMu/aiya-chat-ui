@@ -16,7 +16,7 @@ const FacebookElement = props => {
 
   let messageElements = []
   if (message.text) {
-    messageElements = [<TextElement text={message.text} onClick={() => elementOnClick(TEXT)} />]
+    messageElements = [<TextElement text={message.text} onClick={elementOnClick && (() => elementOnClick(TEXT))} />]
   } else if (message.attachment) {
     const attachmentType = message.attachment.type
     if (attachmentType === 'image') {
@@ -24,7 +24,7 @@ const FacebookElement = props => {
       const url = payload && payload.url
       messageElements = [
         ...messageElements,
-        <ImageElement url={url || ''} onClick={() => elementOnClick(IMAGE)} />,
+        <ImageElement url={url || ''} onClick={elementOnClick && (() => elementOnClick(IMAGE))} />,
       ]
     }
   }
@@ -34,7 +34,7 @@ const FacebookElement = props => {
       ...messageElements,
       <QuickRepliesElement
         quickReplies={message.quick_replies}
-        onClick={() => elementOnClick(QUICKREPLIES)}
+        onClick={elementOnClick && (() => elementOnClick(QUICKREPLIES))}
       />,
     ]
   }
