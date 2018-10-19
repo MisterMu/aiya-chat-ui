@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import { messageTypes } from '../../../constants'
 import TextElement from './Text'
 import ImageElement from './Image'
+import AudioElement from './Audio'
 import QuickRepliesElement from './QuickReplies'
 import { MessageContainer, BubbleContainer } from '../styled'
 
-const { TEXT, IMAGE, QUICKREPLIES } = messageTypes
+const { TEXT, IMAGE, AUDIO, QUICKREPLIES } = messageTypes
 
 const LineElement = props => {
   const { message, showQuickReplies, elementOnClick, align } = props
@@ -21,6 +22,11 @@ const LineElement = props => {
   } else if (message.type === 'image') {
     const { previewImageUrl } = message
     messageElements = [<ImageElement url={previewImageUrl} onClick={elementOnClick && (() => elementOnClick(IMAGE))} />]
+  } else if (message.type === 'audio') {
+    const { originalContentUrl } = message
+    messageElements = [
+      <AudioElement url={originalContentUrl} onClick={elementOnClick && (() => elementOnClick(AUDIO))} />,
+    ]
   } else {
     return null
   }

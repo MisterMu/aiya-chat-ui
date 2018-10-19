@@ -4,9 +4,10 @@ import { messageTypes } from '../../../constants'
 import { BubbleContainer, MessageContainer } from '../styled'
 import TextElement from './Text'
 import ImageElement from './Image'
+import AudioElement from './Audio'
 import QuickRepliesElement from './QuickReplies'
 
-const { TEXT, IMAGE, QUICKREPLIES } = messageTypes
+const { TEXT, IMAGE, AUDIO, QUICKREPLIES } = messageTypes
 
 const FacebookElement = props => {
   const { message, showQuickReplies, elementOnClick, align } = props
@@ -22,11 +23,16 @@ const FacebookElement = props => {
     if (attachmentType === 'image') {
       const { payload } = message.attachment
       const url = payload && payload.url
-      messageElements = [
-        ...messageElements,
-        <ImageElement url={url || ''} onClick={elementOnClick && (() => elementOnClick(IMAGE))} />,
-      ]
+      messageElements = [<ImageElement url={url || ''} onClick={elementOnClick && (() => elementOnClick(IMAGE))} />]
+    } else if (attachmentType === 'audio') {
+      const { payload } = message.attachment
+      const url = payload && payload.url
+      messageElements = [<AudioElement url={url} onClick={elementOnClick && (() => elementOnClick(AUDIO))} />]
+    } else {
+      return null
     }
+  } else {
+    return null
   }
 
   if (showQuickReplies && message.quick_replies) {
