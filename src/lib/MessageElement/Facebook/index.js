@@ -6,8 +6,9 @@ import TextElement from './Text'
 import ImageElement from './Image'
 import AudioElement from './Audio'
 import QuickRepliesElement from './QuickReplies'
+import TemplateElement from './Templates'
 
-const { TEXT, IMAGE, AUDIO, QUICKREPLIES } = messageTypes
+const { TEXT, IMAGE, AUDIO, QUICKREPLIES, TEMPLATES } = messageTypes
 
 const FacebookElement = props => {
   const { message, showQuickReplies, elementOnClick, align } = props
@@ -28,6 +29,11 @@ const FacebookElement = props => {
       const { payload } = message.attachment
       const url = payload && payload.url
       messageElements = [<AudioElement url={url} onClick={elementOnClick && (() => elementOnClick(AUDIO))} />]
+    } else if (attachmentType === 'template') {
+      const { payload } = message.attachment
+      messageElements = [
+        <TemplateElement payload={payload} onClick={elementOnClick && (() => elementOnClick(TEMPLATES))} />,
+      ]
     } else {
       return null
     }
@@ -63,6 +69,6 @@ FacebookElement.propTypes = {
   align: PropTypes.oneOf(['left', 'center', 'right']),
 }
 
-export { TextElement, ImageElement }
+export { TextElement, ImageElement, TemplateElement }
 
 export default FacebookElement
