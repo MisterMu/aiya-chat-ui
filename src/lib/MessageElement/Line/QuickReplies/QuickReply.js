@@ -30,6 +30,9 @@ const ImageContainer = styled.div`
 
 const QuickReplyElement = props => {
   const { data } = props
+  if (!(data && data.action)) {
+    return null
+  }
   const getDefaultIcon = () => {
     switch (data.action.type) {
       case Types.CAMERA:
@@ -44,8 +47,8 @@ const QuickReplyElement = props => {
   }
   return (
     <Container>
-      {data && data.imageUrl ? <ImageContainer imageUrl={data.imageUrl} /> : getDefaultIcon()}
-      <span style={{ marginLeft: 8 }}>{(data && data.action && data.action.label) || 'Title'}</span>
+      {data.imageUrl ? <ImageContainer imageUrl={data.imageUrl} /> : getDefaultIcon()}
+      <span style={{ marginLeft: 8 }}>{data.action.label || 'Title'}</span>
     </Container>
   )
 }
