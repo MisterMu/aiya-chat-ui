@@ -10,7 +10,7 @@ export default {
           subtitle: 'subtitle',
           default_action: {
             type: 'web_url',
-            url: 'www.google.com',
+            url: '',
             webview_height_ratio: 'tall',
           },
           buttons: [
