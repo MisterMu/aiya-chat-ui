@@ -12,8 +12,8 @@ const GenericTemplateElement = props => {
         <pre>{subtitle}</pre>
       </TextContainer>
       <ButtonContainer>
-        {buttons.map(btn => (
-          <TemplateButton>
+        {buttons.map((btn, i) => (
+          <TemplateButton key={i}>
             <span>{btn}</span>
           </TemplateButton>
         ))}
