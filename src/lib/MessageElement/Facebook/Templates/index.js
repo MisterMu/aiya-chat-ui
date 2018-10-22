@@ -7,7 +7,6 @@ const { GENERIC } = Types
 
 const TemplateElement = props => {
   const { payload, onClick } = props
-  console.log(payload, GENERIC)
   if (payload.template_type === GENERIC) {
     const elements = payload.elements
     const imageRatio = payload.image_aspect_ratio
