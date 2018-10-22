@@ -5,7 +5,9 @@ import InputField from '../../InputField'
 
 class AudioMessageForm extends BaseMessageForm {
   inputChange = value => {
+    const { message } = this.state
     let tmp = {
+      ...message,
       attachment: {
         type: 'audio',
         payload: {
@@ -27,12 +29,17 @@ class AudioMessageForm extends BaseMessageForm {
   }
 
   renderForm = () => {
-    const { attachment } = this.state.message
-    const { url } = attachment && attachment.payload
+    const { message } = this.state
+    if (!(message && message.attachment && message.attachment.payload)) {
+      return null
+    }
+
+    const payload = { ...message.attachment.payload }
+
     return (
       <form onSubmit={this.onSubmit}>
         <InputField label="Audio Url">
-          <Input value={url} onChange={e => this.inputChange(e.target.value)} autoFocus />
+          <Input value={payload.url} onChange={e => this.inputChange(e.target.value)} autoFocus />
         </InputField>
       </form>
     )
