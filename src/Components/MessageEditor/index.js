@@ -11,7 +11,7 @@ import { FacebookForm, LineForm } from '../../lib/MessageForm'
 import { getFacebookMessageObject, getLineMessageObject } from '../../utils'
 
 const { FACEBOOK, LINE } = channelTypes
-const { TEXT, IMAGE, QUICKREPLIES, AUDIO } = messageTypes
+const { TEXT, IMAGE, QUICKREPLIES } = messageTypes
 const { ADD, EDIT, DELETE } = actionTypes
 
 class MessageEditor extends React.Component {
@@ -172,10 +172,10 @@ class MessageEditor extends React.Component {
     // assign neccessary value for each channel editor
     if (channel === FACEBOOK) {
       EditForm = FacebookForm
-      avaliableType = [TEXT, IMAGE, AUDIO, QUICKREPLIES]
+      avaliableType = [TEXT, IMAGE, QUICKREPLIES]
     } else if (channel === LINE) {
       EditForm = LineForm
-      avaliableType = [TEXT, IMAGE, AUDIO, QUICKREPLIES]
+      avaliableType = [TEXT, IMAGE, QUICKREPLIES]
     }
 
     return (
