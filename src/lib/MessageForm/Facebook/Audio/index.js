@@ -5,9 +5,14 @@ import InputField from '../../InputField'
 
 class AudioMessageForm extends BaseMessageForm {
   inputChange = value => {
-    const { message } = this.state
-    let tmp = { ...message }
-    tmp.attachment.payload.url = value
+    let tmp = {
+      attachment: {
+        type: 'audio',
+        payload: {
+          url: value,
+        },
+      },
+    }
     this.setState({ message: tmp })
   }
 
