@@ -25,4 +25,20 @@ const InfoText = styled.span`
   font-size: 0.85em;
 `
 
-export { Flex, Toolbar, InfoText }
+const IconButton = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translate(36px, -50%);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  .primary-icon:hover {
+    color: #438ef7;
+  }
+  .danger-icon:hover {
+    color: red;
+  }
+`
+
+export { Flex, Toolbar, InfoText, IconButton }
