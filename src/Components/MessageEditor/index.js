@@ -113,13 +113,15 @@ class MessageEditor extends React.Component {
       <React.Fragment>
         {(dataList || []).map((data, i) => (
           <Flex style={{ justifyContent: 'flex-end', marginBottom: 8 }} key={i}>
-            <MessageRender
-              channel={channel}
-              data={data}
-              elementOnClick={type => this.startEdit(i, type)}
-              align="right"
-              showQuickReplies={i === dataList.length - 1}
-            />
+            <Flex style={{ maxWidth: 'calc(100% - 24px)', overflow: 'auto', justifyContent: 'flex-start' }}>
+              <MessageRender
+                channel={channel}
+                data={data}
+                elementOnClick={type => this.startEdit(i, type)}
+                align="right"
+                showQuickReplies={i === dataList.length - 1}
+              />
+            </Flex>
             <IconButton color="red">
               <Icon type="delete" onClick={() => this.deleteMessage(i)} />
             </IconButton>
