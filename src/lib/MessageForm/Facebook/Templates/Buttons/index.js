@@ -37,7 +37,7 @@ class ButtonsForm extends React.Component {
   }
 
   render() {
-    const { data } = this.props
+    const { data, max } = this.props
     if (!data) {
       return null
     }
@@ -70,7 +70,7 @@ class ButtonsForm extends React.Component {
             </InputField>
           </React.Fragment>
         ))}
-        {data.length < 3 && (
+        {data.length < (max || Number.Infinity) && (
           <Flex style={{ padding: 8, cursor: 'pointer', justifyContent: 'center' }} onClick={this.addBtn}>
             <span style={{ textDecoration: 'underline' }}>
               <Icon type="plus-circle" style={{ marginRight: 8 }} /> Add Button
@@ -85,6 +85,7 @@ class ButtonsForm extends React.Component {
 ButtonsForm.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   updateButtons: PropTypes.func.isRequired,
+  max: PropTypes.number,
 }
 
 export default ButtonsForm
