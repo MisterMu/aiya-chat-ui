@@ -6,7 +6,7 @@ const GenericTemplateElement = props => {
   const { title, imageRatio, imageUrl, subtitle, buttons } = props.data
   return (
     <TemplateContainer>
-      <ImageCover imageUrl={imageUrl} ratio={imageRatio} />
+      {imageUrl && <ImageCover imageUrl={imageUrl} ratio={imageRatio} />}
       <TextContainer>
         <h3>{title}</h3>
         <pre>{subtitle}</pre>

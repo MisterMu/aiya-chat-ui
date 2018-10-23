@@ -5,6 +5,7 @@ const TemplateContainer = styled.div`
   border-radius: 16px;
   overflow: hidden;
   margin-right: 8px;
+  width: 320px;
 `
 
 const TextContainer = styled.div`
