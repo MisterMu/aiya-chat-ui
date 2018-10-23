@@ -26,13 +26,16 @@ const InfoText = styled.span`
 `
 
 const IconButton = styled.div`
-  position: absolute;
-  top: 50%;
-  right: 0px;
-  transform: translate(36px, -50%);
+  position: relative;
   width: 24px;
   height: 24px;
   cursor: pointer;
+  i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
   .primary-icon:hover {
     color: #438ef7;
   }
@@ -41,4 +44,15 @@ const IconButton = styled.div`
   }
 `
 
-export { Flex, Toolbar, InfoText, IconButton }
+const AddBtn = styled(Flex)`
+  padding: 8px;
+  cursor: pointer;
+  justify-content: center;
+  &:hover {
+    span {
+      text-decoration: underline;
+    }
+  }
+`
+
+export { Flex, Toolbar, InfoText, IconButton, AddBtn }
