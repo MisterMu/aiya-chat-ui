@@ -2,7 +2,7 @@ import { messageTypes } from '../constants'
 import { FacebookMessage, LineMessage } from '../lib/MessageObject'
 import _ from 'lodash'
 
-const { TEXT, IMAGE, AUDIO, QUICKREPLIES } = messageTypes
+const { TEXT, IMAGE, AUDIO, TEMPLATES, QUICKREPLIES } = messageTypes
 
 export function getFacebookMessageObject(type) {
   let obj = {}
@@ -12,6 +12,8 @@ export function getFacebookMessageObject(type) {
     obj = FacebookMessage.Image
   } else if (type === AUDIO) {
     obj = FacebookMessage.Audio
+  } else if (type === TEMPLATES) {
+    obj = FacebookMessage.Templates.generic
   } else if (type === QUICKREPLIES) {
     obj = { quick_replies: [FacebookMessage.QuickReply.text] }
   }
