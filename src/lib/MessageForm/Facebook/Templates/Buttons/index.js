@@ -6,7 +6,7 @@ import PostbackButton from './PostbackButton'
 import CallButton from './CallButton'
 import InputField from '../../../InputField'
 import ButtonObject, { Types } from '../../../../MessageObject/Facebook/Buttons'
-import { Flex, IconButton } from '../../../styled'
+import { AddBtn, IconButton, Flex } from '../../../styled'
 
 const { URL, POSTBACK, CALL } = Types
 
@@ -46,36 +46,40 @@ class ButtonsForm extends React.Component {
       <React.Fragment>
         {data.map((btn, i) => (
           <React.Fragment key={i}>
-            <InputField label={`Button#${i + 1}`} style={{ marginRight: 24, position: 'relative' }}>
-              <Select
-                value={btn.type}
-                onChange={val => this.updateBtns({ type: val }, i)}
-                placeholder="-- Select Type --"
-                style={{ width: 180, marginBottom: 8 }}
-              >
-                {Object.keys(Types).map(key => (
-                  <Select.Option key={key} value={Types[key]}>
-                    <span>{Types[key]}</span>
-                  </Select.Option>
-                ))}
-              </Select>
-              {btn.type === URL && <UrlButton data={btn} updateBtn={item => this.updateBtns(item, i)} />}
-              {btn.type === POSTBACK && <PostbackButton data={btn} updateBtn={item => this.updateBtns(item, i)} />}
-              {btn.type === CALL && <CallButton data={btn} updateBtn={item => this.updateBtns(item, i)} />}
-              {i !== 0 && (
-                <IconButton onClick={() => this.delBtn(i)}>
-                  <Icon type="close-circle" theme="filled" className="danger-icon" />
-                </IconButton>
-              )}
+            <InputField label={`Button#${i + 1}`}>
+              <Flex>
+                <div style={{ width: 'calc(100% - 32px)' }}>
+                  <Select
+                    value={btn.type}
+                    onChange={val => this.updateBtns({ type: val }, i)}
+                    placeholder="-- Select Type --"
+                    style={{ width: 180, marginBottom: 8 }}
+                  >
+                    {Object.keys(Types).map(key => (
+                      <Select.Option key={key} value={Types[key]}>
+                        <span>{Types[key]}</span>
+                      </Select.Option>
+                    ))}
+                  </Select>
+                  {btn.type === URL && <UrlButton data={btn} updateBtn={item => this.updateBtns(item, i)} />}
+                  {btn.type === POSTBACK && <PostbackButton data={btn} updateBtn={item => this.updateBtns(item, i)} />}
+                  {btn.type === CALL && <CallButton data={btn} updateBtn={item => this.updateBtns(item, i)} />}
+                </div>
+                {i !== 0 && (
+                  <IconButton onClick={() => this.delBtn(i)}>
+                    <Icon type="close-circle" theme="filled" className="danger-icon" />
+                  </IconButton>
+                )}
+              </Flex>
             </InputField>
           </React.Fragment>
         ))}
-        {data.length < (max || Number.Infinity) && (
-          <Flex style={{ padding: 8, cursor: 'pointer', justifyContent: 'center' }} onClick={this.addBtn}>
-            <span style={{ textDecoration: 'underline' }}>
-              <Icon type="plus-circle" style={{ marginRight: 8 }} /> Add Button
+        {data.length < (max || Number.POSITIVE_INFINITY) && (
+          <AddBtn onClick={this.addBtn}>
+            <span>
+              <Icon type="plus-circle" /> Add Button
             </span>
-          </Flex>
+          </AddBtn>
         )}
       </React.Fragment>
     )
