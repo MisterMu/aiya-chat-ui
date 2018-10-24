@@ -1,5 +1,5 @@
 import carousel from './carousel'
-import { Types } from './types'
+import Types from './types'
 
 export { Types }
 
