@@ -4,10 +4,11 @@ import { messageTypes } from '../../../constants'
 import TextElement from './Text'
 import ImageElement from './Image'
 import AudioElement from './Audio'
+import TemplateElement from './Templates'
 import QuickRepliesElement from './QuickReplies'
 import { MessageContainer, BubbleContainer } from '../styled'
 
-const { TEXT, IMAGE, AUDIO, QUICKREPLIES } = messageTypes
+const { TEXT, IMAGE, AUDIO, TEMPLATES, QUICKREPLIES } = messageTypes
 
 const LineElement = props => {
   const { message, showQuickReplies, elementOnClick, align } = props
@@ -26,6 +27,11 @@ const LineElement = props => {
     const { originalContentUrl } = message
     messageElements = [
       <AudioElement url={originalContentUrl} onClick={elementOnClick && (() => elementOnClick(AUDIO))} />,
+    ]
+  } else if (message.type === 'template') {
+    const { template } = message
+    messageElements = [
+      <TemplateElement data={template} onClick={elementOnClick && (() => elementOnClick(TEMPLATES))} />,
     ]
   } else {
     return null
