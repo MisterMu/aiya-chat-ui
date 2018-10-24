@@ -56,7 +56,7 @@ export default [
         type: 'carousel',
         columns: [
           {
-            thumbnailImageUrl: '',
+            thumbnailImageUrl: 'https://fp2w.org/assets/ext/blob.jpg',
             title: 'Title',
             text: 'Description',
             defaultAction: {
