@@ -1,27 +1,10 @@
 import React from 'react'
 import { Divider, Icon } from 'antd'
-import styled from 'styled-components'
 import QuickReplyForm from './QuickReply'
 import BaseMessageForm from '../../BaseMessageForm'
-import QuickReplyObject from '../../../MessageObject/Line/quickReply'
+import QuickReplyObject, { Types } from '../../../MessageObject/Line/quickReply'
 import { swapArrayElement } from '../../../../utils'
-
-const Flex = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  i {
-    cursor: pointer;
-    margin-left: 8px;
-  }
-  .move-icon:hover {
-    color: #438ef7;
-  }
-  .del-icon:hover {
-    color: red;
-  }
-`
+import { Flex, Toolbar } from '../../styled'
 
 class QuickRepliesForm extends BaseMessageForm {
   addQuickReply = () => {
@@ -89,6 +72,80 @@ class QuickRepliesForm extends BaseMessageForm {
     this.setState({ message: { ...message, quickReply: { items: tmp } } })
   }
 
+  validateMessage = () => {
+    const { message } = this.state
+    const quickReplies = message.quickReply && [...message.quickReply.items]
+    return quickReplies.every((quickReply, i) => {
+      if (quickReply.imageUrl && quickReply.imageUrl.substr(0, 8) !== 'https://') {
+        this.setState({ error: `Quick Reply #${i + 1}: Image url schema must be a https!!` })
+        return false
+      }
+      if (!quickReply.action.label) {
+        this.setState({ error: `Quick Reply #${i + 1}: Label is required!!` })
+        return false
+      }
+      if (quickReply.action.label && quickReply.action.label.length > 20) {
+        this.setState({
+          error: `Quick Reply #${i + 1}: Label must be no longer than 20 characters!!`,
+        })
+        return false
+      }
+      if (quickReply.action.type === Types.POSTBACK) {
+        if (!quickReply.action.data) {
+          this.setState({ error: `Quick Reply #${i + 1}: Postback data is required!!` })
+          return false
+        }
+        if (quickReply.action.data.length > 300) {
+          this.setState({ error: `Quick Reply #${i + 1}: Postback data must be no longer than 300 characters!!` })
+          return false
+        }
+        if (!quickReply.action.displayText) {
+          this.setState({ error: `Quick Reply #${i + 1}: Postback displayText is required!!` })
+          return false
+        }
+        if (quickReply.action.displayText.length > 300) {
+          this.setState({
+            error: `Quick Reply #${i + 1}: Postback displayText must be no longer than 300 characters!!`,
+          })
+          return false
+        }
+      } else if (quickReply.action.type === Types.MESSAGE) {
+        if (!quickReply.action.text) {
+          this.setState({ error: `Quick Reply #${i + 1}: Message text is required!!` })
+          return false
+        }
+        if (quickReply.action.text.length > 300) {
+          this.setState({ error: `Quick Reply #${i + 1}: Message text must be no longer than 300 characters!!` })
+          return false
+        }
+      } else if (quickReply.action.type === Types.URI) {
+        const regEx = /(^https:\/\/|^http:\/\/|^line:\/\/|^tel:\/\/)/g
+        if (!quickReply.action.uri) {
+          this.setState({ error: `Quick Reply #${i + 1}: URI link is required!!` })
+          return false
+        }
+        if (!regEx.test(quickReply.action.uri)) {
+          this.setState({ error: `Quick Reply #${i + 1}: URI link schema must be one of http, https, line, tel!!` })
+          return false
+        }
+        if (quickReply.action.uri.length > 1000) {
+          this.setState({ error: `Quick Reply #${i + 1}: URI link must be no longer than 1000 characters!!` })
+          return false
+        }
+      } else if (quickReply.action.type === Types.DATE) {
+        if (!quickReply.action.data) {
+          this.setState({ error: `Quick Reply #${i + 1}: DatePicker data is required!!` })
+          return false
+        }
+        if (quickReply.action.data.length > 300) {
+          this.setState({ error: `Quick Reply #${i + 1}: DatePicker data must be no longer than 300 characters!!` })
+          return false
+        }
+      }
+      return true
+    })
+  }
+
   renderForm = () => {
     const { message } = this.state
     if (!message || !message.quickReply) {
@@ -100,37 +157,29 @@ class QuickRepliesForm extends BaseMessageForm {
           <React.Fragment key={i}>
             <Flex>
               <Divider orientation="left">Quick Reply #{i + 1}</Divider>
-              <Flex>
+              <Toolbar>
                 {i !== 0 && (
-                  <Icon
-                    type="up-circle"
-                    className="move-icon"
-                    onClick={() => this.moveQuickReply(i, 'up')}
-                  />
+                  <Icon type="up-circle" className="primary-icon" onClick={() => this.moveQuickReply(i, 'up')} />
                 )}
                 {i !== message.quickReply.items.length - 1 && (
-                  <Icon
-                    type="down-circle"
-                    className="move-icon"
-                    onClick={() => this.moveQuickReply(i, 'down')}
-                  />
+                  <Icon type="down-circle" className="primary-icon" onClick={() => this.moveQuickReply(i, 'down')} />
                 )}
                 {message.quickReply.items.length !== 1 && (
                   <Icon
-                    className="del-icon"
                     type="close-circle"
+                    className="danger-icon"
                     theme="filled"
                     onClick={() => this.delQuickReply(i)}
                   />
                 )}
-              </Flex>
+              </Toolbar>
             </Flex>
             <QuickReplyForm data={quickReply} dataChange={item => this.inputChange(item, i)} />
           </React.Fragment>
         ))}
         <Divider />
-        {message.quickReply.items.length < 10 && (
-          <Flex style={{ cursor: 'pointer' }} onClick={this.addQuickReply}>
+        {message.quickReply.items.length < 13 && (
+          <Flex style={{ cursor: 'pointer', justifyContent: 'center' }} onClick={this.addQuickReply}>
             <Icon type="plus-circle" />
             <span style={{ marginLeft: 8 }}>Add QuickReply</span>
           </Flex>

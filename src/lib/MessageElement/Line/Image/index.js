@@ -14,7 +14,7 @@ const ImageElement = props => {
 
 ImageElement.propTypes = {
   url: PropTypes.string,
-  onClick: PropTypes.function,
+  onClick: PropTypes.func,
 }
 
 export default ImageElement

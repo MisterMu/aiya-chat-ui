@@ -5,4 +5,5 @@ export default {
   CAMERA: 'camera',
   CAMERAROLL: 'cameraRoll',
   LOCATION: 'location',
+  URI: 'uri',
 }

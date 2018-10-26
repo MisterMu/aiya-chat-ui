@@ -1,5 +1,6 @@
 import postback from './postback'
 import message from './message'
+import uri from './uri'
 import date from './dateTimePicker'
 import camera from './camera'
 import cameraRoll from './cameraRoll'
@@ -11,6 +12,7 @@ export { Types }
 export default {
   postback,
   message,
+  uri,
   datetimepicker: date,
   camera,
   cameraRoll,

@@ -4,9 +4,11 @@ import { messageTypes } from '../../../constants'
 import { BubbleContainer, MessageContainer } from '../styled'
 import TextElement from './Text'
 import ImageElement from './Image'
+import AudioElement from './Audio'
 import QuickRepliesElement from './QuickReplies'
+import TemplateElement from './Templates'
 
-const { TEXT, IMAGE, QUICKREPLIES } = messageTypes
+const { TEXT, IMAGE, AUDIO, QUICKREPLIES, TEMPLATES } = messageTypes
 
 const FacebookElement = props => {
   const { message, showQuickReplies, elementOnClick, align } = props
@@ -16,17 +18,27 @@ const FacebookElement = props => {
 
   let messageElements = []
   if (message.text) {
-    messageElements = [<TextElement text={message.text} onClick={() => elementOnClick(TEXT)} />]
+    messageElements = [<TextElement text={message.text} onClick={elementOnClick && (() => elementOnClick(TEXT))} />]
   } else if (message.attachment) {
     const attachmentType = message.attachment.type
     if (attachmentType === 'image') {
       const { payload } = message.attachment
       const url = payload && payload.url
+      messageElements = [<ImageElement url={url || ''} onClick={elementOnClick && (() => elementOnClick(IMAGE))} />]
+    } else if (attachmentType === 'audio') {
+      const { payload } = message.attachment
+      const url = payload && payload.url
+      messageElements = [<AudioElement url={url} onClick={elementOnClick && (() => elementOnClick(AUDIO))} />]
+    } else if (attachmentType === 'template') {
+      const { payload } = message.attachment
       messageElements = [
-        ...messageElements,
-        <ImageElement url={url || ''} onClick={() => elementOnClick(IMAGE)} />,
+        <TemplateElement payload={payload} onClick={elementOnClick && (() => elementOnClick(TEMPLATES))} />,
       ]
+    } else {
+      return null
     }
+  } else {
+    return null
   }
 
   if (showQuickReplies && message.quick_replies) {
@@ -34,7 +46,7 @@ const FacebookElement = props => {
       ...messageElements,
       <QuickRepliesElement
         quickReplies={message.quick_replies}
-        onClick={() => elementOnClick(QUICKREPLIES)}
+        onClick={elementOnClick && (() => elementOnClick(QUICKREPLIES))}
       />,
     ]
   }
@@ -57,6 +69,6 @@ FacebookElement.propTypes = {
   align: PropTypes.oneOf(['left', 'center', 'right']),
 }
 
-export { TextElement, ImageElement }
+export { TextElement, ImageElement, TemplateElement }
 
 export default FacebookElement

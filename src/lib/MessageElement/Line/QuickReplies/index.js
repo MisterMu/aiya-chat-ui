@@ -27,9 +27,9 @@ class QuickRepliesElement extends React.Component {
 }
 
 QuickRepliesElement.propTypes = {
-  quickReplies: PropTypes.arrayOf(
+  quickReplies: PropTypes.shape(
     PropTypes.shape({
-      items: PropTypes.object,
+      items: PropTypes.arrayOf(PropTypes.object),
     }),
   ),
   onClick: PropTypes.func,

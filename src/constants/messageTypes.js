@@ -5,4 +5,5 @@ export default {
   VIDEO: 'video',
   FILE: 'file',
   QUICKREPLIES: 'quick replies',
+  TEMPLATES: 'templates',
 }

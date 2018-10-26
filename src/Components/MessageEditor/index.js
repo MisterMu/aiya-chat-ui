@@ -11,7 +11,7 @@ import { FacebookForm, LineForm } from '../../lib/MessageForm'
 import { getFacebookMessageObject, getLineMessageObject } from '../../utils'
 
 const { FACEBOOK, LINE } = channelTypes
-const { TEXT, IMAGE, QUICKREPLIES } = messageTypes
+const { TEXT, IMAGE, TEMPLATES, QUICKREPLIES } = messageTypes
 const { ADD, EDIT, DELETE } = actionTypes
 
 class MessageEditor extends React.Component {
@@ -113,13 +113,15 @@ class MessageEditor extends React.Component {
       <React.Fragment>
         {(dataList || []).map((data, i) => (
           <Flex style={{ justifyContent: 'flex-end', marginBottom: 8 }} key={i}>
-            <MessageRender
-              channel={channel}
-              data={data}
-              elementOnClick={type => this.startEdit(i, type)}
-              align="right"
-              showQuickReplies={i === dataList.length - 1}
-            />
+            <Flex style={{ maxWidth: 'calc(100% - 24px)', overflow: 'auto', justifyContent: 'flex-start' }}>
+              <MessageRender
+                channel={channel}
+                data={data}
+                elementOnClick={type => this.startEdit(i, type)}
+                align="right"
+                showQuickReplies={i === dataList.length - 1}
+              />
+            </Flex>
             <IconButton color="red">
               <Icon type="delete" onClick={() => this.deleteMessage(i)} />
             </IconButton>
@@ -172,7 +174,7 @@ class MessageEditor extends React.Component {
     // assign neccessary value for each channel editor
     if (channel === FACEBOOK) {
       EditForm = FacebookForm
-      avaliableType = [TEXT, IMAGE, QUICKREPLIES]
+      avaliableType = [TEXT, IMAGE, TEMPLATES, QUICKREPLIES]
     } else if (channel === LINE) {
       EditForm = LineForm
       avaliableType = [TEXT, IMAGE, QUICKREPLIES]

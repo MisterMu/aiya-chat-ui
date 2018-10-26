@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Select, Input } from 'antd'
 
 import InputField from '../../../InputField'
+import { InfoText, Flex } from '../../../styled'
 import { Types } from '../../../../MessageObject/Facebook/quickReply'
 
 const QuickReplyForm = props => {
@@ -33,6 +34,10 @@ const QuickReplyForm = props => {
               onChange={e => dataChange({ title: e.target.value })}
               placeholder="Text to show on quickreply button.."
             />
+            <Flex style={{ justifyContent: 'space-between' }}>
+              <InfoText>If title length longer than 20 characters it will be wrapped</InfoText>
+              <InfoText>{(data.title && data.title.length) || 0} / 20</InfoText>
+            </Flex>
           </InputField>
           <InputField label="Payload">
             <Input.TextArea
@@ -41,6 +46,9 @@ const QuickReplyForm = props => {
               placeholder="Data that send to webhook.."
               autosize
             />
+            <Flex style={{ justifyContent: 'flex-end' }}>
+              <InfoText>{(data.payload && data.payload.length) || 0} / 1000</InfoText>
+            </Flex>
           </InputField>
           <InputField label="Image Url">
             <Input
