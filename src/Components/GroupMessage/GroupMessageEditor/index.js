@@ -4,7 +4,7 @@ import { Button, Divider } from 'antd'
 import shortid from 'shortid'
 import GroupMessage from './GroupMessage'
 import { channelTypes, actionTypes } from '../../../constants'
-import { Flex } from '../../styled'
+import { Flex, DefaultText } from '../../styled'
 
 const { ADD, UPDATE, DELETE } = actionTypes
 
@@ -62,7 +62,7 @@ class GroupMessageEditor extends React.Component {
   }
 
   render() {
-    const { channel } = this.props
+    const { channel, noMessageText } = this.props
     const { dataList } = this.state
     if (!dataList) {
       return null
@@ -81,6 +81,11 @@ class GroupMessageEditor extends React.Component {
             />
           </React.Fragment>
         ))}
+        {(!dataList || dataList.length === 0) && (
+          <DefaultText>
+            <i>{noMessageText || 'No Group Message'}</i>
+          </DefaultText>
+        )}
         <Divider />
         <Flex style={{ justifyContent: 'center' }}>
           <Button icon="plus" onClick={this.addGroup}>
@@ -102,6 +107,7 @@ GroupMessageEditor.propTypes = {
       messages: PropTypes.arrayOf(PropTypes.object),
     }),
   ),
+  noMessageText: PropTypes.string,
   onUpdate: PropTypes.func,
 }
 
