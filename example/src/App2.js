@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Divider } from 'antd'
-import { GroupMessageEditor } from 'aiya-chat-ui'
+import { GroupMessageEditor, GroupMessageDisplay } from 'aiya-chat-ui'
 import groupFb from './data/groupFb'
 import groupLine from './data/groupLine'
 
@@ -37,6 +37,7 @@ class App extends React.Component {
           <pre>{JSON.stringify(dataList, null, 2)}</pre>
         </section>
         <Divider />
+        <GroupMessageDisplay dataList={dataList} channel={channel} />
       </div>
     )
   }
