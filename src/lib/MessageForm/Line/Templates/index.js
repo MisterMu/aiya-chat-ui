@@ -4,6 +4,7 @@ import InputField from '../../InputField'
 import BaseMessageForm from '../../BaseMessageForm'
 import { Types } from '../../../MessageObject/Line/templates'
 import CarouselTemplateForm from './Carousel'
+import actionValidator from './Carousel/actionValidator'
 
 const { CAROUSEL } = Types
 
@@ -13,14 +14,60 @@ class TemplateForm extends BaseMessageForm {
     let tmp = { ...message }
     if (item.altText) {
       const altText = item.altText
+      tmp = { ...tmp, altText }
       delete item.altText
-      tmp = { ...tmp, altText, template: { ...tmp.template, ...item } }
     }
     tmp = { ...tmp, template: { ...tmp.template, ...item } }
     this.setState({ message: tmp })
   }
 
   validateMessage = () => {
+    const { message } = this.state
+    const { altText, template } = message
+    if (!altText) {
+      this.setState({ error: 'Alt Text is required!!' })
+      return false
+    }
+    if (template.type === CAROUSEL) {
+      const columns = template && template.columns
+      return columns.every((el, i) => {
+        if (el.title && el.title.length > 40) {
+          this.setState({ error: `Carousel #${i + 1}: Title must be no longer than 40 character!!` })
+          return false
+        }
+        if (!el.text) {
+          this.setState({ error: `Carousel #${i + 1}: Text is required!!` })
+          return false
+        }
+        if (!el.title && !el.thumbnailImageUrl && el.text.length > 120) {
+          this.setState({ error: `Carousel #${i + 1}: Text must be no longer than 120 character!!` })
+          return false
+        }
+        if ((el.title || el.thumbnailImageUrl) && el.text.length > 60) {
+          this.setState({ error: `Carousel #${i + 1}: Text must be no longer than 60 character!!` })
+          return false
+        }
+        if (el.thumbnailImageUrl && el.thumbnailImageUrl.substr(0, 8) !== 'https://') {
+          this.setState({ error: `Carousel #${i + 1}: Image url schema must be a https!!` })
+          return false
+        }
+        if (el.defaultAction) {
+          const defaultActionValidate = actionValidator(el.defaultAction, true)
+          if (defaultActionValidate && defaultActionValidate !== 'pass') {
+            this.setState({ error: `Carousel #${i + 1}: Default Action ${defaultActionValidate}` })
+            return false
+          }
+        }
+        return el.actions.every((action, j) => {
+          const actionValidate = actionValidator(action, false)
+          if (actionValidate && actionValidate !== 'pass') {
+            this.setState({ error: `Carousel #${i + 1}: Actions #${j + 1} ${actionValidate}` })
+            return false
+          }
+          return true
+        })
+      })
+    }
     return true
   }
 
