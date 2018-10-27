@@ -177,7 +177,7 @@ class MessageEditor extends React.Component {
       avaliableType = [TEXT, IMAGE, TEMPLATES, QUICKREPLIES]
     } else if (channel === LINE) {
       EditForm = LineForm
-      avaliableType = [TEXT, IMAGE, QUICKREPLIES]
+      avaliableType = [TEXT, IMAGE, TEMPLATES, QUICKREPLIES]
     }
 
     return (
