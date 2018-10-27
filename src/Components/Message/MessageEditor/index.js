@@ -5,10 +5,10 @@ import _ from 'lodash'
 import shortid from 'shortid'
 import ModalForm from './ModalForm'
 import MessageRender from '../MessageRender'
-import { Flex, IconButton, DefaultText } from '../styled'
-import { channelTypes, messageTypes, actionTypes } from '../../constants'
-import { FacebookForm, LineForm } from '../../lib/MessageForm'
-import { getFacebookMessageObject, getLineMessageObject } from '../../utils'
+import { Flex, IconButton, DefaultText } from '../../styled'
+import { channelTypes, messageTypes, actionTypes } from '../../../constants'
+import { FacebookForm, LineForm } from '../../../lib/MessageForm'
+import { getFacebookMessageObject, getLineMessageObject } from '../../../utils'
 
 const { FACEBOOK, LINE } = channelTypes
 const { TEXT, IMAGE, TEMPLATES, QUICKREPLIES } = messageTypes
