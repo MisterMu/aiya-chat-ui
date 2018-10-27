@@ -97,7 +97,7 @@ class MessageEditor extends React.Component {
       onUpdate && onUpdate(tmp, ADD)
     } else {
       const newData = {
-        id: 'msg-' + shortid.generate(),
+        name: 'msg-' + shortid.generate(),
         type: type === TEXT ? 'text' : 'box',
         message: newMsg,
       }
