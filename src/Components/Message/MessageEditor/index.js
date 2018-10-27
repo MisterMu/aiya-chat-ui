@@ -12,7 +12,7 @@ import { getFacebookMessageObject, getLineMessageObject } from '../../../utils'
 
 const { FACEBOOK, LINE } = channelTypes
 const { TEXT, IMAGE, TEMPLATES, QUICKREPLIES } = messageTypes
-const { ADD, EDIT, DELETE } = actionTypes
+const { ADD, UPDATE, DELETE } = actionTypes
 
 class MessageEditor extends React.Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class MessageEditor extends React.Component {
     }
     this.setState({ dataList: tmp })
     this.closeModal()
-    onUpdate && onUpdate(tmp, EDIT)
+    onUpdate && onUpdate(tmp, UPDATE)
   }
 
   deleteMessage = index => {
@@ -122,8 +122,8 @@ class MessageEditor extends React.Component {
                 showQuickReplies={i === dataList.length - 1}
               />
             </Flex>
-            <IconButton color="red">
-              <Icon type="delete" onClick={() => this.deleteMessage(i)} />
+            <IconButton onClick={() => this.deleteMessage(i)}>
+              <Icon type="delete" className="danger-icon" />
             </IconButton>
           </Flex>
         ))}
@@ -143,7 +143,7 @@ class MessageEditor extends React.Component {
           <Button
             onClick={() => this.addBtnClicked(type)}
             icon="plus"
-            style={{ textTransform: 'capitalize', marginRight: 8 }}
+            style={{ textTransform: 'capitalize', marginRight: 8, marginBottom: 8 }}
           >
             {type}
           </Button>

@@ -8,18 +8,22 @@ const Flex = styled.div`
 `
 
 const IconButton = styled.div`
-  width: 16px;
-  margin-left: 8px;
   position: relative;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
   i {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   &:hover {
-    i {
-      ${props => props.color && `color: ${props.color}`};
+    .primary-icon {
+      color: #438ef7;
+    }
+    .danger-icon {
+      color: red;
     }
   }
 `
