@@ -1,13 +1,13 @@
-import MessageGroupEditor from './components/MessageGroupEditor'
 import MessageEditor, { FacebookEditor, LineEditor } from './components/Message/MessageEditor'
 import MessageDisplay from './components/Message/MessageDisplay'
 import MessageRender from './components/Message/MessageRender'
+import GroupMessageEditor from './components/GroupMessage/GroupMessageEditor'
 import { FacebookElement, LineElement } from './lib/MessageElement'
 import * as Utils from './utils'
 import './global.css'
 
 export {
-  MessageGroupEditor,
+  GroupMessageEditor,
   MessageEditor,
   FacebookEditor,
   LineEditor,
