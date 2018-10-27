@@ -12,9 +12,31 @@ class GenericForm extends React.Component {
     }
   }
 
+  defaultActionStateChange = checked => {
+    const { updateElement } = this.props
+    if (checked) {
+      const tmp = {
+        type: 'web_url',
+        webview_height_ratio: 'tall',
+        url: '',
+      }
+      updateElement({ default_action: tmp })
+    } else {
+      updateElement({ default_action: undefined })
+    }
+    this.setState({ defaultActionState: checked })
+  }
+
+  componentWillMount() {
+    const { data } = this.props
+    if (data.default_action) {
+      this.setState({ defaultActionState: true })
+    }
+  }
+
   render() {
     const { data, updateElement } = this.props
-    if (!data && data.default_action) {
+    if (!data) {
       return null
     }
 
@@ -31,10 +53,7 @@ class GenericForm extends React.Component {
           <Input value={data.image_url} onChange={e => updateElement({ image_url: e.target.value })} />
         </InputField>
         <InputField label="Default Action">
-          <Switch
-            defaultChecked={defaultActionState}
-            onChange={checked => this.setState({ defaultActionState: checked })}
-          />
+          <Switch defaultChecked={defaultActionState} onChange={this.defaultActionStateChange} />
           {defaultActionState && (
             <React.Fragment>
               <Select
