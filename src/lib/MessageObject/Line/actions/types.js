@@ -1,7 +1,7 @@
 export default {
   POSTBACK: 'postback',
   MESSAGE: 'message',
-  URL: 'url',
+  URI: 'uri',
   DATE: 'datetimepicker',
   CAMERA: 'camera',
   CAMERAROLL: 'cameraRoll',

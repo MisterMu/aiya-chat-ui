@@ -5,7 +5,7 @@ import location from './location'
 import camera from './camera'
 import cameraRoll from './cameraRoll'
 import datetimepicker from './dateTimePicker'
-import { Types } from './types'
+import Types from './types'
 
 export { Types }
 
