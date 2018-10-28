@@ -74,7 +74,7 @@ class GroupMessage extends React.Component {
   }
 
   render() {
-    const { channel, data, style, disabledToolbar } = this.props
+    const { channel, data, style, disabledToolbar, onUpload } = this.props
     const { modalState, input } = this.state
     if (!data) {
       return null
@@ -88,7 +88,12 @@ class GroupMessage extends React.Component {
           style={{ ...style }}
           extra={!disabledToolbar && this.renderToolBar}
         >
-          <MessageEditor channel={channel} dataList={data.messages} onUpdate={this.onMessageUpdate} />
+          <MessageEditor
+            channel={channel}
+            dataList={data.messages}
+            onUpdate={this.onMessageUpdate}
+            onUpload={onUpload}
+          />
         </Card>
         <Modal title="GroupMessage" visible={modalState} onCancel={this.closeModal} onOk={this.onSubmit} destroyOnClose>
           <form onSubmit={this.onSubmit}>
@@ -136,6 +141,7 @@ GroupMessage.propTypes = {
   deleteGroup: PropTypes.func,
   disabledToolbar: PropTypes.bool,
   style: PropTypes.object,
+  onUpload: PropTypes.func,
 }
 
 export default GroupMessage
