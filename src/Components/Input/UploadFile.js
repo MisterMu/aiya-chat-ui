@@ -10,7 +10,8 @@ const ImageContainer = styled.div`
   background-image: ${props => `url(${props.url})`};
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.85);
+  background-size: fit;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   overflow: hidden;
