@@ -1,8 +1,9 @@
-import { messageTypes } from '../constants'
+import { messageTypes, channelTypes } from '../constants'
 import { FacebookMessage, LineMessage } from '../lib/MessageObject'
 import _ from 'lodash'
 
-const { TEXT, IMAGE, AUDIO, TEMPLATES, QUICKREPLIES } = messageTypes
+const { FACEBOOK, LINE } = channelTypes
+const { TEXT, IMAGE, AUDIO, TEMPLATES, DYNAMIC_TEMPLATE, QUICKREPLIES } = messageTypes
 
 export function getFacebookMessageObject(type) {
   let obj = {}
@@ -13,6 +14,8 @@ export function getFacebookMessageObject(type) {
   } else if (type === AUDIO) {
     obj = FacebookMessage.Audio
   } else if (type === TEMPLATES) {
+    obj = FacebookMessage.Templates.generic
+  } else if (type === DYNAMIC_TEMPLATE) {
     obj = FacebookMessage.Templates.generic
   } else if (type === QUICKREPLIES) {
     obj = { quick_replies: [FacebookMessage.QuickReply.text] }
@@ -30,10 +33,22 @@ export function getLineMessageObject(type) {
     obj = LineMessage.Audio
   } else if (type === TEMPLATES) {
     obj = LineMessage.Templates.carousel
+  } else if (type === DYNAMIC_TEMPLATE) {
+    obj = LineMessage.Templates.carousel
   } else if (type === QUICKREPLIES) {
     obj = { quickReply: { items: [LineMessage.QuickReply.message] } }
   }
   return _.cloneDeep(obj)
+}
+
+export function getDynamicMappingValue(channel) {
+  if (channel === FACEBOOK) {
+    return 'message.attachment.payload.elements'
+  } else if (channel === LINE) {
+    return 'message.template.columns'
+  } else {
+    return null
+  }
 }
 
 export function swapArrayElement(array, firstIndex, secondIndex) {

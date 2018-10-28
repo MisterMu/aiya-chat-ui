@@ -7,4 +7,5 @@ export default {
   QUICKREPLIES: 'quick replies',
   TEMPLATES: 'templates',
   IMAGEMAP: 'imagemap',
+  DYNAMIC_TEMPLATE: 'dynamic template',
 }

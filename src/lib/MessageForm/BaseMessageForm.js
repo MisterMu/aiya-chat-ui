@@ -2,6 +2,8 @@ import React from 'react'
 import { Divider, Button, Alert } from 'antd'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { methodTypes } from '../../constants'
+import _ from 'lodash'
 
 const Flex = styled.div`
   display: flex;
@@ -14,14 +16,21 @@ class BaseMessageForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      extra: {},
       message: {},
       error: '',
     }
   }
 
   componentWillMount() {
-    const { defaultValue } = this.props
-    this.setState({ message: defaultValue })
+    const { objectMsg } = this.props
+    const message = objectMsg.message
+    const extra = {
+      request: objectMsg.request,
+      mapping: objectMsg.mapping,
+      element: objectMsg.element,
+    }
+    this.setState({ message, extra })
   }
 
   onSubmit = e => {
@@ -30,9 +39,9 @@ class BaseMessageForm extends React.Component {
       return null
     }
     this.setState({ error: '' })
-    const { message } = this.state
+    const { message, extra } = this.state
     const { onSubmit } = this.props
-    onSubmit && onSubmit(message)
+    onSubmit && onSubmit(message, !_.isEmpty(extra) && extra)
   }
 
   validateMessage = () => {
@@ -70,8 +79,20 @@ class BaseMessageForm extends React.Component {
 }
 
 BaseMessageForm.propTypes = {
+  objectMsg: PropTypes.shape({
+    id: PropTypes.string,
+    type: PropTypes.oneOf(['text', 'box']),
+    message: PropTypes.object,
+    request: PropTypes.shape({
+      method: PropTypes.oneOf(Object.keys(methodTypes).map(key => methodTypes[key])),
+      uri: PropTypes.string,
+      headers: PropTypes.object,
+      variables: PropTypes.object,
+    }),
+    mapping: PropTypes.string,
+    element: PropTypes.string,
+  }),
   onSubmit: PropTypes.func,
-  defaultValue: PropTypes.any,
   onUpload: PropTypes.func,
   closeForm: PropTypes.func,
 }
