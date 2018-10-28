@@ -8,10 +8,10 @@ import MessageRender from '../MessageRender'
 import { Flex, IconButton, DefaultText } from '../../styled'
 import { channelTypes, messageTypes, actionTypes } from '../../../constants'
 import { FacebookForm, LineForm } from '../../../lib/MessageForm'
-import { getFacebookMessageObject, getLineMessageObject } from '../../../utils'
+import { getFacebookMessageObject, getLineMessageObject, getDynamicMappingValue } from '../../../utils'
 
 const { FACEBOOK, LINE } = channelTypes
-const { TEXT, IMAGE, TEMPLATES, QUICKREPLIES } = messageTypes
+const { TEXT, IMAGE, TEMPLATES, DYNAMIC_TEMPLATE, QUICKREPLIES } = messageTypes
 const { ADD, UPDATE, DELETE } = actionTypes
 
 class MessageEditor extends React.Component {
@@ -34,7 +34,12 @@ class MessageEditor extends React.Component {
   }
 
   startEdit = (index, type) => {
-    this.setState({ editIndex: index, editType: type })
+    const { dataList } = this.state
+    if (type === TEMPLATES && dataList[index].request != null) {
+      this.setState({ editIndex: index, editType: DYNAMIC_TEMPLATE })
+    } else {
+      this.setState({ editIndex: index, editType: type })
+    }
     this.openModal()
   }
 
@@ -47,9 +52,15 @@ class MessageEditor extends React.Component {
     onUpdate && onUpdate(tmp, ADD)
   }
 
-  updateMessage = (message, index) => {
+  updateMessage = (message, extra, index) => {
     const { onUpdate } = this.props
     let tmp = [...this.state.dataList]
+    if (extra) {
+      tmp[index] = {
+        ...tmp[index],
+        ...extra,
+      }
+    }
     tmp[index] = {
       ...tmp[index],
       message,
@@ -95,6 +106,16 @@ class MessageEditor extends React.Component {
       tmp[dataList.length - 1] = newData
       this.setState({ dataList: tmp })
       onUpdate && onUpdate(tmp, ADD)
+    } else if (type === DYNAMIC_TEMPLATE) {
+      const newData = {
+        name: 'msg-' + shortid.generate(),
+        type: 'box',
+        message: newMsg,
+        request: { method: 'GET', uri: '', headers: {}, variables: {} },
+        mapping: getDynamicMappingValue(channel),
+        element: '',
+      }
+      this.addMessage(newData)
     } else {
       const newData = {
         name: 'msg-' + shortid.generate(),
@@ -174,10 +195,10 @@ class MessageEditor extends React.Component {
     // assign neccessary value for each channel editor
     if (channel === FACEBOOK) {
       EditForm = FacebookForm
-      avaliableType = [TEXT, IMAGE, TEMPLATES, QUICKREPLIES]
+      avaliableType = [TEXT, IMAGE, TEMPLATES, DYNAMIC_TEMPLATE, QUICKREPLIES]
     } else if (channel === LINE) {
       EditForm = LineForm
-      avaliableType = [TEXT, IMAGE, TEMPLATES, QUICKREPLIES]
+      avaliableType = [TEXT, IMAGE, TEMPLATES, DYNAMIC_TEMPLATE, QUICKREPLIES]
     }
 
     return (
@@ -190,9 +211,9 @@ class MessageEditor extends React.Component {
         <ModalForm visible={modalState} onCancel={this.closeModal}>
           <EditForm
             type={editType || undefined}
-            defaultValue={editIndex !== -1 && dataList[editIndex].message}
+            objectMsg={editIndex !== -1 && dataList[editIndex]}
             onUpload={onUpload}
-            onSubmit={message => this.updateMessage(message, editIndex)}
+            onSubmit={(message, extra) => this.updateMessage(message, extra, editIndex)}
             closeForm={this.closeModal}
           />
         </ModalForm>

@@ -6,10 +6,10 @@ import Text from './Text'
 import Image from './Image'
 import Audio from './Audio'
 import Templates from './Templates'
+import DynamicCarousel from './DynamicCarousel'
 import ImagemapForm from './Imagemap'
 import QuickReplies from './QuickReplies'
-
-const { TEXT, IMAGE, AUDIO, VIDEO, FILE, TEMPLATES, IMAGEMAP, QUICKREPLIES } = messageTypes
+const { TEXT, IMAGE, AUDIO, TEMPLATES, DYNAMIC_TEMPLATE, IMAGEMAP, QUICKREPLIES } = messageTypes
 
 const LineForm = props => {
   const { type } = props
@@ -21,6 +21,8 @@ const LineForm = props => {
     return <Audio {...props} />
   } else if (type === TEMPLATES) {
     return <Templates {...props} />
+  } else if (type === DYNAMIC_TEMPLATE) {
+    return <DynamicCarousel {...props} />
   } else if (type === IMAGEMAP) {
     return <ImagemapForm {...props} />
   } else if (type === QUICKREPLIES) {
@@ -30,7 +32,7 @@ const LineForm = props => {
 }
 
 LineForm.propTypes = {
-  type: PropTypes.oneOf([TEXT, IMAGE, AUDIO, VIDEO, FILE, IMAGEMAP, QUICKREPLIES]),
+  type: PropTypes.oneOf(Object.keys(messageTypes).map(key => messageTypes[key])),
   onSubmit: PropTypes.func,
   defaultValue: PropTypes.any,
   closeForm: PropTypes.func,

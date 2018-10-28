@@ -6,9 +6,10 @@ import Text from './Text'
 import Image from './Image'
 import Audio from './Audio'
 import Templates from './Templates'
+import DynamicTemplate from './DynamicTemplate'
 import QuickReplies from './QuickReplies'
 
-const { TEXT, IMAGE, AUDIO, VIDEO, FILE, QUICKREPLIES, TEMPLATES } = messageTypes
+const { TEXT, IMAGE, AUDIO, QUICKREPLIES, DYNAMIC_TEMPLATE, TEMPLATES } = messageTypes
 
 const FacebookForm = props => {
   const { type } = props
@@ -20,6 +21,8 @@ const FacebookForm = props => {
     return <Audio {...props} />
   } else if (type === TEMPLATES) {
     return <Templates {...props} />
+  } else if (type === DYNAMIC_TEMPLATE) {
+    return <DynamicTemplate {...props} />
   } else if (type === QUICKREPLIES) {
     return <QuickReplies {...props} />
   }
@@ -27,7 +30,7 @@ const FacebookForm = props => {
 }
 
 FacebookForm.propTypes = {
-  type: PropTypes.oneOf([TEXT, IMAGE, AUDIO, VIDEO, FILE, QUICKREPLIES, TEMPLATES]),
+  type: PropTypes.oneOf(Object.keys(messageTypes).map(key => messageTypes[key])),
   onSubmit: PropTypes.func,
   defaultValue: PropTypes.any,
   closeForm: PropTypes.func,
