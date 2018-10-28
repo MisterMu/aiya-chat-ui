@@ -63,7 +63,7 @@ class GenericForm extends React.Component {
         <InputField label="Subtitle">
           <Input.TextArea value={data.subtitle} onChange={e => updateElement({ subtitle: e.target.value })} autosize />
         </InputField>
-        <InputField label="Image URL">
+        <InputField label="Image">
           <UploadFile
             defaultValue={data.image_url}
             onUpload={this.onUpload}

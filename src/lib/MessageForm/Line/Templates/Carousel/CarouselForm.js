@@ -59,7 +59,7 @@ class CarouselForm extends React.Component {
         <InputField label="Text">
           <Input value={data.text} onChange={e => updateElement({ text: e.target.value })} />
         </InputField>
-        <InputField label="Image Url">
+        <InputField label="Image">
           <UploadFile
             defaultValue={data.thumbnailImageUrl}
             onUpload={this.onUpload}
