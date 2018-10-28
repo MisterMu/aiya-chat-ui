@@ -13,6 +13,13 @@ class App extends React.Component {
     }
   }
 
+  onUpload = (file, cb) => {
+    console.log('file', file)
+    const url = 'https://fp2w.org/assets/ext/blob.jpg'
+    console.log('url', url)
+    cb(url)
+  }
+
   toggleChannel = () => {
     const { channel } = this.state
     const newChannel = channel === 'facebook' ? 'line' : 'facebook'
@@ -29,6 +36,7 @@ class App extends React.Component {
         <MessageEditor
           channel={channel}
           dataList={dataList}
+          onUpload={this.onUpload}
           onUpdate={(obj, action) => this.setState({ dataList: obj })}
         />
         <Divider />

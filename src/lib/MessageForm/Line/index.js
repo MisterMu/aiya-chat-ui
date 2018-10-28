@@ -6,9 +6,10 @@ import Text from './Text'
 import Image from './Image'
 import Audio from './Audio'
 import Templates from './Templates'
+import ImagemapForm from './Imagemap'
 import QuickReplies from './QuickReplies'
 
-const { TEXT, IMAGE, AUDIO, VIDEO, FILE, TEMPLATES, QUICKREPLIES } = messageTypes
+const { TEXT, IMAGE, AUDIO, VIDEO, FILE, TEMPLATES, IMAGEMAP, QUICKREPLIES } = messageTypes
 
 const LineForm = props => {
   const { type } = props
@@ -20,6 +21,8 @@ const LineForm = props => {
     return <Audio {...props} />
   } else if (type === TEMPLATES) {
     return <Templates {...props} />
+  } else if (type === IMAGEMAP) {
+    return <ImagemapForm {...props} />
   } else if (type === QUICKREPLIES) {
     return <QuickReplies {...props} />
   }
@@ -27,7 +30,7 @@ const LineForm = props => {
 }
 
 LineForm.propTypes = {
-  type: PropTypes.oneOf([TEXT, IMAGE, AUDIO, VIDEO, FILE, QUICKREPLIES]),
+  type: PropTypes.oneOf([TEXT, IMAGE, AUDIO, VIDEO, FILE, IMAGEMAP, QUICKREPLIES]),
   onSubmit: PropTypes.func,
   defaultValue: PropTypes.any,
   closeForm: PropTypes.func,
