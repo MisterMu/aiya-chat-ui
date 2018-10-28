@@ -20,7 +20,7 @@ const GroupMessageDisplay = props => {
           <MessageDisplay channel={channel} dataList={data.messages} align={align || 'right'} />
         </Card>
       ))}
-      {(!dataList || dataList.length === 0) && (
+      {dataList.length === 0 && (
         <DefaultText>
           <i>{noMessageText || 'No Group Message'}</i>
         </DefaultText>
