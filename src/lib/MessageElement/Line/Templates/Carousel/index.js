@@ -5,7 +5,7 @@ import { Flex } from '../../../styled'
 
 const CarouselTemplates = props => {
   const { elements, imageRatio } = props
-  if (!elements && !Array.isArray(elements) {
+  if (!elements && !Array.isArray(elements)) {
     return null
   }
   return (
