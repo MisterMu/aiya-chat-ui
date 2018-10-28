@@ -9,7 +9,7 @@ const { FACEBOOK, LINE } = channelTypes
 
 const GroupMessageDisplay = props => {
   const { dataList, channel, align, noMessageText } = props
-  if (!dataList) {
+  if (!dataList && !Array.isArray(dataList)) {
     return null
   }
 
