@@ -6,4 +6,5 @@ export default {
   FILE: 'file',
   QUICKREPLIES: 'quick replies',
   TEMPLATES: 'templates',
+  IMAGEMAP: 'imagemap',
 }

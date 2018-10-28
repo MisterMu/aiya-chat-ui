@@ -7,8 +7,9 @@ import AudioElement from './Audio'
 import TemplateElement from './Templates'
 import QuickRepliesElement from './QuickReplies'
 import { MessageContainer, BubbleContainer } from '../styled'
+import ImagemapElement from './Imagemap'
 
-const { TEXT, IMAGE, AUDIO, TEMPLATES, QUICKREPLIES } = messageTypes
+const { TEXT, IMAGE, AUDIO, TEMPLATES, QUICKREPLIES, IMAGEMAP } = messageTypes
 
 const LineElement = props => {
   const { message, showQuickReplies, elementOnClick, align } = props
@@ -33,6 +34,9 @@ const LineElement = props => {
     messageElements = [
       <TemplateElement data={template} onClick={elementOnClick && (() => elementOnClick(TEMPLATES))} />,
     ]
+  } else if (message.type === 'imagemap') {
+    const { baseUrl } = message
+    messageElements = [<ImagemapElement url={baseUrl} onClick={elementOnClick && elementOnClick(IMAGEMAP)} />]
   } else {
     return null
   }
