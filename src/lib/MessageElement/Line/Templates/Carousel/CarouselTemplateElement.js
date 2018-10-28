@@ -4,7 +4,7 @@ import { TemplateContainer, ImageContainer, TextContainer, ButtonContainer } fro
 
 const CarouselTemplateElement = props => {
   const { data, imageRatio } = props
-  if (!data) {
+  if (!data && !data.imageUrl) {
     return null
   }
 
