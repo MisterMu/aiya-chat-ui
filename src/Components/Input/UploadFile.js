@@ -35,6 +35,8 @@ class UploadFileInput extends React.Component {
   }
 
   onClose = () => {
+    const { onReset } = this.props
+    onReset && onReset()
     this.setState({ inputValue: '', file: undefined, fileUrl: '' })
   }
 
@@ -51,6 +53,11 @@ class UploadFileInput extends React.Component {
     e.preventDefault()
     let file = e.target.files[0]
     onUpload && onUpload({ uploadType: 'file', data: file, endUpload: this.setPreviewImage })
+  }
+
+  componentWillMount() {
+    const { defaultValue } = this.props
+    this.setState({ fileUrl: defaultValue, inputValue: defaultValue })
   }
 
   render() {
@@ -104,6 +111,8 @@ class UploadFileInput extends React.Component {
 
 UploadFileInput.propTypes = {
   onUpload: PropTypes.func,
+  onReset: PropTypes.func,
+  defaultValue: PropTypes.string,
 }
 
 export default UploadFileInput
