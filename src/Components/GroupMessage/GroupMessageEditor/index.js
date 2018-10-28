@@ -64,7 +64,7 @@ class GroupMessageEditor extends React.Component {
   render() {
     const { channel, noMessageText } = this.props
     const { dataList } = this.state
-    if (!dataList) {
+    if (!dataList && !Array.isArray(dataList)) {
       return null
     }
     return (
