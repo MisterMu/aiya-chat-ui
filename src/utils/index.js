@@ -28,6 +28,8 @@ export function getLineMessageObject(type) {
     obj = LineMessage.Image
   } else if (type === AUDIO) {
     obj = LineMessage.Audio
+  } else if (type === TEMPLATES) {
+    obj = LineMessage.Templates.carousel
   } else if (type === QUICKREPLIES) {
     obj = { quickReply: { items: [LineMessage.QuickReply.message] } }
   }

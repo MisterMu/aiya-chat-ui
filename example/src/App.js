@@ -8,8 +8,8 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      channel: 'facebook',
-      dataList: fbMessages,
+      channel: 'line',
+      dataList: lineMessages,
     }
   }
 

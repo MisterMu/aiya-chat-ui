@@ -1,13 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Select, Input } from 'antd'
-
 import InputField from '../../../InputField'
 import { InfoText, Flex } from '../../../styled'
 import { Types } from '../../../../MessageObject/Facebook/quickReply'
+import { UploadFile } from '../../../../../components/Input'
 
 const QuickReplyForm = props => {
-  const { data, dataChange } = props
+  const { data, dataChange, uploadFile } = props
+  const onUpload = ({ uploadType, data, endUpload }) => {
+    if (uploadType === 'url') {
+      dataChange({ image_url: data })
+    } else if (uploadType === 'file') {
+      const callback = fileUrl => {
+        dataChange({ image_url: fileUrl })
+        endUpload(fileUrl)
+      }
+      uploadFile(data, callback)
+    }
+  }
   if (!data) {
     return null
   }
@@ -51,10 +62,10 @@ const QuickReplyForm = props => {
             </Flex>
           </InputField>
           <InputField label="Image Url">
-            <Input
-              value={data.image_url}
-              onChange={e => dataChange({ image_url: e.target.value })}
-              placeholder="Image or Icon of quickreply.."
+            <UploadFile
+              defaultValue={data.image_url}
+              onUpload={onUpload}
+              onReset={() => dataChange({ image_url: '' })}
             />
           </InputField>
         </React.Fragment>
@@ -66,6 +77,7 @@ const QuickReplyForm = props => {
 QuickReplyForm.propTypes = {
   data: PropTypes.object.isRequired,
   dataChange: PropTypes.func.isRequired,
+  uploadFile: PropTypes.func.isRequired,
 }
 
 export default QuickReplyForm

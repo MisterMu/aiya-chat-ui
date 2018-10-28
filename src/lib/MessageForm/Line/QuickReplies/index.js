@@ -174,7 +174,11 @@ class QuickRepliesForm extends BaseMessageForm {
                 )}
               </Toolbar>
             </Flex>
-            <QuickReplyForm data={quickReply} dataChange={item => this.inputChange(item, i)} />
+            <QuickReplyForm
+              data={quickReply}
+              dataChange={item => this.inputChange(item, i)}
+              uploadFile={this.uploadFile}
+            />
           </React.Fragment>
         ))}
         <Divider />

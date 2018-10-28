@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import MessageRender from '../MessageRender'
-import { Flex, DefaultText } from '../styled'
-import { channelTypes } from '../../constants'
+import { Flex, DefaultText } from '../../styled'
+import { channelTypes } from '../../../constants'
 
 const { FACEBOOK, LINE } = channelTypes
 

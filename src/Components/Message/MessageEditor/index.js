@@ -5,14 +5,14 @@ import _ from 'lodash'
 import shortid from 'shortid'
 import ModalForm from './ModalForm'
 import MessageRender from '../MessageRender'
-import { Flex, IconButton, DefaultText } from '../styled'
-import { channelTypes, messageTypes, actionTypes } from '../../constants'
-import { FacebookForm, LineForm } from '../../lib/MessageForm'
-import { getFacebookMessageObject, getLineMessageObject } from '../../utils'
+import { Flex, IconButton, DefaultText } from '../../styled'
+import { channelTypes, messageTypes, actionTypes } from '../../../constants'
+import { FacebookForm, LineForm } from '../../../lib/MessageForm'
+import { getFacebookMessageObject, getLineMessageObject } from '../../../utils'
 
 const { FACEBOOK, LINE } = channelTypes
 const { TEXT, IMAGE, TEMPLATES, QUICKREPLIES } = messageTypes
-const { ADD, EDIT, DELETE } = actionTypes
+const { ADD, UPDATE, DELETE } = actionTypes
 
 class MessageEditor extends React.Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class MessageEditor extends React.Component {
     }
     this.setState({ dataList: tmp })
     this.closeModal()
-    onUpdate && onUpdate(tmp, EDIT)
+    onUpdate && onUpdate(tmp, UPDATE)
   }
 
   deleteMessage = index => {
@@ -122,8 +122,8 @@ class MessageEditor extends React.Component {
                 showQuickReplies={i === dataList.length - 1}
               />
             </Flex>
-            <IconButton color="red">
-              <Icon type="delete" onClick={() => this.deleteMessage(i)} />
+            <IconButton onClick={() => this.deleteMessage(i)}>
+              <Icon type="delete" className="danger-icon" />
             </IconButton>
           </Flex>
         ))}
@@ -143,7 +143,7 @@ class MessageEditor extends React.Component {
           <Button
             onClick={() => this.addBtnClicked(type)}
             icon="plus"
-            style={{ textTransform: 'capitalize', marginRight: 8 }}
+            style={{ textTransform: 'capitalize', marginRight: 8, marginBottom: 8 }}
           >
             {type}
           </Button>
@@ -164,7 +164,7 @@ class MessageEditor extends React.Component {
   }
 
   render() {
-    const { channel, style } = this.props
+    const { channel, style, onUpload } = this.props
     const { dataList, editIndex, editType, modalState } = this.state
 
     // variables for each channel
@@ -177,7 +177,7 @@ class MessageEditor extends React.Component {
       avaliableType = [TEXT, IMAGE, TEMPLATES, QUICKREPLIES]
     } else if (channel === LINE) {
       EditForm = LineForm
-      avaliableType = [TEXT, IMAGE, QUICKREPLIES]
+      avaliableType = [TEXT, IMAGE, TEMPLATES, QUICKREPLIES]
     }
 
     return (
@@ -191,6 +191,7 @@ class MessageEditor extends React.Component {
           <EditForm
             type={editType || undefined}
             defaultValue={editIndex !== -1 && dataList[editIndex].message}
+            onUpload={onUpload}
             onSubmit={message => this.updateMessage(message, editIndex)}
             closeForm={this.closeModal}
           />
@@ -203,6 +204,7 @@ class MessageEditor extends React.Component {
 MessageEditor.propTypes = {
   channel: PropTypes.oneOf([FACEBOOK, LINE]).isRequired,
   dataList: PropTypes.arrayOf(PropTypes.object),
+  onUpload: PropTypes.func,
   onUpdate: PropTypes.func,
   style: PropTypes.object,
   noMessageText: PropTypes.string,

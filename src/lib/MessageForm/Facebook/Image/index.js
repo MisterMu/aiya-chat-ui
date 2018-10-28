@@ -1,9 +1,21 @@
 import React from 'react'
-import { Input } from 'antd'
+import { UploadFile } from '../../../../components/Input'
 import BaseMessageForm from '../../BaseMessageForm'
 import InputField from '../../InputField'
 
 class ImageMessageForm extends BaseMessageForm {
+  onUpload = ({ uploadType, data, endUpload }) => {
+    if (uploadType === 'url') {
+      this.inputChange(data)
+    } else if (uploadType === 'file') {
+      const callback = fileUrl => {
+        this.inputChange(fileUrl)
+        endUpload(fileUrl)
+      }
+      this.uploadFile(data, callback)
+    }
+  }
+
   inputChange = value => {
     const { message } = this.state
     let tmp = { ...message }
@@ -26,8 +38,8 @@ class ImageMessageForm extends BaseMessageForm {
     const { url } = attachment && attachment.payload
     return (
       <form onSubmit={this.onSubmit}>
-        <InputField label="Image Url">
-          <Input value={url} onChange={e => this.inputChange(e.target.value)} autoFocus />
+        <InputField label="Image">
+          <UploadFile defaultValue={url} onUpload={this.onUpload} onReset={() => this.inputChange('')} />
         </InputField>
       </form>
     )
