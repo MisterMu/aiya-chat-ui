@@ -164,7 +164,7 @@ class MessageEditor extends React.Component {
   }
 
   render() {
-    const { channel, style } = this.props
+    const { channel, style, onUpload } = this.props
     const { dataList, editIndex, editType, modalState } = this.state
 
     // variables for each channel
@@ -191,6 +191,7 @@ class MessageEditor extends React.Component {
           <EditForm
             type={editType || undefined}
             defaultValue={editIndex !== -1 && dataList[editIndex].message}
+            onUpload={onUpload}
             onSubmit={message => this.updateMessage(message, editIndex)}
             closeForm={this.closeModal}
           />
@@ -203,6 +204,7 @@ class MessageEditor extends React.Component {
 MessageEditor.propTypes = {
   channel: PropTypes.oneOf([FACEBOOK, LINE]).isRequired,
   dataList: PropTypes.arrayOf(PropTypes.object),
+  onUpload: PropTypes.func,
   onUpdate: PropTypes.func,
   style: PropTypes.object,
   noMessageText: PropTypes.string,

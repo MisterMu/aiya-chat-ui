@@ -43,6 +43,11 @@ class BaseMessageForm extends React.Component {
 
   renderForm = () => {}
 
+  uploadFile = (file, cb) => {
+    const { onUpload } = this.props
+    onUpload && onUpload(file, cb)
+  }
+
   render() {
     const { closeForm } = this.props
     const { error } = this.state
@@ -67,6 +72,7 @@ class BaseMessageForm extends React.Component {
 BaseMessageForm.propTypes = {
   onSubmit: PropTypes.func,
   defaultValue: PropTypes.any,
+  onUpload: PropTypes.func,
   closeForm: PropTypes.func,
 }
 
