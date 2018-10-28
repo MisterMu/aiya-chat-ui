@@ -4,12 +4,26 @@ import { Input, Switch } from 'antd'
 import InputField from '../../../InputField'
 import ActionsForm, { ActionForm } from '../Actions'
 import actionObject from '../../../../MessageObject/Line/actions'
+import { UploadFile } from '../../../../../components/Input'
 
 class CarouselForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       defaultActionState: false,
+    }
+  }
+
+  onUpload = ({ uploadType, data, endUpload }) => {
+    const { updateElement, uploadFile } = this.props
+    if (uploadType === 'url') {
+      updateElement({ thumbnailImageUrl: data })
+    } else if (uploadType === 'file') {
+      const callback = fileUrl => {
+        updateElement({ thumbnailImageUrl: fileUrl })
+        endUpload(fileUrl)
+      }
+      uploadFile(data, callback)
     }
   }
 
@@ -46,7 +60,11 @@ class CarouselForm extends React.Component {
           <Input value={data.text} onChange={e => updateElement({ text: e.target.value })} />
         </InputField>
         <InputField label="Image Url">
-          <Input value={data.thumbnailImageUrl} onChange={e => updateElement({ thumbnailImageUrl: e.target.value })} />
+          <UploadFile
+            defaultValue={data.thumbnailImageUrl}
+            onUpload={this.onUpload}
+            onReset={() => updateElement({ thumbnailImageUrl: '' })}
+          />
         </InputField>
         <InputField label="Default Action">
           <Switch
@@ -76,6 +94,7 @@ CarouselForm.propTypes = {
     actions: PropTypes.arrayOf(PropTypes.object),
   }),
   updateElement: PropTypes.func,
+  uploadFile: PropTypes.func,
 }
 
 export default CarouselForm

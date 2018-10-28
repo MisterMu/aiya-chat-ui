@@ -3,12 +3,26 @@ import PropTypes from 'prop-types'
 import { Input, Switch, Select } from 'antd'
 import InputField from '../../../InputField'
 import ButtonsForm from '../Buttons'
+import { UploadFile } from '../../../../../components/Input'
 
 class GenericForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       defaultActionState: false,
+    }
+  }
+
+  onUpload = ({ uploadType, data, endUpload }) => {
+    const { updateElement, uploadFile } = this.props
+    if (uploadType === 'url') {
+      updateElement({ image_url: data })
+    } else if (uploadType === 'file') {
+      const callback = fileUrl => {
+        updateElement({ image_url: fileUrl })
+        endUpload(fileUrl)
+      }
+      uploadFile(data, callback)
     }
   }
 
@@ -50,7 +64,11 @@ class GenericForm extends React.Component {
           <Input.TextArea value={data.subtitle} onChange={e => updateElement({ subtitle: e.target.value })} autosize />
         </InputField>
         <InputField label="Image URL">
-          <Input value={data.image_url} onChange={e => updateElement({ image_url: e.target.value })} />
+          <UploadFile
+            defaultValue={data.image_url}
+            onUpload={this.onUpload}
+            onReset={() => updateElement({ image_url: '' })}
+          />
         </InputField>
         <InputField label="Default Action">
           <Switch defaultChecked={defaultActionState} onChange={this.defaultActionStateChange} />
@@ -95,6 +113,7 @@ GenericForm.propTypes = {
     buttons: PropTypes.arrayOf(PropTypes.object),
   }),
   updateElement: PropTypes.func.isRequired,
+  uploadFile: PropTypes.func,
 }
 
 export default GenericForm

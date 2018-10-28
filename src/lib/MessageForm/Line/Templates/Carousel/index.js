@@ -56,7 +56,7 @@ class CarouselTemplateForm extends React.Component {
   }
 
   render() {
-    const { elements, max } = this.props
+    const { elements, max, uploadFile } = this.props
     if (!elements) {
       return null
     }
@@ -83,7 +83,7 @@ class CarouselTemplateForm extends React.Component {
                 )}
               </Toolbar>
             </Flex>
-            <CarouselForm data={el} updateElement={item => this.updateTemplate(item, i)} />
+            <CarouselForm data={el} updateElement={item => this.updateTemplate(item, i)} uploadFile={uploadFile} />
           </React.Fragment>
         ))}
         <Divider />
@@ -111,6 +111,7 @@ CarouselTemplateForm.propTypes = {
   ),
   updateElements: PropTypes.func.isRequired,
   max: PropTypes.number,
+  uploadFile: PropTypes.func,
 }
 
 export default CarouselTemplateForm

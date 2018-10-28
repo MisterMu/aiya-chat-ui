@@ -106,6 +106,7 @@ class TemplateForm extends BaseMessageForm {
             elements={template.columns}
             updateElements={elements => this.inputChange({ columns: elements })}
             max={10}
+            uploadFile={this.uploadFile}
           />
         )}
       </form>

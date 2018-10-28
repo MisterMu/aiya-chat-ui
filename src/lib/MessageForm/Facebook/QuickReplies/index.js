@@ -93,18 +93,10 @@ class QuickRepliesForm extends BaseMessageForm {
               <Divider orientation="left">Quick Reply #{i + 1}</Divider>
               <Toolbar>
                 {i !== 0 && (
-                  <Icon
-                    type="up-circle"
-                    className="primary-icon"
-                    onClick={() => this.moveQuickReply(i, 'up')}
-                  />
+                  <Icon type="up-circle" className="primary-icon" onClick={() => this.moveQuickReply(i, 'up')} />
                 )}
                 {i !== message.quick_replies.length - 1 && (
-                  <Icon
-                    type="down-circle"
-                    className="primary-icon"
-                    onClick={() => this.moveQuickReply(i, 'down')}
-                  />
+                  <Icon type="down-circle" className="primary-icon" onClick={() => this.moveQuickReply(i, 'down')} />
                 )}
                 {message.quick_replies.length !== 1 && (
                   <Icon
@@ -116,15 +108,16 @@ class QuickRepliesForm extends BaseMessageForm {
                 )}
               </Toolbar>
             </Flex>
-            <QuickReplyForm data={quickReply} dataChange={item => this.inputChange(item, i)} />
+            <QuickReplyForm
+              data={quickReply}
+              dataChange={item => this.inputChange(item, i)}
+              uploadFile={this.uploadFile}
+            />
           </React.Fragment>
         ))}
         <Divider />
         {message.quick_replies.length < 11 && (
-          <Flex
-            style={{ cursor: 'pointer', justifyContent: 'center' }}
-            onClick={this.addQuickReply}
-          >
+          <Flex style={{ cursor: 'pointer', justifyContent: 'center' }} onClick={this.addQuickReply}>
             <Icon type="plus-circle" />
             <span style={{ marginLeft: 8 }}>Add QuickReply</span>
           </Flex>

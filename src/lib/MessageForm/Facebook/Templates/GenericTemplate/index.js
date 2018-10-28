@@ -56,7 +56,7 @@ class GenericTemplateForm extends React.Component {
   }
 
   render() {
-    const { elements, max } = this.props
+    const { elements, max, uploadFile } = this.props
     if (!elements) {
       return null
     }
@@ -84,7 +84,7 @@ class GenericTemplateForm extends React.Component {
                 )}
               </Toolbar>
             </Flex>
-            <GenericForm data={el} updateElement={item => this.updateTemplate(item, i)} />
+            <GenericForm data={el} updateElement={item => this.updateTemplate(item, i)} uploadFile={uploadFile} />
           </React.Fragment>
         ))}
         <Divider />
@@ -116,6 +116,7 @@ GenericTemplateForm.propTypes = {
   ),
   updateTemplate: PropTypes.func.isRequired,
   max: PropTypes.number,
+  uploadFile: PropTypes.func,
 }
 
 export default GenericTemplateForm

@@ -106,7 +106,12 @@ class TemplateForm extends BaseMessageForm {
           </Radio.Group>
         </InputField>
         {payload.template_type === GENERIC && (
-          <GenericTemplateForm elements={payload.elements} updateTemplate={this.inputChange} max={10} />
+          <GenericTemplateForm
+            elements={payload.elements}
+            updateTemplate={this.inputChange}
+            max={10}
+            uploadFile={this.uploadFile}
+          />
         )}
       </form>
     )

@@ -5,9 +5,22 @@ import moment from 'moment'
 import InputField from '../../../InputField'
 import { Types } from '../../../../MessageObject/Line/quickReply'
 import { Flex, InfoText } from '../../../styled'
+import { UploadFile } from '../../../../../components/Input'
 
 const QuickReplyForm = props => {
-  const { data, dataChange } = props
+  const { data, dataChange, uploadFile } = props
+  const onUpload = ({ uploadType, data, endUpload }) => {
+    if (uploadType === 'url') {
+      dataChange({ imageUrl: data })
+    } else if (uploadType === 'file') {
+      const callback = fileUrl => {
+        dataChange({ imageUrl: fileUrl })
+        endUpload(fileUrl)
+      }
+      uploadFile(data, callback)
+    }
+  }
+
   if (!data || !data.action) {
     return null
   }
@@ -32,16 +45,13 @@ const QuickReplyForm = props => {
           onChange={e => dataChange({ label: e.target.value })}
           placeholder="Text to show on quickreply button.."
         />
+
         <Flex style={{ justifyContent: 'flex-end' }}>
           <InfoText>{(data.action.label && data.action.label.length) || 0} / 20</InfoText>
         </Flex>
       </InputField>
       <InputField label="Image Url">
-        <Input
-          value={data.imageUrl}
-          onChange={e => dataChange({ imageUrl: e.target.value })}
-          placeholder="Image or Icon of quickreply.."
-        />
+        <UploadFile defaultValue={data.imageUrl} onUpload={onUpload} onReset={() => dataChange({ imageUrl: '' })} />
       </InputField>
 
       {data.action.type === Types.POSTBACK && (
@@ -221,6 +231,7 @@ const QuickReplyForm = props => {
 QuickReplyForm.propTypes = {
   data: PropTypes.object.isRequired,
   dataChange: PropTypes.func.isRequired,
+  uploadFile: PropTypes.func,
 }
 
 export default QuickReplyForm

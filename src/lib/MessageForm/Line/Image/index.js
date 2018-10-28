@@ -1,9 +1,21 @@
 import React from 'react'
-import { Input } from 'antd'
 import BaseMessageForm from '../../BaseMessageForm'
 import InputField from '../../InputField'
+import { UploadFile } from '../../../../components/Input'
 
 class ImageMessageForm extends BaseMessageForm {
+  onUpload = (key, { uploadType, data, endUpload }) => {
+    if (uploadType === 'url') {
+      this.inputChange(key, data)
+    } else if (uploadType === 'file') {
+      const callback = fileUrl => {
+        this.inputChange(key, fileUrl)
+        endUpload(fileUrl)
+      }
+      this.uploadFile(data, callback)
+    }
+  }
+
   inputChange = (key, value) => {
     const { message } = this.state
     let tmp = { ...message }
@@ -35,13 +47,17 @@ class ImageMessageForm extends BaseMessageForm {
     return (
       <form onSubmit={this.onSubmit}>
         <InputField label="Preview Image">
-          <Input value={previewImageUrl} onChange={e => this.inputChange('previewImageUrl', e.target.value)} />
+          <UploadFile
+            defaultValue={previewImageUrl}
+            onUpload={obj => this.onUpload('previewImageUrl', obj)}
+            onReset={() => this.inputChange('previewImageUrl', '')}
+          />
         </InputField>
         <InputField label="Full Image">
-          <Input
-            value={originalContentUrl}
-            onChange={e => this.inputChange('originalContentUrl', e.target.value)}
-            autoFocus
+          <UploadFile
+            defaultValue={originalContentUrl}
+            onUpload={obj => this.onUpload('originalContentUrl', obj)}
+            onReset={() => this.inputChange('originalContentUrl', '')}
           />
         </InputField>
       </form>
