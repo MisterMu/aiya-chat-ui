@@ -81,7 +81,7 @@ class GroupMessageEditor extends React.Component {
             />
           </React.Fragment>
         ))}
-        {(!dataList || dataList.length === 0) && (
+        {dataList.length === 0 && (
           <DefaultText>
             <i>{noMessageText || 'No Group Message'}</i>
           </DefaultText>
