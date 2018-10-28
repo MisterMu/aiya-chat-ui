@@ -8,8 +8,9 @@ import Audio from './Audio'
 import Templates from './Templates'
 import DynamicTemplate from './DynamicTemplate'
 import QuickReplies from './QuickReplies'
+import Custom from './Custom'
 
-const { TEXT, IMAGE, AUDIO, QUICKREPLIES, DYNAMIC_TEMPLATE, TEMPLATES } = messageTypes
+const { TEXT, IMAGE, AUDIO, QUICKREPLIES, DYNAMIC_TEMPLATE, TEMPLATES, CUSTOM } = messageTypes
 
 const FacebookForm = props => {
   const { type } = props
@@ -25,6 +26,8 @@ const FacebookForm = props => {
     return <DynamicTemplate {...props} />
   } else if (type === QUICKREPLIES) {
     return <QuickReplies {...props} />
+  } else if (type === CUSTOM) {
+    return <Custom {...props} />
   }
   return null
 }

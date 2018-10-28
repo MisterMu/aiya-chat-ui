@@ -18,7 +18,9 @@ class BaseMessageForm extends React.Component {
     this.state = {
       extra: {},
       message: {},
+      json: '',
       error: '',
+      loading: false,
     }
   }
 
@@ -30,18 +32,22 @@ class BaseMessageForm extends React.Component {
       mapping: objectMsg.mapping,
       element: objectMsg.element,
     }
-    this.setState({ message, extra })
+    this.setState({ message, extra, json: JSON.stringify(message, null, 4) })
   }
 
   onSubmit = e => {
     e && e.preventDefault()
+    this.setState({ loading: true })
     if (!this.validateMessage()) {
       return null
     }
-    this.setState({ error: '' })
-    const { message, extra } = this.state
-    const { onSubmit } = this.props
-    onSubmit && onSubmit(message, !_.isEmpty(extra) && extra)
+    setTimeout(() => {
+      this.setState({ error: '', loading: false })
+      const { message, extra } = this.state
+      console.log(message)
+      const { onSubmit } = this.props
+      onSubmit && onSubmit(message, !_.isEmpty(extra) && extra)
+    }, 500)
   }
 
   validateMessage = () => {
@@ -59,17 +65,17 @@ class BaseMessageForm extends React.Component {
 
   render() {
     const { closeForm } = this.props
-    const { error } = this.state
+    const { error, loading } = this.state
     return (
       <React.Fragment>
         {this.renderForm()}
         <Divider style={{ marginBottom: 16 }} />
         {error && <Alert type="error" message={error} style={{ marginBottom: 16 }} />}
         <Flex style={{ justifyContent: 'flex-end' }}>
-          <Button onClick={closeForm} style={{ marginRight: 8 }}>
+          <Button onClick={closeForm} style={{ marginRight: 8 }} loading={loading}>
             Cancel
           </Button>
-          <Button onClick={this.onSubmit} type="primary">
+          <Button onClick={this.onSubmit} type="primary" loading={loading}>
             Save
           </Button>
         </Flex>

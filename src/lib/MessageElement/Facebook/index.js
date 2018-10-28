@@ -7,8 +7,9 @@ import ImageElement from './Image'
 import AudioElement from './Audio'
 import QuickRepliesElement from './QuickReplies'
 import TemplateElement from './Templates'
+import CustomElement from './Custom'
 
-const { TEXT, IMAGE, AUDIO, QUICKREPLIES, TEMPLATES } = messageTypes
+const { TEXT, IMAGE, AUDIO, QUICKREPLIES, TEMPLATES, CUSTOM } = messageTypes
 
 const FacebookElement = props => {
   const { message, showQuickReplies, elementOnClick, align } = props
@@ -34,11 +35,11 @@ const FacebookElement = props => {
       messageElements = [
         <TemplateElement payload={payload} onClick={elementOnClick && (() => elementOnClick(TEMPLATES))} />,
       ]
-    } else {
-      return null
     }
-  } else {
-    return null
+  }
+
+  if (messageElements.length === 0) {
+    messageElements = [<CustomElement data={message} onClick={elementOnClick && (() => elementOnClick(CUSTOM))} />]
   }
 
   if (showQuickReplies && message.quick_replies) {

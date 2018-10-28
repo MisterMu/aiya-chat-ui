@@ -8,4 +8,5 @@ export default {
   TEMPLATES: 'templates',
   IMAGEMAP: 'imagemap',
   DYNAMIC_TEMPLATE: 'dynamic template',
+  CUSTOM: 'custom',
 }

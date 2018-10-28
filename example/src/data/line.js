@@ -11,7 +11,6 @@ export default [
     id: '#2',
     type: 'text',
     message: {
-      type: 'text',
       text: 'I am LINE Chatbot!!',
     },
   },

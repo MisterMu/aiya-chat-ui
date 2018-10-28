@@ -8,12 +8,13 @@ import TemplateElement from './Templates'
 import QuickRepliesElement from './QuickReplies'
 import { MessageContainer, BubbleContainer } from '../styled'
 import ImagemapElement from './Imagemap'
+import CustomElement from './Custom'
 
-const { TEXT, IMAGE, AUDIO, TEMPLATES, QUICKREPLIES, IMAGEMAP } = messageTypes
+const { TEXT, IMAGE, AUDIO, TEMPLATES, QUICKREPLIES, CUSTOM, IMAGEMAP } = messageTypes
 
 const LineElement = props => {
   const { message, showQuickReplies, elementOnClick, align } = props
-  if (!message || !message.type) {
+  if (!message) {
     return null
   }
 
@@ -36,9 +37,11 @@ const LineElement = props => {
     ]
   } else if (message.type === 'imagemap') {
     const { baseUrl } = message
-    messageElements = [<ImagemapElement url={baseUrl} onClick={elementOnClick && elementOnClick(IMAGEMAP)} />]
-  } else {
-    return null
+    messageElements = [<ImagemapElement url={baseUrl} onClick={elementOnClick && (() => elementOnClick(IMAGEMAP))} />]
+  }
+
+  if (messageElements.length === 0) {
+    messageElements = [<CustomElement data={message} onClick={elementOnClick && (() => elementOnClick(CUSTOM))} />]
   }
 
   if (showQuickReplies && message.quickReply) {
