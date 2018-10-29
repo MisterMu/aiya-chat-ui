@@ -31,6 +31,7 @@ class BaseMessageForm extends React.Component {
       request: objectMsg.request,
       mapping: objectMsg.mapping,
       element: objectMsg.element,
+      data: objectMsg.data,
     }
     this.setState({ message, extra, json: JSON.stringify(message, null, 4) })
   }
@@ -39,12 +40,12 @@ class BaseMessageForm extends React.Component {
     e && e.preventDefault()
     this.setState({ loading: true })
     if (!this.validateMessage()) {
+      this.setState({ loading: false })
       return null
     }
     setTimeout(() => {
       this.setState({ error: '', loading: false })
       const { message, extra } = this.state
-      console.log(message)
       const { onSubmit } = this.props
       onSubmit && onSubmit(message, !_.isEmpty(extra) && extra)
     }, 500)
@@ -55,6 +56,8 @@ class BaseMessageForm extends React.Component {
   }
 
   inputChange = () => {}
+
+  extraChange = () => {}
 
   renderForm = () => {}
 

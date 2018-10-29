@@ -7,7 +7,6 @@ const inputSize = { span: 20 }
 
 const MapActionForm = props => {
   const { data, updateAction } = props
-  console.log(data)
   if (!data) {
     return null
   }
@@ -50,7 +49,7 @@ const MapActionForm = props => {
 
 MapActionForm.propTypes = {
   data: PropTypes.object,
-  updateAction: PropTypes.func.isRequried,
+  updateAction: PropTypes.func,
 }
 
 export default MapActionForm

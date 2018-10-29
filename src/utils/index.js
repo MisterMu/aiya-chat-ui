@@ -3,7 +3,7 @@ import { FacebookMessage, LineMessage } from '../lib/MessageObject'
 import _ from 'lodash'
 
 const { FACEBOOK, LINE } = channelTypes
-const { TEXT, IMAGE, AUDIO, TEMPLATES, DYNAMIC_TEMPLATE, QUICKREPLIES, CUSTOM } = messageTypes
+const { TEXT, IMAGE, AUDIO, TEMPLATES, DYNAMIC_TEMPLATE, QUICKREPLIES, IMAGEMAP, CUSTOM } = messageTypes
 
 export function getFacebookMessageObject(type) {
   let obj = {}
@@ -39,6 +39,8 @@ export function getLineMessageObject(type) {
     obj = LineMessage.Templates.carousel
   } else if (type === QUICKREPLIES) {
     obj = { quickReply: { items: [LineMessage.QuickReply.message] } }
+  } else if (type === IMAGEMAP) {
+    obj = LineMessage.Imagemap
   } else if (type === CUSTOM) {
     obj = LineMessage.Custom
   }

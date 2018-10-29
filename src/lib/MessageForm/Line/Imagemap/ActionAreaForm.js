@@ -45,7 +45,7 @@ class ActionAreaForm extends React.Component {
       col,
     }
     this.setState({ actions: tmp, gridSize })
-    updateActions(tmp)
+    updateActions(tmp, { row, col })
   }
 
   updateAction = (item, indexToUpdate) => {
@@ -73,16 +73,27 @@ class ActionAreaForm extends React.Component {
     this.setState({ selectedIndex: index })
   }
 
+  componentDidMount() {
+    const { template, defaultActions } = this.props
+    this.setState({
+      row: template.row,
+      col: template.col,
+      gridSize: { row: template.row, col: template.col },
+      actions: defaultActions,
+      selectedIndex: 0,
+    })
+  }
+
   render() {
-    const { maxHeight, maxWidth } = this.props
-    if (!maxHeight || !maxWidth) {
+    const { maxHeight, maxWidth, template } = this.props
+    if (!maxHeight || !maxWidth || !template) {
       return null
     }
 
     const { row, col, selectedIndex, gridSize, actions } = this.state
     return (
       <React.Fragment>
-        <Divider>Actions</Divider>
+        <Divider>Grid Actions</Divider>
         <InputField label="Grid">
           <InputNumber
             min={1}
@@ -106,19 +117,22 @@ class ActionAreaForm extends React.Component {
           </Button>
         </InputField>
         {!_.isEmpty(gridSize) && (
-          <Row gutter={16}>
-            <Col span={12}>
-              <AreaPreview gridSize={gridSize} selected={selectedIndex} onSelect={this.onGridSelect} />
-            </Col>
-            <Col span={12}>
-              {selectedIndex !== -1 && (
-                <MapActionForm
-                  data={actions[selectedIndex]}
-                  updateAction={item => this.updateAction(item, selectedIndex)}
-                />
-              )}
-            </Col>
-          </Row>
+          <React.Fragment>
+            <Divider />
+            <Row gutter={16}>
+              <Col span={12}>
+                <AreaPreview gridSize={gridSize} selected={selectedIndex} onSelect={this.onGridSelect} />
+              </Col>
+              <Col span={12}>
+                {selectedIndex !== -1 && (
+                  <MapActionForm
+                    data={actions[selectedIndex]}
+                    updateAction={item => this.updateAction(item, selectedIndex)}
+                  />
+                )}
+              </Col>
+            </Row>
+          </React.Fragment>
         )}
       </React.Fragment>
     )
@@ -126,9 +140,14 @@ class ActionAreaForm extends React.Component {
 }
 
 ActionAreaForm.propTypes = {
-  maxHeight: PropTypes.number,
-  maxWidth: PropTypes.number,
-  updateActions: PropTypes.func,
+  maxHeight: PropTypes.number.isRequired,
+  maxWidth: PropTypes.number.isRequired,
+  defaultActions: PropTypes.arrayOf(PropTypes.object),
+  updateActions: PropTypes.func.isRequired,
+  template: PropTypes.shape({
+    row: PropTypes.number,
+    col: PropTypes.number,
+  }).isRequired,
 }
 
 export default ActionAreaForm
