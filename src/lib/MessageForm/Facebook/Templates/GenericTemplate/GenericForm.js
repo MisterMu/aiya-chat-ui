@@ -71,7 +71,7 @@ class GenericForm extends React.Component {
           />
         </InputField>
         <InputField label="Default Action">
-          <Switch defaultChecked={defaultActionState} onChange={this.defaultActionStateChange} />
+          <Switch defaultChecked={defaultActionState} onChange={this.defaultActionStateChange} style={{ width: 44 }} />
           {defaultActionState && (
             <React.Fragment>
               <Select

@@ -5,6 +5,7 @@ import InputField from '../../InputField'
 import AreaPreview from './AreaPreview'
 import _ from 'lodash'
 import MapActionForm from './MapActionForm'
+import { Flex } from '../../styled'
 
 class ActionAreaForm extends React.Component {
   constructor(props) {
@@ -97,26 +98,28 @@ class ActionAreaForm extends React.Component {
       <React.Fragment>
         <Divider>Grid Actions</Divider>
         <InputField label="Grid">
-          <InputNumber
-            min={1}
-            max={10}
-            step={1}
-            value={row || 1}
-            onChange={val => this.setState({ row: val })}
-            placeholder="Row"
-          />
-          <span style={{ marginLeft: 8, marginRight: 8 }}>x</span>
-          <InputNumber
-            min={1}
-            max={10}
-            step={1}
-            value={col || 1}
-            onChange={val => this.setState({ col: val })}
-            placeholder="Col"
-          />
-          <Button icon="sync" style={{ marginLeft: 8 }} onClick={this.generateGrid}>
-            Generate Grid
-          </Button>
+          <Flex>
+            <InputNumber
+              min={1}
+              max={10}
+              step={1}
+              value={row || 1}
+              onChange={val => this.setState({ row: val })}
+              placeholder="Row"
+            />
+            <div style={{ marginLeft: 8, marginRight: 8 }}>x</div>
+            <InputNumber
+              min={1}
+              max={10}
+              step={1}
+              value={col || 1}
+              onChange={val => this.setState({ col: val })}
+              placeholder="Col"
+            />
+            <Button icon="sync" style={{ marginLeft: 8 }} onClick={this.generateGrid}>
+              Generate Grid
+            </Button>
+          </Flex>
         </InputField>
         {!_.isEmpty(gridSize) && (
           <React.Fragment>
