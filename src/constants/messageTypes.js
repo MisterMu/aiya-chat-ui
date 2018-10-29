@@ -5,8 +5,8 @@ export default {
   VIDEO: 'video',
   FILE: 'file',
   QUICKREPLIES: 'quick replies',
-  TEMPLATES: 'templates',
+  TEMPLATES: 'carousel',
   IMAGEMAP: 'imagemap',
-  DYNAMIC_TEMPLATE: 'dynamic template',
+  DYNAMIC_TEMPLATE: 'dynamic carousel',
   CUSTOM: 'custom',
 }
