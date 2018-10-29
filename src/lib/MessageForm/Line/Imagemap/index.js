@@ -116,15 +116,13 @@ class ImagemapForm extends BaseMessageForm {
             onReset={() => this.inputChange({ baseUrl: '' })}
           />
         </InputField>
-        {extra && (
-          <ActionAreaForm
-            maxHeight={height}
-            maxWidth={width}
-            template={extra.data && extra.data.template}
-            defaultActions={message.actions}
-            updateActions={this.updateActions}
-          />
-        )}
+        <ActionAreaForm
+          maxHeight={height}
+          maxWidth={width}
+          template={extra.data && extra.data.template}
+          defaultActions={message.actions}
+          updateActions={this.updateActions}
+        />
       </form>
     )
   }

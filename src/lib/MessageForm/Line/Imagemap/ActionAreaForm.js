@@ -75,18 +75,20 @@ class ActionAreaForm extends React.Component {
 
   componentDidMount() {
     const { template, defaultActions } = this.props
-    this.setState({
-      row: template.row,
-      col: template.col,
-      gridSize: { row: template.row, col: template.col },
-      actions: defaultActions,
-      selectedIndex: 0,
-    })
+    if (template) {
+      this.setState({
+        row: template.row,
+        col: template.col,
+        gridSize: { row: template.row, col: template.col },
+        actions: defaultActions,
+        selectedIndex: 0,
+      })
+    }
   }
 
   render() {
-    const { maxHeight, maxWidth, template } = this.props
-    if (!maxHeight || !maxWidth || !template) {
+    const { maxHeight, maxWidth } = this.props
+    if (!maxHeight || !maxWidth) {
       return null
     }
 
