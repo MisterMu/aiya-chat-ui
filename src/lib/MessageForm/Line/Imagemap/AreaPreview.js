@@ -28,7 +28,7 @@ class AreaPreview extends React.Component {
 
   render() {
     const { gridSize, selected, onSelect } = this.props
-    if (!gridSize) {
+    if (!gridSize || !gridSize.col || !gridSize.row) {
       return null
     }
 
