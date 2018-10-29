@@ -37,32 +37,9 @@ export default [
     id: '#3',
     type: 'box',
     message: {
-      attachment: {
-        type: 'template',
-        payload: {
-          template_type: 'generic',
-          image_aspect_ratio: 'horizontal',
-          elements: [
-            {
-              title: 'Title1',
-              image_url: 'http://fp2w.org/assets/ext/blob.jpg',
-              subtitle: 'subtitle',
-              default_action: {
-                type: 'web_url',
-                url: 'www.google.com',
-                webview_height_ratio: 'tall',
-              },
-              buttons: [
-                {
-                  type: 'postback',
-                  title: 'Postback Button',
-                  payload: 'payload',
-                },
-              ],
-            },
-          ],
-        },
-      },
+      type: 'image',
+      originalContentUrl: 'https://fp2w.org/assets/ext/blob.jpg',
+      previewImageUrl: 'https://fp2w.org/assets/ext/blob.jpg',
     },
   },
 ]

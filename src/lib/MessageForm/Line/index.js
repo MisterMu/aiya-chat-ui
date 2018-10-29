@@ -9,7 +9,9 @@ import Templates from './Templates'
 import DynamicCarousel from './DynamicCarousel'
 import ImagemapForm from './Imagemap'
 import QuickReplies from './QuickReplies'
-const { TEXT, IMAGE, AUDIO, TEMPLATES, DYNAMIC_TEMPLATE, IMAGEMAP, QUICKREPLIES } = messageTypes
+import Custom from './Custom'
+
+const { TEXT, IMAGE, AUDIO, TEMPLATES, DYNAMIC_TEMPLATE, IMAGEMAP, QUICKREPLIES, CUSTOM } = messageTypes
 
 const LineForm = props => {
   const { type } = props
@@ -27,6 +29,8 @@ const LineForm = props => {
     return <ImagemapForm {...props} />
   } else if (type === QUICKREPLIES) {
     return <QuickReplies {...props} />
+  } else if (type === CUSTOM) {
+    return <Custom {...props} />
   }
   return null
 }
