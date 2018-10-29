@@ -44,6 +44,23 @@ class QuickRepliesForm extends BaseMessageForm {
     this.setState({ message: { ...message, quickReply: { items: newTmp } } })
   }
 
+  messageParser = message => {
+    const items = [...message.quickReply.items]
+    let tmp = items.map(item => {
+      let it = { ...item }
+      if (item.imageUrl === '') {
+        it.imageUrl = undefined
+      }
+      return it
+    })
+    return {
+      ...message,
+      quickReply: {
+        items: tmp,
+      },
+    }
+  }
+
   inputChange = (item, index) => {
     const { message } = this.state
     if (!message || !message.quickReply || !message.quickReply.items) {

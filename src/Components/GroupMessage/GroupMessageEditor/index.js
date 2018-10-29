@@ -78,7 +78,6 @@ class GroupMessageEditor extends React.Component {
               updateGroup={item => this.updateGroup(item, i)}
               deleteGroup={() => this.deleteGroup(i)}
               onUpload={onUpload}
-              disabledToolbar={i === 0}
             />
           </React.Fragment>
         ))}

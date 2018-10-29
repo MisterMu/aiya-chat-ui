@@ -19,6 +19,7 @@ class DynamicCarousel extends BaseMessageForm {
       this.inputChange({ defaultAction: undefined })
     }
   }
+
   onUpload = ({ uploadType, data, endUpload }) => {
     if (uploadType === 'url') {
       this.inputChange({ thumbnailImageUrl: data })
@@ -28,6 +29,27 @@ class DynamicCarousel extends BaseMessageForm {
         endUpload(fileUrl)
       }
       this.uploadFile(data, callback)
+    }
+  }
+
+  messageParser = message => {
+    const template = { ...message.template }
+    let tmp = template.columns.map(element => {
+      let el = { ...element }
+      if (element.thumbnailImageUrl === '') {
+        el.thumbnailImageUrl = undefined
+      }
+      if (element.title === '') {
+        el.title = undefined
+      }
+      return el
+    })
+    return {
+      ...message,
+      template: {
+        ...message.template,
+        columns: tmp,
+      },
     }
   }
 
@@ -67,6 +89,23 @@ class DynamicCarousel extends BaseMessageForm {
           columns: [tmp],
         },
       },
+    })
+  }
+
+  validateMessage = () => {
+    const { message } = this.state
+    const { altText, template } = message
+    if (!altText) {
+      this.setState({ error: 'Alt Text is required!!' })
+      return false
+    }
+    const columns = template && template.columns
+    return columns.every((el, i) => {
+      if (!el.text) {
+        this.setState({ error: `Carousel #${i + 1}: Text is required!!` })
+        return false
+      }
+      return true
     })
   }
 

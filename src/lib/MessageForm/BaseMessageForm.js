@@ -47,8 +47,13 @@ class BaseMessageForm extends React.Component {
       this.setState({ error: '', loading: false })
       const { message, extra } = this.state
       const { onSubmit } = this.props
-      onSubmit && onSubmit(message, !_.isEmpty(extra) && extra)
+      const tmp = this.messageParser(message)
+      onSubmit && onSubmit(tmp, !_.isEmpty(extra) && extra)
     }, 500)
+  }
+
+  messageParser = message => {
+    return message
   }
 
   validateMessage = () => {

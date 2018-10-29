@@ -21,6 +21,27 @@ class TemplateForm extends BaseMessageForm {
     this.setState({ message: tmp })
   }
 
+  messageParser = message => {
+    const template = { ...message.template }
+    let tmp = template.columns.map(element => {
+      let el = { ...element }
+      if (element.thumbnailImageUrl === '') {
+        el.thumbnailImageUrl = undefined
+      }
+      if (element.title === '') {
+        el.title = undefined
+      }
+      return el
+    })
+    return {
+      ...message,
+      template: {
+        ...message.template,
+        columns: tmp,
+      },
+    }
+  }
+
   validateMessage = () => {
     const { message } = this.state
     const { altText, template } = message
