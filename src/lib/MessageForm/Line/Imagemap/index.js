@@ -95,12 +95,10 @@ class ImagemapForm extends BaseMessageForm {
 
   renderForm = () => {
     const { message, extra } = this.state
-    if (!message || !extra) {
+    if (!message) {
       return null
     }
 
-    console.log('message', message)
-    console.log('extra', extra)
     const { height, width } = message.baseSize
     return (
       <form onSubmit={this.onSubmit}>
@@ -118,13 +116,15 @@ class ImagemapForm extends BaseMessageForm {
             onReset={() => this.inputChange({ baseUrl: '' })}
           />
         </InputField>
-        <ActionAreaForm
-          maxHeight={height}
-          maxWidth={width}
-          template={extra.data && extra.data.template}
-          defaultActions={message.actions}
-          updateActions={this.updateActions}
-        />
+        {extra && (
+          <ActionAreaForm
+            maxHeight={height}
+            maxWidth={width}
+            template={extra.data && extra.data.template}
+            defaultActions={message.actions}
+            updateActions={this.updateActions}
+          />
+        )}
       </form>
     )
   }
