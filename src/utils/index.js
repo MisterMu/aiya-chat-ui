@@ -78,3 +78,16 @@ export function isValidJSON(json) {
   }
   return true
 }
+
+export function getImageSize(imgUrl, callback) {
+  // eslint-disable-next-line
+  let img = new Image()
+  img.onload = function() {
+    // eslint-disable-next-line
+    callback({
+      width: img.width,
+      height: img.height,
+    })
+  }
+  img.src = imgUrl
+}
