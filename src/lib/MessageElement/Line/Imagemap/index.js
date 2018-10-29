@@ -7,7 +7,7 @@ const ImagemapElement = props => {
   const { url, onClick } = props
   return (
     <ImageContainer onClick={onClick}>
-      <img src={url || defaultImage} width={320} height={320} alt="ImageMessage" />
+      <img src={url || defaultImage} width={320} alt="ImagemapMessage" />
     </ImageContainer>
   )
 }

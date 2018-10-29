@@ -26,6 +26,18 @@ class ImagemapForm extends BaseMessageForm {
     }
   }
 
+  messageParser = message => {
+    let tmp = message.baseUrl
+    const regEx = /\?ignore=$/g
+    if (!regEx.test(tmp)) {
+      tmp = message.baseUrl + '?ignore='
+    }
+    return {
+      ...message,
+      baseUrl: tmp,
+    }
+  }
+
   inputChange = item => {
     const { message } = this.state
     const tmp = { ...message, ...item }

@@ -5,7 +5,7 @@ export default {
     type: 'carousel',
     columns: [
       {
-        thumbnailImageUrl: '',
+        thumbnailImageUrl: undefined,
         title: 'Title',
         text: 'Description',
         defaultAction: {

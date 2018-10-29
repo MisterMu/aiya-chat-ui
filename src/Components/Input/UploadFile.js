@@ -11,7 +11,7 @@ const ImageContainer = styled.div`
   background-repeat: no-repeat;
   background-position: center center;
   background-color: rgba(0, 0, 0, 0.85);
-  background-size: fit;
+  background-size: contain;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   overflow: hidden;

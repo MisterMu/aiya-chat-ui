@@ -55,11 +55,13 @@ class ActionAreaForm extends React.Component {
     let tmp = [...actions]
     if (item.type === 'message') {
       tmp[indexToUpdate] = {
+        ...tmp[indexToUpdate],
         type: 'message',
         text: '',
       }
     } else if (item.type === 'uri') {
       tmp[indexToUpdate] = {
+        ...tmp[indexToUpdate],
         type: 'uri',
         linkUri: '',
       }
