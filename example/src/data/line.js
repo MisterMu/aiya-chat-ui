@@ -48,10 +48,16 @@ export default [
   {
     id: '#4',
     type: 'box',
+    data: {
+      template: {
+        row: 1,
+        col: 2,
+      },
+    },
     message: {
       type: 'imagemap',
-      baseUrl: '',
-      altText: '',
+      baseUrl: 'https://fp2w.org/assets/ext/blob.jpg',
+      altText: 'This is Imagemap',
       baseSize: {
         height: 1040,
         width: 1040,
