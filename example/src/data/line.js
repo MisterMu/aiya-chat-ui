@@ -49,35 +49,35 @@ export default [
     id: '#4',
     type: 'box',
     message: {
-      type: 'template',
-      altText: 'this is a carousel template',
-      template: {
-        type: 'carousel',
-        columns: [
-          {
-            thumbnailImageUrl: 'https://fp2w.org/assets/ext/blob.jpg',
-            title: 'Title',
-            text: 'Description',
-            defaultAction: {
-              type: 'message',
-              text: 'Template Tapped',
-            },
-            actions: [
-              {
-                type: 'message',
-                label: 'Button 1',
-                text: 'Button 1 Tapped',
-              },
-              {
-                type: 'message',
-                label: 'Button 2',
-                text: 'Button 2 Tapped',
-              },
-            ],
-          },
-        ],
-        imageAspectRatio: 'rectangle',
+      type: 'imagemap',
+      baseUrl: '',
+      altText: '',
+      baseSize: {
+        height: 1040,
+        width: 1040,
       },
+      actions: [
+        {
+          type: 'message',
+          text: 'Hi',
+          area: {
+            x: 0,
+            y: 0,
+            width: 520,
+            height: 1040,
+          },
+        },
+        {
+          type: 'message',
+          text: 'Hello',
+          area: {
+            x: 520,
+            y: 0,
+            width: 520,
+            height: 1040,
+          },
+        },
+      ],
     },
   },
 ]
