@@ -68,7 +68,7 @@ class CarouselForm extends React.Component {
         </InputField>
         <InputField label="Default Action">
           <Switch
-            style={{ marginBottom: 8 }}
+            style={{ marginBottom: 8, width: 44 }}
             defaultChecked={defaultActionState}
             onChange={this.defaultActionStateChange}
           />

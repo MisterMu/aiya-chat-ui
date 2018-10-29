@@ -119,7 +119,11 @@ class DynamicTemplateForm extends BaseMessageForm {
           />
         </InputField>
         <InputField label="Default Action">
-          <Switch defaultChecked={!!data.default_action} onChange={this.defaultActionStateChange} />
+          <Switch
+            defaultChecked={!!data.default_action}
+            onChange={this.defaultActionStateChange}
+            style={{ width: 44 }}
+          />
           {data.default_action && (
             <React.Fragment>
               <Select

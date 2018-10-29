@@ -124,7 +124,7 @@ class DynamicCarousel extends BaseMessageForm {
           <Switch
             defaultChecked={!!data.defaultAction}
             onChange={this.defaultActionStateChange}
-            style={{ marginBottom: 8 }}
+            style={{ marginBottom: 8, width: 44 }}
           />
           {data.defaultAction && (
             <ActionForm
