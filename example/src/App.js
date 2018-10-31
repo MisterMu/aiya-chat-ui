@@ -38,6 +38,7 @@ class App extends React.Component {
           dataList={dataList}
           onUpload={this.onUpload}
           onUpdate={(obj, action) => this.setState({ dataList: obj })}
+          enableCustomElement
         />
         <Divider />
         <section>

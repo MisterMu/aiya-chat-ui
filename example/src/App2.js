@@ -30,6 +30,7 @@ class App extends React.Component {
           dataList={dataList}
           channel={channel}
           onUpdate={groups => this.setState({ dataList: groups })}
+          enableCustomElement
         />
         <Divider />
         <section>
