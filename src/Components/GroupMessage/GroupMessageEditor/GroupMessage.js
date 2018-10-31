@@ -74,7 +74,7 @@ class GroupMessage extends React.Component {
   }
 
   render() {
-    const { channel, data, style, disabledToolbar, onUpload } = this.props
+    const { channel, data, style, disabledToolbar, onUpload, enableCustomElement } = this.props
     const { modalState, input } = this.state
     if (!data) {
       return null
@@ -93,6 +93,7 @@ class GroupMessage extends React.Component {
             dataList={data.messages}
             onUpdate={this.onMessageUpdate}
             onUpload={onUpload}
+            enableCustomElement={enableCustomElement}
           />
         </Card>
         <Modal title="GroupMessage" visible={modalState} onCancel={this.closeModal} onOk={this.onSubmit} destroyOnClose>
@@ -142,6 +143,7 @@ GroupMessage.propTypes = {
   disabledToolbar: PropTypes.bool,
   style: PropTypes.object,
   onUpload: PropTypes.func,
+  enableCustomElement: PropTypes.bool,
 }
 
 export default GroupMessage

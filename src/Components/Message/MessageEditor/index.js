@@ -193,7 +193,7 @@ class MessageEditor extends React.Component {
   }
 
   render() {
-    const { channel, style, onUpload } = this.props
+    const { channel, style, onUpload, enableCustomElement } = this.props
     const { dataList, editIndex, editType, modalState } = this.state
 
     // variables for each channel
@@ -207,6 +207,10 @@ class MessageEditor extends React.Component {
     } else if (channel === LINE) {
       EditForm = LineForm
       avaliableType = [TEXT, IMAGE, TEMPLATES, DYNAMIC_TEMPLATE, IMAGEMAP, QUICKREPLIES]
+    }
+
+    if (enableCustomElement) {
+      avaliableType = [...avaliableType, CUSTOM]
     }
 
     return (
@@ -237,6 +241,7 @@ MessageEditor.propTypes = {
   onUpdate: PropTypes.func,
   style: PropTypes.object,
   noMessageText: PropTypes.string,
+  enableCustomElement: PropTypes.bool,
 }
 
 const FacebookEditor = props => <MessageEditor channel={FACEBOOK} {...props} />

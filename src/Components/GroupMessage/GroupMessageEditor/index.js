@@ -62,7 +62,7 @@ class GroupMessageEditor extends React.Component {
   }
 
   render() {
-    const { channel, noMessageText, onUpload } = this.props
+    const { channel, noMessageText, onUpload, enableCustomElement } = this.props
     const { dataList } = this.state
     if (!dataList && !Array.isArray(dataList)) {
       return null
@@ -78,6 +78,7 @@ class GroupMessageEditor extends React.Component {
               updateGroup={item => this.updateGroup(item, i)}
               deleteGroup={() => this.deleteGroup(i)}
               onUpload={onUpload}
+              enableCustomElement={enableCustomElement}
             />
           </React.Fragment>
         ))}
@@ -110,6 +111,7 @@ GroupMessageEditor.propTypes = {
   noMessageText: PropTypes.string,
   onUpdate: PropTypes.func,
   onUpload: PropTypes.func,
+  enableCustomElement: PropTypes.bool,
 }
 
 export default GroupMessageEditor
