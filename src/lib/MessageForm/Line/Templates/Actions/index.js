@@ -21,7 +21,12 @@ class ActionsForm extends React.Component {
   updateAction = (item, indexToUpdate) => {
     const { data, updateActions } = this.props
     let tmp = [...data]
-    tmp[indexToUpdate] = { ...data[indexToUpdate], ...item }
+    if (item.type) {
+      tmp[indexToUpdate] = { ...actionObject[item.type] }
+    } else {
+      tmp[indexToUpdate] = { ...data[indexToUpdate], ...item }
+    }
+    console.log(tmp)
     updateActions(tmp)
   }
 

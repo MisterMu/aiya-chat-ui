@@ -18,12 +18,6 @@ class ActionForm extends React.Component {
     this.state = {}
   }
 
-  updateActionType = type => {
-    const { updateAction } = this.props
-    const newAction = { ...actionObject[type] }
-    updateAction(newAction)
-  }
-
   render() {
     const { data, updateAction } = this.props
     if (!data) {
@@ -31,7 +25,7 @@ class ActionForm extends React.Component {
     }
     return (
       <div>
-        <Select style={{ width: 180, marginBottom: 8 }} value={data.type} onChange={this.updateActionType}>
+        <Select style={{ width: 180, marginBottom: 8 }} value={data.type} onChange={type => updateAction({ type })}>
           {Object.keys(Types).map(key => (
             <Select.Option key={key} value={Types[key]}>
               {Types[key]}
