@@ -8,10 +8,7 @@ export default {
         thumbnailImageUrl: undefined,
         title: 'Title',
         text: 'Description',
-        defaultAction: {
-          type: 'message',
-          text: 'Template Tapped',
-        },
+        defaultAction: undefined,
         actions: [
           {
             type: 'message',
