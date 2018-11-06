@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Types } from '../../../MessageObject/Line/Templates'
+import { Types } from '../../../MessageObject/Line/templates'
 import CarouselTemplates from './Carousel'
 
 const { CAROUSEL } = Types
