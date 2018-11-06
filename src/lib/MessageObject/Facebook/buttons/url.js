@@ -1,5 +1,5 @@
 export default {
   type: 'web_url',
-  url: '',
+  url: 'https://www.google.com',
   title: 'Open Web',
 }
