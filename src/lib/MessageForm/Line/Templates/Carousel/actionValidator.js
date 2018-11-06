@@ -19,10 +19,7 @@ export default (action, isDefaultAction) => {
     if (!action.data) {
       return 'Data is required!!'
     }
-    if (!action.displayText) {
-      return 'Display Text is required!!'
-    }
-    if (action.displayText.length > 300) {
+    if (action.displayText && action.displayText.length > 300) {
       return 'Display Text must be no longer than 300 character!!'
     }
   } else if (action.type === MESSAGE) {

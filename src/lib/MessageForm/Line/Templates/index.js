@@ -31,6 +31,14 @@ class TemplateForm extends BaseMessageForm {
       if (element.title === '') {
         el.title = undefined
       }
+      const actions = el.actions.map(action => {
+        let tmp = { ...action }
+        if (tmp.displayText === '') {
+          tmp.displayText = undefined
+        }
+        return tmp
+      })
+      el.actions = actions
       return el
     })
     return {
