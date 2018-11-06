@@ -165,21 +165,32 @@ class MessageEditor extends React.Component {
     )
   }
 
-  renderToolbar = avaliableType => (
-    <Flex style={{ justifyContent: 'center' }}>
-      {avaliableType.map((type, key) => (
-        <React.Fragment key={key}>
-          <Button
-            onClick={() => this.addBtnClicked(type)}
-            icon="plus"
-            style={{ textTransform: 'capitalize', marginRight: 8, marginBottom: 8 }}
-          >
-            {type}
-          </Button>
-        </React.Fragment>
-      ))}
-    </Flex>
-  )
+  renderToolbar = avaliableType => {
+    const { channel } = this.props
+    const { dataList } = this.state
+    if (channel === LINE && dataList.length >= 5) {
+      return (
+        <Flex style={{ justifyContent: 'center' }}>
+          <i>Line Message can contain only 5 bubbles.</i>
+        </Flex>
+      )
+    }
+    return (
+      <Flex style={{ justifyContent: 'center' }}>
+        {avaliableType.map((type, key) => (
+          <React.Fragment key={key}>
+            <Button
+              onClick={() => this.addBtnClicked(type)}
+              icon="plus"
+              style={{ textTransform: 'capitalize', marginRight: 8, marginBottom: 8 }}
+            >
+              {type}
+            </Button>
+          </React.Fragment>
+        ))}
+      </Flex>
+    )
+  }
 
   componentWillMount() {
     const { dataList } = this.props
@@ -193,7 +204,7 @@ class MessageEditor extends React.Component {
   }
 
   render() {
-    const { channel, style, onUpload } = this.props
+    const { channel, style, onUpload, enableCustomElement } = this.props
     const { dataList, editIndex, editType, modalState } = this.state
 
     // variables for each channel
@@ -207,6 +218,10 @@ class MessageEditor extends React.Component {
     } else if (channel === LINE) {
       EditForm = LineForm
       avaliableType = [TEXT, IMAGE, TEMPLATES, DYNAMIC_TEMPLATE, IMAGEMAP, QUICKREPLIES]
+    }
+
+    if (enableCustomElement) {
+      avaliableType = [...avaliableType, CUSTOM]
     }
 
     return (
@@ -237,6 +252,7 @@ MessageEditor.propTypes = {
   onUpdate: PropTypes.func,
   style: PropTypes.object,
   noMessageText: PropTypes.string,
+  enableCustomElement: PropTypes.bool,
 }
 
 const FacebookEditor = props => <MessageEditor channel={FACEBOOK} {...props} />

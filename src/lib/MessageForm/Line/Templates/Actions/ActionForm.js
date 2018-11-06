@@ -20,7 +20,7 @@ class ActionForm extends React.Component {
 
   updateActionType = type => {
     const { updateAction } = this.props
-    const newAction = actionObject[type]
+    const newAction = { ...actionObject[type] }
     updateAction(newAction)
   }
 

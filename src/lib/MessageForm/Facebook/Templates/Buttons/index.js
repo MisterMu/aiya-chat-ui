@@ -25,7 +25,11 @@ class ButtonsForm extends React.Component {
   updateBtns = (item, index) => {
     const { data, updateButtons } = this.props
     let tmp = [...data]
-    tmp[index] = { ...tmp[index], ...item }
+    if (item.type) {
+      tmp[index] = { ...ButtonObject[item.type] }
+    } else {
+      tmp[index] = { ...tmp[index], ...item }
+    }
     updateButtons(tmp)
   }
 
